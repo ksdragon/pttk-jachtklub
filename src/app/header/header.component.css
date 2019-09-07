@@ -1,0 +1,22 @@
+.bg-nav-main-header
+{
+  background-color: #fff;
+  color:#ABABAB;
+}
+
+.active
+{
+  border-bottom: 1px solid #c14a04;
+  color: #c14a04 !important;
+}
+
+li:hover
+{
+  border-bottom: 1px solid #c14a04 !important;
+
+}
+
+li a:hover
+{
+  color: #c14a04 !important;
+}
