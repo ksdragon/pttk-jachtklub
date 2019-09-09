@@ -1,0 +1,68 @@
+#top-bar {
+  border-bottom: solid 1px #eee;
+  margin-bottom: 10px;
+  background: url(../../../assets/images/pattern2.png) repeat, #ffffff;
+}
+
+#top-bar #social-icons #facebook {
+  background-image: url(../../../assets/images/social/facebook.png);
+}
+
+#top-bar #social-icons a {
+  background: 0 0;
+  display: inline-block;
+  width: 27px;
+  height: 27px;
+  margin-right: 2px;
+  transition: 0.4s opacity ease, 0.9s -webkit-transform ease;
+  transition-duration: 550ms;
+}
+
+#top-bar #social-icons a:hover
+{
+  background: 0px -27px;
+  transform: rotate(-40deg);
+}
+
+.screen-reader-text {
+  clip: rect(1px, 1px, 1px, 1px);
+  position: absolute !important;
+}
+
+/* element.style {
+  transition-duration: 350ms;
+  animation-duration: 350ms;
+  top: 84px;
+  left: 300px;
+}
+
+
+.tooltipster-fade-show {
+  opacity: 1;
+}
+.tooltipster-fade {
+  opacity: 0;
+  -webkit-transition-property: opacity;
+  -moz-transition-property: opacity;
+  -o-transition-property: opacity;
+  -ms-transition-property: opacity;
+  transition-property: opacity;
+}
+.tooltipster-base {
+  padding: 0;
+  font-size: 0;
+  line-height: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 9999999;
+  pointer-events: none;
+  width: auto;
+  overflow: visible;
+}
+.tooltipster-default {
+  border-radius: 5px;
+  border: 2px solid #000;
+  background: #4c4c4c;
+  color: #fff;
+} */
