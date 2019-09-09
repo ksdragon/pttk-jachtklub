@@ -1,0 +1,11 @@
+a
+{
+  color: #c14a04 !important;
+  transition: 0.4s all ease;
+}
+
+a:active
+{
+  text-decoration: none;
+
+}

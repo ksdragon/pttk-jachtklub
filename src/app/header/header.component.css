@@ -1,5 +1,6 @@
 .bg-nav-main-header
 {
+  border-top: solid 2px #AD4F18;
   background-color: #fff;
   color:#ABABAB;
 }
@@ -19,4 +20,12 @@ li:hover
 li a:hover
 {
   color: #c14a04 !important;
+}
+
+button
+{
+ padding: 0 !important;
+border: none !important;
+background: none !important;
+font-size: 30px;
 }
