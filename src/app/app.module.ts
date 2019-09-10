@@ -7,6 +7,9 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { LogoComponent } from './header/logo/logo.component';
 import { MainSlidershowComponent } from './extrasCopmonent/main-slidershow/main-slidershow.component';
+import { ShowCaseComponent } from './extrasCopmonent/show-case/show-case.component';
+import { MainPageComponent } from './contents/main-page/main-page.component';
+import { AboutAsPageComponent } from './contents/about-as-page/about-as-page.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +17,10 @@ import { MainSlidershowComponent } from './extrasCopmonent/main-slidershow/main-
     HeaderComponent,
     LogoComponent,
     TopbarComponent,
-    MainSlidershowComponent
+    MainSlidershowComponent,
+    ShowCaseComponent,
+    MainPageComponent,
+    AboutAsPageComponent
   ],
   imports: [
     BrowserModule,
