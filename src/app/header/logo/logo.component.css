@@ -12,6 +12,9 @@ a:active
 h1
 {
   transition: 0.4s all ease;
+  font-size: 3.5rem;
+  padding-left: 0;
+  margin-left: 0 !important;
 }
 
 
@@ -20,4 +23,19 @@ h1:hover
   -webkit-transform:  rotate(-1deg);
 	-ms-transform:  rotate(-1deg);
 	transform:  rotate(-1deg);
+}
+
+#logo
+{
+  border-bottom: solid 2px #AD4F18;
+}
+
+
+@media (max-width: 768px)
+{
+  h1
+  {
+    font-size: 2rem;
+    text-align: center!important;
+  }
 }

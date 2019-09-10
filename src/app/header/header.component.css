@@ -1,8 +1,8 @@
 .bg-nav-main-header
 {
-  border-top: solid 2px #AD4F18;
   background-color: #fff;
   color:#ABABAB;
+  margin-bottom: 40px;
 }
 
 .active
@@ -24,7 +24,7 @@ li a:hover
 
 button
 {
- padding: 0 !important;
+padding: 0 !important;
 border: none !important;
 background: none !important;
 font-size: 30px;

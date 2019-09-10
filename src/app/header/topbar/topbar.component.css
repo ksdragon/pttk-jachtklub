@@ -29,6 +29,25 @@
   position: absolute !important;
 }
 
+.search-form
+{
+  padding: 0 15px;
+}
+
+
+@media (max-width: 768px)
+{
+  #social-icons
+  {
+    text-align: center !important;
+  }
+  .search
+  {
+    margin: 0px auto !important;
+    /* text-align: center !important; */
+  }
+}
+
 /* element.style {
   transition-duration: 350ms;
   animation-duration: 350ms;
