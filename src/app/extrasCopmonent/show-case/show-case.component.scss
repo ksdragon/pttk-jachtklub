@@ -1,3 +1,8 @@
+.showcase-caption
+{
+  transform: scale(1.1);
+}
+
 #showcase .showcase figure .showcase-caption {
   display: block;
   text-align: center;
@@ -8,18 +13,31 @@
   padding: 5px 20px;
   background: rgba(173, 79, 24, 0.8);
   color: white;
-  opacity: 1;
-  // transform: rotateX(180deg);
-  //-webkit-transform: rotateX(-180deg);
-  // transition: transform 0.8s;
-  // -webkit-transition: all 0.8s;
+  opacity: 0;
+  -webkit-transform: rotateX(-180deg);
+  transform: rotateX(-180deg);
+  transition: all 0.7s ease-in-out;
+  transform-origin: bottom;
   z-index: 9999;
 }
 
-a:hover
+#showcase .showcase figure:hover .showcase-caption
 {
-  transform: rotate(-180deg);
   opacity: 0.8;
+  transform: rotateX(0deg);
+}
+
+a img
+ {
+  color: #AD4F18;
+  -webkit-transition: 0.4s all ease;
+  -o-transition: 0.4s all ease;
+   transition: 0.4s all ease;
+}
+
+a img:hover
+{
+  transform: scale(1.1);
 }
 
 #showcase .showcase figure .showcase-caption .showcase-caption-title {
@@ -28,23 +46,21 @@ a:hover
 }
 
 #showcase .showcase figure .showcase-caption .showcase-caption-desc {
-  font-size: 12px;
+  font-size: 15px;
   font-weight: lighter;
 }
 
 #showcase .showcase figure {
   position: relative;
+  transform:perspective(300px);
+  -webkit-transform:perspective(1000px);
   -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
+  //overflow: hidden;
 }
 
-// #showcase .showcase figure>div {
-//   overflow: hidden;
-// }
-
-a {
-  color: #AD4F18;
-  -webkit-transition: 0.4s all ease;
-  -o-transition: 0.4s all ease;
-   transition: 0.4s all ease;
+#showcase .showcase figure>div {
+  overflow: hidden;
 }
+
+
