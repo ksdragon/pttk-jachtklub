@@ -10,6 +10,11 @@ import { MainSlidershowComponent } from './extrasCopmonent/main-slidershow/main-
 import { ShowCaseComponent } from './extrasCopmonent/show-case/show-case.component';
 import { MainPageComponent } from './contents/main-page/main-page.component';
 import { AboutAsPageComponent } from './contents/about-as-page/about-as-page.component';
+import { ArticleTemplateComponent } from './contents/article-template/article-template.component';
+import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
+import { AppRoutingModule } from './app-routing.module';
+
+
 
 @NgModule({
   declarations: [
@@ -20,11 +25,14 @@ import { AboutAsPageComponent } from './contents/about-as-page/about-as-page.com
     MainSlidershowComponent,
     ShowCaseComponent,
     MainPageComponent,
-    AboutAsPageComponent
+    AboutAsPageComponent,
+    ArticleTemplateComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
-    MDBBootstrapModule.forRoot()
+    MDBBootstrapModule.forRoot(),
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
