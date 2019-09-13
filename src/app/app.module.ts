@@ -1,3 +1,4 @@
+import { ReactiveFormsModule } from '@angular/forms';
 import { TopbarComponent } from './header/topbar/topbar.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -13,6 +14,9 @@ import { AboutAsPageComponent } from './contents/about-as-page/about-as-page.com
 import { ArticleTemplateComponent } from './contents/article-template/article-template.component';
 import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
 import { AppRoutingModule } from './app-routing.module';
+import { DockPageComponent } from './contents/dock-page/dock-page.component';
+import { QuillModule } from 'ngx-quill';
+
 
 
 
@@ -27,12 +31,15 @@ import { AppRoutingModule } from './app-routing.module';
     MainPageComponent,
     AboutAsPageComponent,
     ArticleTemplateComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    DockPageComponent
   ],
   imports: [
     BrowserModule,
+    ReactiveFormsModule,
     MDBBootstrapModule.forRoot(),
-    AppRoutingModule
+    AppRoutingModule,
+    QuillModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

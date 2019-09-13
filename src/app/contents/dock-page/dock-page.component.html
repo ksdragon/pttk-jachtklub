@@ -1,0 +1,10 @@
+<div class="container">
+  <form [formGroup]="editorForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="editor"><h3>Editor</h3></label>
+      <quill-editor [modules]="config" formControlName="editor"></quill-editor>
+    </div>
+
+    <button class="btn btn-primary mt-5">Submit</button>
+  </form>
+</div>
