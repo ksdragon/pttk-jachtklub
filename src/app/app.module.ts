@@ -15,7 +15,8 @@ import { ArticleTemplateComponent } from './contents/article-template/article-te
 import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
 import { AppRoutingModule } from './app-routing.module';
 import { DockPageComponent } from './contents/dock-page/dock-page.component';
-import { QuillModule } from 'ngx-quill';
+import { AppQuillModule } from './app-quill.module';
+
 
 
 
@@ -39,7 +40,7 @@ import { QuillModule } from 'ngx-quill';
     ReactiveFormsModule,
     MDBBootstrapModule.forRoot(),
     AppRoutingModule,
-    QuillModule.forRoot()
+    AppQuillModule
   ],
   providers: [],
   bootstrap: [AppComponent]
