@@ -1,9 +1,16 @@
 import { QuillModule } from 'ngx-quill';
 import { NgModule } from '@angular/core';
+// import { Mention } from 'quill-mention';
+
+import * as Quill from 'quill';
+import ImageResize from 'quill-image-resize';
+Quill.register('modules/imageResize', ImageResize);
+
 
 const toolbar  =  [
   ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
   ['blockquote', 'code-block'],
+  ['emoji'],
 
   [{ header: 1 }, { header: 2 }],               // custom button values
   [{ list: 'ordered'}, { list: 'bullet' }],
@@ -24,13 +31,15 @@ const toolbar  =  [
 ];
 
 @NgModule({
+  declarations: [],
   imports: [
+    //QuillModule.forRoot()
     QuillModule.forRoot({
       modules: {
           toolbar
       },
       placeholder: 'Compose an epic...',
-      debug: 'warn',
+      debug: 'warn'
 
     })
   ],

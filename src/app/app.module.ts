@@ -17,7 +17,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { DockPageComponent } from './contents/dock-page/dock-page.component';
 import { AppQuillModule } from './app-quill.module';
 
+// import * as Quill from 'quill';
+// import { ImageResize } from 'quill-image-resize';
 
+// Quill.register('modules/imageResize', ImageResize);
 
 
 
@@ -33,7 +36,8 @@ import { AppQuillModule } from './app-quill.module';
     AboutAsPageComponent,
     ArticleTemplateComponent,
     PageNotFoundComponent,
-    DockPageComponent
+    DockPageComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -41,6 +45,7 @@ import { AppQuillModule } from './app-quill.module';
     MDBBootstrapModule.forRoot(),
     AppRoutingModule,
     AppQuillModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]

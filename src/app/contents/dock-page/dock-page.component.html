@@ -8,6 +8,7 @@
           </label>
           <quill-editor
             maxLength=10
+            [modules]="options"
             formControlName="editor"
             [styles]="editorStyle"
             (onContentChanged)="maxLenght($event)"
@@ -23,7 +24,8 @@
     </div>
     <div class="col-sm-4">
       <h3>Wynik</h3>
-      <quill-view [content]="con" theme="snow"></quill-view>
+      <quill-view [content]="content" format="object" theme="bubble" ></quill-view>
+
     </div>
   </div>
 </div>
