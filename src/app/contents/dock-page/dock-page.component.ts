@@ -1,12 +1,29 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 
+// import * as QuillNamespace from 'quill';
+// let Quill: any = QuillNamespace;
 import * as Quill from 'quill';
 
 import ImageResize from 'quill-image-resize';
 Quill.register('modules/imageResize', ImageResize);
 import ImageDrop from 'quill-image-drop-and-paste';
 Quill.register('modules/imageDrop', ImageDrop);
+// import Wordcounter from 'quill-wordcounter';
+// Quill.register('modules/wordcounter', Wordcounter);
+
+// Quill.registerModule('counter', (quill, options) => {
+//   // const container = document.querySelector('#counter');
+//   quill.on('text-change', () => {
+//     let text = quill.getText();
+//     // There are a couple issues with counting words
+//     // this way but we'll fix these later
+//     // container.innerHTML = text.split(/\s+/).length;
+//   });
+// });
+
+import Wordcounter from './couterWords';
+Quill.register('modules/wordcounter', Wordcounter);
 
 @Component({
   selector: 'app-dock-page',
@@ -17,35 +34,7 @@ export class DockPageComponent implements OnInit {
 
   content;
 
-  editorForm: FormGroup;
-  editorStyle = {
-    height: '300px',
-    backgroundColor: '#fff'
-  };
-
-
-  constructor() { }
-
-  ngOnInit() {
-    this.editorForm = new FormGroup ({
-      editor: new FormControl(null)
-    });
-  }
-
-
-  onSubmit() {
-    console.log(this.editorForm.get('editor').value);
-  }
-
-  maxLenght(e) {
-  //  if (e.editor.getLength() > 10) {
-  //     e.editor.deleteText(10, e.editor.getLength());
-  //   }
-   this.content = e.content;
-   console.log(this.content);
-  }
-
-options = {
+  options = {
     // toolbar: [
     //   ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
     //   ['blockquote', 'code-block'],
@@ -68,8 +57,41 @@ options = {
     //   ['link', 'image', 'video']                         // link and image, video
     // ],
     imageResize: true,
-    imageDrop: true
+    imageDrop: true,
+    wordcounter: {
+      container: '#counter',
+      unit: 'znaki'
+    }
   };
 
+
+  editorForm: FormGroup;
+  editorStyle = {
+    height: '300px',
+    backgroundColor: '#fff'
+  };
+
+
+  constructor() {
+  }
+
+  ngOnInit() {
+    this.editorForm = new FormGroup({
+      editor: new FormControl(null)
+    });
+  }
+
+
+  onSubmit() {
+    console.log(this.editorForm.get('editor').value);
+  }
+
+  maxLenght(e) {
+    //  if (e.editor.getLength() > 10) {
+    //     e.editor.deleteText(10, e.editor.getLength());
+    //   }
+    this.content = e.content;
+    console.log(this.content);
+  }
 
 }

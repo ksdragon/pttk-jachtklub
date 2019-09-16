@@ -38,6 +38,7 @@
     "quill-image-drop-and-paste": "^1.0.4",
     "quill-image-resize": "^3.0.9",
     "quill-mention": "^2.1.4",
+    "quill-wordcounter": "^1.0.1",
     "rxjs": "~6.4.0",
     "tslib": "^1.9.0",
     "zone.js": "~0.9.1"

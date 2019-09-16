@@ -14,6 +14,7 @@
             (onContentChanged)="maxLenght($event)"
             ></quill-editor>
             <span *ngIf="editorForm.get('editor').value != null">{{ editorForm.get('editor').value.length }}</span>
+            <div id="counter">0</div>
         </div>
 
         <button
