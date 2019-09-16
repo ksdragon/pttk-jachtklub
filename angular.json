@@ -54,7 +54,7 @@
             "node_modules/quill/dist/quill.js",
             "node_modules/quill-mention/dist/quill.mention.min.js"
             ,"node_modules/ng-quill/dist/ng-quill.min.js"
-            ,"node_modules/quill-emoji/dist/quill-emoji.js"
+
             ]
           },
           "configurations": {

@@ -9,6 +9,7 @@ import ImageResize from 'quill-image-resize';
 Quill.register('modules/imageResize', ImageResize);
 import ImageDrop from 'quill-image-drop-and-paste';
 Quill.register('modules/imageDrop', ImageDrop);
+
 // import Wordcounter from 'quill-wordcounter';
 // Quill.register('modules/wordcounter', Wordcounter);
 

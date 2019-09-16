@@ -6,11 +6,12 @@ import * as Quill from 'quill';
 import ImageResize from 'quill-image-resize';
 Quill.register('modules/imageResize', ImageResize);
 
+import Emoij from 'quill-emoji';
+Quill.register('modules/emoij', Emoij);
 
 const toolbar  =  [
-  ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+  ['bold', 'italic', 'underline', 'strike'], ['emoji'],        // toggled buttons
   ['blockquote', 'code-block'],
-  ['emoji'],
 
   [{ header: 1 }, { header: 2 }],               // custom button values
   [{ list: 'ordered'}, { list: 'bullet' }],
@@ -27,7 +28,8 @@ const toolbar  =  [
 
   ['clean'],                                         // remove formatting button
 
-  ['link', 'image', 'video']                         // link and image, video
+  ['link', 'image', 'video']                    // link and image, video
+
 ];
 
 @NgModule({
@@ -36,7 +38,10 @@ const toolbar  =  [
     //QuillModule.forRoot()
     QuillModule.forRoot({
       modules: {
-          toolbar
+          toolbar,
+        'emoji-toolbar': true,
+        'emoji-textarea': true,
+        'emoji-shortname': true,
       },
       placeholder: 'Compose an epic...',
       debug: 'warn'
