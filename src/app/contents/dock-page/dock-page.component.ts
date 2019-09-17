@@ -7,21 +7,15 @@ import * as Quill from 'quill';
 
 import ImageResize from 'quill-image-resize';
 Quill.register('modules/imageResize', ImageResize);
+
 import ImageDrop from 'quill-image-drop-and-paste';
 Quill.register('modules/imageDrop', ImageDrop);
 
+import Emoij from 'quill-emoji';
+Quill.register('modules/emoij', Emoij);
+
 // import Wordcounter from 'quill-wordcounter';
 // Quill.register('modules/wordcounter', Wordcounter);
-
-// Quill.registerModule('counter', (quill, options) => {
-//   // const container = document.querySelector('#counter');
-//   quill.on('text-change', () => {
-//     let text = quill.getText();
-//     // There are a couple issues with counting words
-//     // this way but we'll fix these later
-//     // container.innerHTML = text.split(/\s+/).length;
-//   });
-// });
 
 import Wordcounter from './couterWords';
 Quill.register('modules/wordcounter', Wordcounter);
@@ -34,29 +28,33 @@ Quill.register('modules/wordcounter', Wordcounter);
 export class DockPageComponent implements OnInit {
 
   content;
+  // emoji: Emoij;
 
   options = {
-    // toolbar: [
-    //   ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-    //   ['blockquote', 'code-block'],
+    toolbar: [
+      ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+      ['blockquote', 'code-block'], ['emoji'],
 
-    //   [{ 'header': 1 }, { 'header': 2 }],               // custom button values
-    //   [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-    //   [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
-    //   [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
-    //   [{ 'direction': 'rtl' }],                         // text direction
+      [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+      [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+      [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+      [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+      [{ 'direction': 'rtl' }],                         // text direction
 
-    //   [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
-    //   [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+      [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+      [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
 
-    //   [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
-    //   [{ 'font': [] }],
-    //   [{ 'align': [] }],
+      [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+      [{ 'font': [] }],
+      [{ 'align': [] }],
 
-    //   ['clean'],                                         // remove formatting button
+      ['clean'],                                         // remove formatting button
 
-    //   ['link', 'image', 'video']                         // link and image, video
-    // ],
+      ['link', 'image', 'video']                         // link and image, video
+    ],
+    'emoji-toolbar': true,
+    // 'emoji-textarea': true,
+    // 'emoji-shortname': true,
     imageResize: true,
     imageDrop: true,
     wordcounter: {
@@ -72,6 +70,10 @@ export class DockPageComponent implements OnInit {
     backgroundColor: '#fff'
   };
 
+
+  onEditorCreated(quill) {
+    // this.emoji = quill.addModule('emoij');
+  }
 
   constructor() {
   }
