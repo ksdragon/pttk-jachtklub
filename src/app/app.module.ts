@@ -16,6 +16,7 @@ import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.co
 import { AppRoutingModule } from './app-routing.module';
 import { DockPageComponent } from './contents/dock-page/dock-page.component';
 import { AppQuillModule } from './app-quill.module';
+import { EditorComponent } from './extrasCopmonent/editor/editor.component';
 
 // import * as Quill from 'quill';
 // import { ImageResize } from 'quill-image-resize';
@@ -37,6 +38,7 @@ import { AppQuillModule } from './app-quill.module';
     ArticleTemplateComponent,
     PageNotFoundComponent,
     DockPageComponent,
+    EditorComponent,
 
   ],
   imports: [
