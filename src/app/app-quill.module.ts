@@ -35,16 +35,16 @@ import { NgModule } from '@angular/core';
 @NgModule({
   declarations: [],
   imports: [
-    // QuillModule.forRoot()
-    QuillModule.forRoot({
-      // modules: {
-      //     toolbar,
-      //     'emoji-toolbar': true
-      // },
-      placeholder: 'Utwórz swój artykuł...',
-      debug: 'warn'
+    QuillModule.forRoot()
+    // QuillModule.forRoot({
+    //   // modules: {
+    //   //     toolbar,
+    //   //     'emoji-toolbar': true
+    //   // },
+    //   placeholder: 'Utwórz swój artykuł...',
+    //   debug: 'warn'
 
-    })
+    // })
   ],
   exports: [QuillModule]
 })

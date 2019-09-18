@@ -1,5 +1,36 @@
 import { FormGroup, FormControl } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { QUILL_CONFIG_TOKEN, QuillConfig } from 'ngx-quill';
+
+
+// import * as QuillNamespace from 'quill';
+// let Quill: any = QuillNamespace;
+import * as Quill from 'quill';
+
+import ImageResize from 'quill-image-resize';
+Quill.register('modules/imageResize', ImageResize);
+
+import ImageDrop from 'quill-image-drop-and-paste';
+Quill.register('modules/imageDrop', ImageDrop);
+
+import Emoij from 'quill-emoji';
+Quill.register('modules/emoij', Emoij);
+
+// import Wordcounter from 'quill-wordcounter';
+// Quill.register('modules/wordcounter', Wordcounter);
+
+import Wordcounter from './couterWords';
+Quill.register('modules/wordcounter', Wordcounter);
+
+import BlotFormatter from 'quill-blot-formatter';
+Quill.register('modules/blotFormatter', BlotFormatter);
+
+const parchment = Quill.import('parchment');
+const block = parchment.query('block');
+block.tagName = 'DIV';
+// or class NewBlock extends Block {} NewBlock.tagName = 'DIV'
+Quill.register(block /* or NewBlock */, true);
+
 
 @Component({
   selector: 'app-editor',
@@ -8,10 +39,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditorComponent implements OnInit {
 
-  content;
+  public editor;
+  public editorContent = `<h3>I am Example content</h3>`;
+  public editorOptions = {
+    placeholder: 'insert content...'
+  };
+
+
+content;
   // emoji: Emoij;
 
-  options = {
+customOptionsModule = {
     toolbar: [
       ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
       ['blockquote', 'code-block'], ['emoji'],
@@ -36,7 +74,9 @@ export class EditorComponent implements OnInit {
     'emoji-toolbar': true,
     // 'emoji-textarea': true,
     // 'emoji-shortname': true,
-    imageResize: true,
+    imageResize: {
+      parchment: Quill.import('parchment')
+    },
     imageDrop: true,
     wordcounter: {
       container: '#counter',
@@ -45,37 +85,46 @@ export class EditorComponent implements OnInit {
   };
 
 
-  editorForm: FormGroup;
-  editorStyle = {
-    height: '300px',
+editorForm: FormGroup;
+editorStyle = {
+    minHeight: '300px',
     backgroundColor: '#fff'
   };
 
 
-  onEditorCreated(quill) {
+
+onEditorCreated(editor) {
+    // editor.getSelection(true);
     // this.emoji = quill.addModule('emoij');
   }
 
-  constructor() {
+onSelectionChanged(editor) {
+    console.log(editor);
   }
 
-  ngOnInit() {
+onEditorChanged(editor) {
+  }
+
+constructor() {
+  }
+
+ngOnInit() {
     this.editorForm = new FormGroup({
       editor: new FormControl(null)
     });
   }
 
 
-  onSubmit() {
+onSubmit() {
     console.log(this.editorForm.get('editor').value);
   }
 
-  maxLenght(e) {
+onContentChanged(editor) {
     //  if (e.editor.getLength() > 10) {
     //     e.editor.deleteText(10, e.editor.getLength());
     //   }
-    this.content = e.content;
-    console.log(this.content);
+    this.content = editor.content;
+    console.log(editor.content);
   }
 
 }

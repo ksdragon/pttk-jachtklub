@@ -35,6 +35,6 @@ export default class Counter {
     if (this.options.unit === 'słowa') {
       return !text ? 0 : text.split(/\s+/).length;
     }
-    return text.length;
+    return text.length - 1;
   }
 }

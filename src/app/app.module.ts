@@ -1,4 +1,4 @@
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { TopbarComponent } from './header/topbar/topbar.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -17,12 +17,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { DockPageComponent } from './contents/dock-page/dock-page.component';
 import { AppQuillModule } from './app-quill.module';
 import { EditorComponent } from './extrasCopmonent/editor/editor.component';
-
-// import * as Quill from 'quill';
-// import { ImageResize } from 'quill-image-resize';
-
-// Quill.register('modules/imageResize', ImageResize);
-
 
 
 @NgModule({
@@ -43,6 +37,7 @@ import { EditorComponent } from './extrasCopmonent/editor/editor.component';
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     ReactiveFormsModule,
     MDBBootstrapModule.forRoot(),
     AppRoutingModule,

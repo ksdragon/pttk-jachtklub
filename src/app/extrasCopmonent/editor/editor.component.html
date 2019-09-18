@@ -1,19 +1,26 @@
 <div class="container">
-  <div class="row pt-5">
+  <div class="row pt-5 hm-100">
     <div class="col-sm-8 bg-light">
       <form [formGroup]="editorForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
-          <label for="editor">
-            <h3>Editor</h3>
-          </label>
+          <div class="text-center">
+            <label class="mt-2" for="editor">
+              <h3>Edytor</h3>
+            </label>
+          </div>
           <quill-editor
             maxLength=10
-            [modules]="options"
+            [modules]="customOptionsModule"
             formControlName="editor"
             [styles]="editorStyle"
-            (onContentChanged)="maxLenght($event)"
+            (onContentChanged)="onContentChanged($event)"
+            (onEditorCreated)="onEditorCreated($event)"
+            (onSelectionChanged)="onSelectionChanged($event)"
+            (onEditorChanged)="onEditorChanged($event)"
+            [sanitize]="true"
+            format="object"
             ></quill-editor>
-            <span *ngIf="editorForm.get('editor').value != null">{{ editorForm.get('editor').value.length }}</span>
+            <!-- <span *ngIf="editorForm.get('editor').value != null">{{ editorForm.get('editor').value.length }}</span> -->
             <div id="counter">0</div>
         </div>
 
@@ -23,10 +30,11 @@
         >Submit</button>
       </form>
     </div>
-    <div class="col-sm-4">
-      <h3>Wynik</h3>
-      <quill-view [content]="content" format="object" theme="bubble" ></quill-view>
-
+    <div class="col-sm-4 border border-dark">
+      <div class="row bg-light"><h3 class="mx-auto p-2">Podgląd</h3></div>
+      <div class="view-page mt-5">
+        <quill-view [content]="content" format="object" theme="bubble"  ></quill-view>
+       </div>
     </div>
   </div>
 </div>
