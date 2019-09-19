@@ -1,8 +1,9 @@
 import { QuillModule } from 'ngx-quill';
 import { NgModule } from '@angular/core';
+import * as Quill from 'quill';
+
 // import { Mention } from 'quill-mention';
 
-// import * as Quill from 'quill';
 // import ImageResize from 'quill-image-resize';
 // Quill.register('modules/imageResize', ImageResize);
 
@@ -35,16 +36,16 @@ import { NgModule } from '@angular/core';
 @NgModule({
   declarations: [],
   imports: [
-    QuillModule.forRoot()
-    // QuillModule.forRoot({
-    //   // modules: {
-    //   //     toolbar,
-    //   //     'emoji-toolbar': true
-    //   // },
-    //   placeholder: 'Utwórz swój artykuł...',
-    //   debug: 'warn'
+    // QuillModule.forRoot()
+    QuillModule.forRoot({
+      // modules: {
+      //     toolbar,
+      //     'emoji-toolbar': true
+      // },
+      placeholder: 'Utwórz swój artykuł...',
+      debug: 'warn'
 
-    // })
+    })
   ],
   exports: [QuillModule]
 })

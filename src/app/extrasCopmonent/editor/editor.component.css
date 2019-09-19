@@ -1,8 +1,3 @@
-.view-page
-{
-  border: 1px solid black!important;
-}
-
 .ql-formats button .ql-omega::after {
   content: "<sb/>"!important;
 

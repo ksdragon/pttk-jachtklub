@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row pt-5 hm-100">
-    <div class="col-sm-8 bg-light">
+    <div class="col-sm-12 bg-light">
       <form [formGroup]="editorForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
           <div class="text-center">
@@ -9,7 +9,6 @@
             </label>
           </div>
           <quill-editor
-            maxLength=10
             [modules]="customOptionsModule"
             formControlName="editor"
             [styles]="editorStyle"
@@ -30,11 +29,11 @@
         >Submit</button>
       </form>
     </div>
-    <div class="col-sm-4 border border-dark">
+  </div>
+  <div class="col-sm-12 border border-dark mt-5">
       <div class="row bg-light"><h3 class="mx-auto p-2">Podgląd</h3></div>
       <div class="view-page mt-5">
         <quill-view [content]="content" format="object" theme="bubble"  ></quill-view>
        </div>
     </div>
-  </div>
 </div>
