@@ -17,6 +17,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { DockPageComponent } from './contents/dock-page/dock-page.component';
 import { AppQuillModule } from './app-quill.module';
 import { EditorComponent } from './extrasCopmonent/editor/editor.component';
+import { EditorPageComponent } from './extrasCopmonent/editor-page/editor-page.component';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { EditorComponent } from './extrasCopmonent/editor/editor.component';
     PageNotFoundComponent,
     DockPageComponent,
     EditorComponent,
+    EditorPageComponent,
 
   ],
   imports: [
