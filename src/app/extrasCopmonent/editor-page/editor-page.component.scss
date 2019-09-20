@@ -1,0 +1,13 @@
+
+.span-block::after {
+  content: "<spanblock/>";
+}
+
+.span-block {
+  background-color: rgb(212, 57, 57);
+  border: 1px solid #CCC;
+  line-height: 19px;
+  padding: 6px 10px;
+  border-radius: 3px;
+  margin: 15px 0;
+}

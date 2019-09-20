@@ -1,7 +1,6 @@
-<h3 id="focusBlur">Default editor with height of 200px - focused: {{ focused }}, blured: {{ blured }}</h3>
+<h3 id="focusBlur" class="">Default editor with height of 200px - focused: {{ focused }}, blured: {{ blured }}</h3>
 <div>
 <quill-editor
-  [styles]="{height: '200px'}"
   (onFocus)="focus($event)"
   (onContentChanged)="ContentChanged($event)"
   (onEditorChanged)="changedEditor($event)"
@@ -11,7 +10,10 @@
   trackChanges="all"
   [modules]="modules"
   [placeholder]="placeholder"
+  [styles]="editorStyle"
+  [sanitize]="true"
   >
+
 </quill-editor>
 </div>
 <div>
