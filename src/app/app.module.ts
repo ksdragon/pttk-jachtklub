@@ -33,7 +33,7 @@ import { EditorPageComponent } from './extrasCopmonent/editor-page/editor-page.c
     ArticleTemplateComponent,
     PageNotFoundComponent,
     DockPageComponent,
-    EditorComponent,
+    // EditorComponent,
     EditorPageComponent,
 
   ],
