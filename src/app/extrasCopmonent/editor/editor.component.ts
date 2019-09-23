@@ -1,10 +1,11 @@
 import { FormGroup, FormControl } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { base64StringToBlob } from 'blob-util';
+import Quill from 'quill';
 
 // import * as QuillNamespace from 'quill';
 // let Quill: any = QuillNamespace;
-import * as Quill from 'quill';
+// import * as Quill from 'quill';
 
 import ImageResize from 'quill-image-resize';
 Quill.register('modules/imageResize', ImageResize);
@@ -32,20 +33,20 @@ Quill.register('modules/blotFormatter', BlotFormatter);
 
 const Parchment = Quill.import('parchment');
 
-let omega = new Parchment.Attributor.Class('omega', 'omega', {
+const omega = new Parchment.Attributor.Class('omega', 'omega', {
     scope: Parchment.Scope.INLINE
   });
   // omega.boltName = 'omega';
   // omega.tagName = 'div';
 Quill.register({'formats/omega': omega});
 
-let Inline = Quill.import('blots/inline');
+const Inline = Quill.import('blots/inline');
 
-class SpanBlock extends Inline{
+class SpanBlock extends Inline {
 
-    static create(value){
-        let node = super.create();
-        node.setAttribute('class','spanblock');
+    static create(value) {
+        const node = super.create();
+        node.setAttribute('class', 'spanblock');
         return node;
     }
 }
@@ -161,7 +162,7 @@ export class EditorComponent implements OnInit {
   // }
 
   omegaHandler() {
-    let toolbarOmega = this.quill.getModule('toolbar');
+    const toolbarOmega = this.quill.getModule('toolbar');
     toolbarOmega.addHandler('omega', () => {
       console.log('omega');
     });
@@ -182,10 +183,10 @@ export class EditorComponent implements OnInit {
     spanBlockButton.addEventListener('click', () => {
             console.log('function called');
             const range1 = this.quill.getSelection();
-            if(range1){
+            if (range1) {
                 console.log('range is valid');
-                this.quill.formatText(range1,'spanblock');
-            }else{
+                  this.quill.formatText(range1, 'spanblock');
+            } else {
                 console.log('it it invalid');
             }
 

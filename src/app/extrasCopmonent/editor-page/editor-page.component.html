@@ -1,25 +1,46 @@
-<h3 id="focusBlur" class="">Default editor with height of 200px - focused: {{ focused }}, blured: {{ blured }}</h3>
-<div>
-<quill-editor
-  (onFocus)="focus($event)"
-  (onContentChanged)="ContentChanged($event)"
-  (onEditorChanged)="changedEditor($event)"
-  (onBlur)="blur($event)"
-  (onEditorCreated)="created($event)"
-  [(ngModel)]="content"
-  trackChanges="all"
-  [modules]="modules"
-  [placeholder]="placeholder"
-  [styles]="editorStyle"
-  [sanitize]="true"
-  >
+<div class="container">
+    <div class="row pt-5 hm-100">
+      <div class="col-sm-12 bg-light">
+        <form [formGroup]="editorForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <div class="text-center">
+              <label class="mt-2" for="editor">
+                <h3>Edytor</h3>
+              </label>
+            </div>
 
-</quill-editor>
-</div>
+          <h3 id="focusBlur" class="">Default editor with height of 200px - focused: {{ focused }}, blured: {{ blured }}</h3>
+          <div>
+          <quill-editor
+            formControlName="editor"
+            (onFocus)="focus($event)"
+            (onContentChanged)="ContentChanged($event)"
+            (onEditorChanged)="changedEditor($event)"
+            (onBlur)="blur($event)"
+            (onEditorCreated)="created($event)"
+            trackChanges="all"
+            [modules]="modules"
+            [placeholder]="placeholder"
+            [styles]="editorStyle"
+            [sanitize]="true"
+            >
+
+          </quill-editor>
+          </div>
+        </div>
+
+        <button
+           [disabled]="!editorForm.valid"
+        class="btn btn-primary mb-5 mt-3"
+        >Podgląd</button>
+      </form>
+    </div>
+  </div>
 <div>
 <quill-view
   [content]="contentView"
   [preserveWhitespace]="true"
   format="object">
 </quill-view>
+</div>
 </div>

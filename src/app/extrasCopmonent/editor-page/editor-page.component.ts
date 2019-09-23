@@ -1,9 +1,10 @@
+import { FormGroup, FormControl } from '@angular/forms';
 import { Component, OnInit, AfterViewInit } from '@angular/core';
+import Quill from 'quill';
 
 import Counter from './counter';
 
-
-import * as Quill from 'quill';
+// import * as Quill from 'quill';
 
 import ImageResize from 'quill-image-resize';
 Quill.register('modules/imageResize', ImageResize);
@@ -38,6 +39,7 @@ Quill.register(SpanBlockClass, true);
 
 const icons = Quill.import('ui/icons');
 icons['span-block'] = '<i class="fa fa-bold" aria-hidden="true"></i>';
+// tslint:disable-next-line: no-string-literal
 icons['spanblock'] = '<i class="far fa-square"></i>';
 
 // solution for keep style in img
@@ -51,7 +53,7 @@ const ImageFormatAttributesList = [
 
 class ImageFormat extends BaseImageFormat {
   static formats(domNode) {
-    return ImageFormatAttributesList.reduce(function (formats, attribute) {
+    return ImageFormatAttributesList.reduce((formats, attribute) => {
       if (domNode.hasAttribute(attribute)) {
         formats[attribute] = domNode.getAttribute(attribute);
       }
@@ -79,7 +81,7 @@ const Inline = Quill.import('blots/inline');
 class SpanBlock extends Inline {
 
   static create(value) {
-    let node = super.create();
+    const node = super.create();
     node.setAttribute('class', 'spanblock');
     return node;
   }
@@ -98,14 +100,14 @@ Quill.register(SpanBlock);
 })
 export class EditorPageComponent implements OnInit, AfterViewInit {
 
+  editor;
   modules = {};
-  content = '';
+  editorForm: FormGroup;
   contentView;
   blured = false;
   focused = false;
   editorInstance: any;
   placeholder = 'Utwórz swój artykuł...';
-  // [['emoji'], ['formula'], ['image'], ['blockquote', 'code-block', 'span-block', 'link'], ['hr'], ['spanblock']];
   toolbarOptions =
   [
     ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
@@ -165,6 +167,7 @@ export class EditorPageComponent implements OnInit, AfterViewInit {
   ContentChanged(event) {
     this.contentView = event.content;
     console.log(this.contentView);
+    this.editor = event.content;
   }
 
   focus($event) {
@@ -181,8 +184,17 @@ export class EditorPageComponent implements OnInit, AfterViewInit {
     this.blured = true;
   }
 
+  onSubmit() {
+    console.log(this.editorForm.get('editor').value);
+    console.log('Oject editor from after content chanded: ');
+    console.log(this.editor);
+  }
+
 
   ngOnInit() {
+    this.editorForm = new FormGroup({
+      editor: new FormControl(null)
+    });
     this.modules = {
       imageResize: {},
       imageDrop: {},
@@ -212,9 +224,12 @@ export class EditorPageComponent implements OnInit, AfterViewInit {
       const range = this.editorInstance.getSelection(true);
 
       // The editor_instance was created during onEditorCreated event.
-      this.editorInstance.insertText(range.index, '\n', Quill.sources.USER);
-      this.editorInstance.insertEmbed(range.index + 1, 'divider', true, Quill.sources.USER);
-      this.editorInstance.setSelection(range.index + 2, Quill.sources.SILENT);
+      // this.editorInstance.insertText(range.index, '\n', Quill.sources.USER);
+      // this.editorInstance.insertEmbed(range.index + 1, 'divider', true, Quill.sources.USER);
+      // this.editorInstance.setSelection(range.index + 2, Quill.sources.SILENT);
+      this.editorInstance.insertText(range.index, '\n', 'user');
+      this.editorInstance.insertEmbed(range.index + 1, 'divider', true, 'user');
+      this.editorInstance.setSelection(range.index + 2, 'silent');
     });
   }
   addSpanBlockToToolbar() {
@@ -239,12 +254,12 @@ export class EditorPageComponent implements OnInit, AfterViewInit {
   snapblock() {
     const spanBlockButton = document.querySelector('.ql-spanblock');
 
-    spanBlockButton.addEventListener('click', function () {
+    spanBlockButton.addEventListener('click', () => {
       console.log('function called');
-      var range = quill.getSelection();
+      const range = this.editorInstance.getSelection();
       if (range) {
         console.log('range is valid');
-        quill.formatText(range, 'spanblock');
+        this.editorInstance.formatText(range, 'spanblock');
       } else {
         console.log('it it invalid');
       }
