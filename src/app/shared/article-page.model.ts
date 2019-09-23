@@ -1,4 +1,4 @@
-export class ArticleTemplate {
+export class ArticlePage {
   public id: number;
   public headerName: string;
   public urlImgIcon?: string;
