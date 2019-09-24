@@ -20,6 +20,8 @@ import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.co
 import { AppRoutingModule } from './app-routing.module';
 import { DockPageComponent } from './contents/dock-page/dock-page.component';
 import { AppQuillModule } from './app-quill.module';
+import { EditorViewLayoutComponent } from './extrasCopmonent/editor/editor-view-layout/editor-view-layout.component';
+import { EditorViewArticleComponent } from './extrasCopmonent/editor/editor-view-article/editor-view-article.component';
 
 
 @NgModule({
@@ -38,6 +40,8 @@ import { AppQuillModule } from './app-quill.module';
     EditorComponent,
     EditorPageComponent,
     EditorLayoutComponent,
+    EditorViewLayoutComponent,
+    EditorViewArticleComponent,
 
   ],
   imports: [
