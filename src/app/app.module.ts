@@ -1,3 +1,4 @@
+import { EditorComponent } from './extrasCopmonent/editor/editor.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { TopbarComponent } from './header/topbar/topbar.component';
 import { BrowserModule } from '@angular/platform-browser';
@@ -16,8 +17,8 @@ import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.co
 import { AppRoutingModule } from './app-routing.module';
 import { DockPageComponent } from './contents/dock-page/dock-page.component';
 import { AppQuillModule } from './app-quill.module';
-import { EditorComponent } from './extrasCopmonent/editor/editor.component';
 import { EditorPageComponent } from './extrasCopmonent/editor-page/editor-page.component';
+import { EditorLayoutComponent } from './extrasCopmonent/editor-layout/editor-layout.component';
 
 
 @NgModule({
@@ -33,8 +34,9 @@ import { EditorPageComponent } from './extrasCopmonent/editor-page/editor-page.c
     ArticleTemplateComponent,
     PageNotFoundComponent,
     DockPageComponent,
-    // EditorComponent,
+    EditorComponent,
     EditorPageComponent,
+    EditorLayoutComponent,
 
   ],
   imports: [

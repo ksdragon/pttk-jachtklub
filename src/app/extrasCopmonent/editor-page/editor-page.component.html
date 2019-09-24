@@ -1,16 +1,19 @@
 <div class="container">
     <div class="row pt-5 hm-100">
-      <div class="col-sm-12 bg-light">
+      <div class="col-sm-12">
         <form [formGroup]="editorForm" (ngSubmit)="onSubmit()">
           <div class="form-group">
+              <!-- <div class="mb-5">
+               <app-editor-layout></app-editor-layout>
+              </div> -->
+              <!-- <hr> -->
+              <div>
             <div class="text-center">
               <label class="mt-2" for="editor">
-                <h3>Edytor</h3>
+                  <h3>Edytor artykułu</h3>
               </label>
             </div>
-
-          <h3 id="focusBlur" class="">Default editor with height of 200px - focused: {{ focused }}, blured: {{ blured }}</h3>
-          <div>
+            <!-- <h3 id="focusBlur" class="">Default editor with height of 200px - focused: {{ focused }}, blured: {{ blured }}</h3> -->
           <quill-editor
             formControlName="editor"
             (onFocus)="focus($event)"
@@ -24,15 +27,18 @@
             [styles]="editorStyle"
             [sanitize]="true"
             >
+            <!-- <p>Hello World! 2</p>
+            <p>Some initial <strong>bold</strong> text</p>
+            <p>Some lorem ipsum text</p> -->
 
           </quill-editor>
           </div>
         </div>
 
-        <button
+        <!-- <button
            [disabled]="!editorForm.valid"
         class="btn btn-primary mb-5 mt-3"
-        >Podgląd</button>
+        >Podgląd</button> -->
       </form>
     </div>
   </div>

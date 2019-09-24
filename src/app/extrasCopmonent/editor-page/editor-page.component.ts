@@ -108,6 +108,7 @@ export class EditorPageComponent implements OnInit, AfterViewInit {
   focused = false;
   editorInstance: any;
   placeholder = 'Utwórz swój artykuł...';
+
   toolbarOptions =
   [
     ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
@@ -145,6 +146,7 @@ export class EditorPageComponent implements OnInit, AfterViewInit {
     }
   };
 
+
   editorStyle = {
     minHeight: '300px',
     backgroundColor: '#fff'
@@ -167,7 +169,7 @@ export class EditorPageComponent implements OnInit, AfterViewInit {
   ContentChanged(event) {
     this.contentView = event.content;
     console.log(this.contentView);
-    this.editor = event.content;
+    this.editor = event;
   }
 
   focus($event) {
@@ -193,7 +195,8 @@ export class EditorPageComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.editorForm = new FormGroup({
-      editor: new FormControl(null)
+      editor: new FormControl(null),
+      layoutEditor: new FormControl(null)
     });
     this.modules = {
       imageResize: {},

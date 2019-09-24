@@ -1,39 +1,30 @@
 <div class="container">
-  <div class="row pt-5 hm-100">
-    <div class="col-sm-12 bg-light">
-      <form [formGroup]="editorForm" (ngSubmit)="onSubmit()">
-        <div class="form-group">
-          <div class="text-center">
-            <label class="mt-2" for="editor">
-              <h3>Edytor</h3>
-            </label>
-          </div>
-          <quill-editor
-            [modules]="customOptionsModule"
-            formControlName="editor"
-            [styles]="editorStyle"
-            (onContentChanged)="onContentChanged($event)"
-            (onEditorCreated)="onEditorCreated($event)"
-            (onSelectionChanged)="onSelectionChanged($event)"
-            (onEditorChanged)="onEditorChanged($event)"
-            [sanitize]="true"
-            format="object"
-            ></quill-editor>
-            <!-- <span *ngIf="editorForm.get('editor').value != null">{{ editorForm.get('editor').value.length }}</span> -->
-            <div id="counter">0</div>
+    <div class="row pt-5 hm-100">
+      <div class="col-sm-12">
+        <form [formGroup]="editorForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+              <div class="mb-5">
+               <app-editor-layout #appEditorLayout></app-editor-layout>
+              </div>
+              <hr>
+              <div>
+                <app-editor-page #appEditorPage></app-editor-page>
+              </div>
         </div>
 
         <button
            [disabled]="!editorForm.valid"
-        class="btn btn-primary mt-5"
-        >Submit</button>
+        class="btn btn-primary mb-5 mt-3"
+        >Podgląd</button>
       </form>
     </div>
   </div>
-  <div class="col-sm-12 border border-dark mt-5">
-      <div class="row bg-light"><h3 class="mx-auto p-2">Podgląd</h3></div>
-      <div class="view-page mt-5">
-        <quill-view [content]="content" format="object" theme="bubble"  ></quill-view>
-       </div>
-    </div>
+<div>
+
+  <quill-view
+  [content]="contentView"
+  [preserveWhitespace]="true"
+  format="object">
+</quill-view>
+</div>
 </div>

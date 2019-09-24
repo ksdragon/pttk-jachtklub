@@ -1,4 +1,4 @@
-import { ArticleTemplate } from './../../shared/article-Template.model';
+import { ArticlePage } from './../../shared/article-page.model';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -8,7 +8,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AboutAsPageComponent implements OnInit {
 
-  articleAboutUs: ArticleTemplate = {id: 1, headerName: 'O Nas', category: ['Nawigacja']};
 
   constructor() { }
 

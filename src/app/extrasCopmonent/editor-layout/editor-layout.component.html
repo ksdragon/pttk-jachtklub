@@ -1,0 +1,27 @@
+<!-- <form [parentFormGroup]="editorForm" (ngSubmit)="onSubmit()"> -->
+    <!-- <div class="form-group"> -->
+      <div class="text-center">
+          <label class="mt-2" for="layoutEditor">
+            <h3>Edycja wyglądu układu</h3>
+          </label>
+        </div>
+
+          <!-- <h3 id="focusBlur" class="">Default editor with height of 200px - focused: {{ focused }}, blured: {{ blured }}</h3> -->
+
+          <quill-editor
+          ([ngModel])="layoutEditor"
+          (onFocus)="focus($event)"
+          (onContentChanged)="ContentChanged($event)"
+          (onEditorChanged)="changedEditor($event)"
+          (onBlur)="blur($event)"
+          (onEditorCreated)="created($event)"
+          trackChanges="all"
+          [modules]="modulesLayout"
+          [placeholder]="placeholderLayout"
+          [styles]="editorLayoutStyle"
+          [sanitize]="true"
+          >
+
+        </quill-editor>
+      <!-- </div>
+</form> -->
