@@ -1,8 +1,7 @@
+import { EditorService } from './editor.service';
 import { ArticlePage } from './../../shared/article-page.model';
-import { EditorService } from './../editor-page/editor.service';
-import { QuillInstance } from './../editor-page/counter';
-import { Quill } from 'quill';
-import { EditorLayoutComponent } from './../editor-layout/editor-layout.component';
+
+import { EditorLayoutComponent } from './editor-layout/editor-layout.component';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';

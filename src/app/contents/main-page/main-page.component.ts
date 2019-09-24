@@ -1,4 +1,5 @@
-import { EditorService } from './../../extrasCopmonent/editor-page/editor.service';
+import { EditorService } from './../../extrasCopmonent/editor/editor.service';
+
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ArticlePage } from 'src/app/shared/article-page.model';
