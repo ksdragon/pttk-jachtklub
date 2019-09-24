@@ -1,3 +1,4 @@
+import { EditorService } from './../editor.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditorViewLayoutComponent implements OnInit {
 
-  constructor() { }
+  contentView;
+
+  constructor(private editorService: EditorService) { }
 
   ngOnInit() {
   }
