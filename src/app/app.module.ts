@@ -1,3 +1,6 @@
+import { EditorLayoutComponent } from './extrasCopmonent/editor/editor-layout/editor-layout.component';
+import { EditorPageComponent } from './extrasCopmonent/editor/editor-page/editor-page.component';
+
 import { EditorComponent } from './extrasCopmonent/editor/editor.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { TopbarComponent } from './header/topbar/topbar.component';
@@ -17,8 +20,6 @@ import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.co
 import { AppRoutingModule } from './app-routing.module';
 import { DockPageComponent } from './contents/dock-page/dock-page.component';
 import { AppQuillModule } from './app-quill.module';
-import { EditorPageComponent } from './extrasCopmonent/editor-page/editor-page.component';
-import { EditorLayoutComponent } from './extrasCopmonent/editor-layout/editor-layout.component';
 
 
 @NgModule({
