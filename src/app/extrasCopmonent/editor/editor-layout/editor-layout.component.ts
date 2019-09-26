@@ -4,7 +4,6 @@ import { Component, OnInit, Input } from '@angular/core';
 @Component({
   selector: 'app-editor-layout',
   templateUrl: './editor-layout.component.html',
-  // viewProviders: [ { provide: ControlContainer, useExisting: NgForm } ],
   styleUrls: ['./editor-layout.component.scss']
 })
 export class EditorLayoutComponent implements OnInit {
@@ -35,7 +34,6 @@ export class EditorLayoutComponent implements OnInit {
 
   editorLayoutStyle = {
     minHeight: '165px',
-    maxWidth: '700px',
     backgroundColor: '#fff'
   };
 

@@ -1,3 +1,4 @@
+import { Quill } from 'quill';
 import { EditorService } from './../../extrasCopmonent/editor/editor.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
@@ -12,6 +13,8 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
   // subscription: Subscription;
   articles: ArticlePage [] = [];
+  articlesLayout = [];
+  layoutsViews = [];
   constructor(private editorService: EditorService) { }
 
   ngOnInit() {
@@ -22,11 +25,21 @@ export class MainPageComponent implements OnInit, OnDestroy {
     //   }
     // );
     this.articles = this.editorService.getArticles();
+    this.articles.forEach( (a: ArticlePage) => {
+      this.articlesLayout.push(a.articleLayout);
+    });
+    this.articlesLayout.forEach(q => {
+      this.layoutsViews.push(q.content);
+    });
     console.log('OnInit main-page',  this.articles);
   }
 
   ngOnDestroy(): void {
     // this.subscription.unsubscribe();
   }
+
+
+    // console.log('articlesL', this.articlesL);
+
 
 }
