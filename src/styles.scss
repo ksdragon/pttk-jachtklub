@@ -7,16 +7,6 @@
   margin: 15px 0;
 }
 
-// .ql-spanblock::after{
-//   content: ' ';
-//   height: 30px !important;
-//   width: 30px !important;
-//   background: url('../node_modules/quill/assets/icons/blockquote.svg') no-repeat !important;
-//   margin-left: -10px;
-//   background-size: 21px;
-//   margin-top: 6px;
-//   }
-
 
 .ql-spanblock::after {
   content: "<sb/>";
@@ -32,8 +22,17 @@
 }
 
 
-// .ngx-quill-view .ql-editor img
-// {
-//   max-width: 240px;
-//   max-height: 165px;
-// }
+.spanblock {
+  background-color: #F8F8F8;
+  border: 1px solid #CCC;
+  line-height: 19px;
+  padding: 6px 10px;
+  max-width: 50px;
+  float: right;
+  border-radius: 3px;
+  margin: 15px 0;
+  position:absolute;
+  bottom:0;
+  right:0;
+}
+

@@ -40,12 +40,17 @@ export class EditorLayoutComponent implements OnInit {
   created(event) {
     // tslint:disable-next-line:no-console
     this.editorInstance = event;
+    // this.editorInstance.format('align', 'right');
+    // this.editorInstance.insertText(0, 'Test', {
+    //   color: '#AD4F18',
+    //   size: 'large'
+    // }, 'user');
     console.log('editor-created', event);
   }
 
   changedEditor(event) {
     // tslint:disable-next-line:no-console
-    // console.log('editor-change', event);
+    console.log('editor-change', event);
   }
 
   ContentChanged(event) {
@@ -61,11 +66,16 @@ export class EditorLayoutComponent implements OnInit {
     this.blured = false;
   }
 
-  blur($event) {
+  blur(event) {
     // tslint:disable-next-line:no-console
-    console.log('blur', $event);
+    console.log('blur', event);
     this.focused = false;
     this.blured = true;
+    event.editor.insertText(event.editor.getLength(), 'Test', {
+        color: '#AD4F18',
+        size: 'large'
+      }, 'user');
+
   }
 
   // onSubmit() {
