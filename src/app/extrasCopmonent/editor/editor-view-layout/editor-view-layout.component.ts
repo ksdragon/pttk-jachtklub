@@ -11,6 +11,8 @@ export class EditorViewLayoutComponent implements OnInit {
 
   @Input() contentView;
 
+
+
   constructor() { }
 
   ngOnInit() {
