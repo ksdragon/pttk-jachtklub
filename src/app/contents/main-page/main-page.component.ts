@@ -10,9 +10,9 @@ import { ArticlePage } from 'src/app/shared/article-page.model';
 })
 export class MainPageComponent implements OnInit, OnDestroy {
 
-  // subscription: Subscription;
+  subscription: Subscription;
 
-  articles: ArticlePage [] = [];
+  articles: ArticlePage[] = [];
   articlesLayout = [];
   layoutsViews = [];
   quill = {
@@ -32,25 +32,27 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
   constructor(private editorService: EditorService) { }
   ngOnInit() {
-    console.log('OnInit main-page',  this.quill);
-    // this.subscription = this.editorService.articlesChanged.subscribe(
-    //   (articlesPage) => {
-    //     console.log(articlesPage);
-    //     this.articles = articlesPage;
-    //   }
-    // );
+    console.log('OnInit quill',  this.quill);
+    this.subscription = this.editorService.articlesChanged.subscribe(
+      articles => {
+        console.log('Articles: ', articles);
+        this.articles = articles;
+        //articles.forEach(a => this.articlesLayout.push(a.articleLayout));
+      }
+    );
     this.articles = this.editorService.getArticles();
     this.articles.forEach( (a: ArticlePage) => {
       this.articlesLayout.push(a.articleLayout);
     });
+    console.log('OnInit articlesLayout',  this.articlesLayout);
     this.articlesLayout.forEach(q => {
       this.layoutsViews.push(q.content);
     });
     this.layoutsViews.push(this.quill);
-    console.log('OnInit main-page',  this.articlesLayout);
+    console.log('OnInit layoutsViews',  this.layoutsViews);
   }
 
   ngOnDestroy(): void {
-    // this.subscription.unsubscribe();
+    this.subscription.unsubscribe();
   }
 }

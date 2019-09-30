@@ -1,7 +1,7 @@
 import { ArticlePage } from 'src/app/shared/article-page.model';
 
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +21,9 @@ export class EditorService {
     this.articlesChanged.next(this.articles.slice());
   }
 
+  // getArticlesObs(): Observable<ArticlePage[]> {
+  //   return this.articlesChanged.asObservable();
+  // }
 
   getArticles() {
     return this.articles.slice();
