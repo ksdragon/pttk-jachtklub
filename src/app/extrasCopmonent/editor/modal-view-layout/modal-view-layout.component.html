@@ -1,0 +1,14 @@
+<div class="modal-header">
+  <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+    <span aria-hidden="true">×</span>
+  </button>
+  <h4 class="modal-title w-100 text-center" id="myModalLabel">Podgląd układu</h4>
+</div>
+<div class="modal-body">
+   <!-- <p>aaa {{ heading }}</p> -->
+  <app-editor-view-layout [contentView]="content"></app-editor-view-layout>
+</div>
+<!-- <div class="modal-footer"> -->
+  <!-- <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Close" (click)="modalRef.hide()" mdbWavesEffect>Close</button>
+  <button type="button" mdbBtn color="primary" class="relative waves-light" mdbWavesEffect>Save!</button> -->
+<!-- </div> -->

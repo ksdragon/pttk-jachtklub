@@ -6,6 +6,8 @@
               <div class="mb-5">
                <app-editor-layout #appEditorLayout></app-editor-layout>
               </div>
+              <button (click)="onClickView($event)"  class="btn btn-primary">Podgląd</button>
+              <button mdbBtn color="primary" (click)="openModal($event)">Open modal</button>
               <hr>
               <div>
                 <app-editor-page #appEditorPage></app-editor-page>
@@ -15,7 +17,7 @@
         <button
            [disabled]="!editorForm.valid"
         class="btn btn-primary mb-5 mt-3"
-        >Podgląd</button>
+        >Zapisz</button>
       </form>
     </div>
   </div>

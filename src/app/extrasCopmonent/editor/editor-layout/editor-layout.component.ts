@@ -78,11 +78,11 @@ export class EditorLayoutComponent implements OnInit {
 
   }
 
-  // onSubmit() {
-  //   console.log(this.editorForm.get('layoutEditor').value);
-  //   console.log('Oject editor from after content chanded: ');
-  //   console.log(this.editor);
-  // }
+  onView() {
+    console.log(this.editorForm.get('layoutEditor').value);
+    console.log('Oject editor from after content chanded: ');
+    console.log(this.editor);
+  }
 
 
   ngOnInit() {

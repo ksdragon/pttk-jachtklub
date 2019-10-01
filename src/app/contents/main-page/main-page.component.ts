@@ -10,7 +10,7 @@ import { ArticlePage } from 'src/app/shared/article-page.model';
 })
 export class MainPageComponent implements OnInit, OnDestroy {
 
-  subscription: Subscription;
+  // subscription: Subscription;
 
   articles: ArticlePage[] = [];
   articlesLayout = [];
@@ -33,13 +33,13 @@ export class MainPageComponent implements OnInit, OnDestroy {
   constructor(private editorService: EditorService) { }
   ngOnInit() {
     console.log('OnInit quill',  this.quill);
-    this.subscription = this.editorService.articlesChanged.subscribe(
-      articles => {
-        console.log('Articles: ', articles);
-        this.articles = articles;
-        //articles.forEach(a => this.articlesLayout.push(a.articleLayout));
-      }
-    );
+    // this.subscription = this.editorService.articlesChanged.subscribe(
+    //   articles => {
+    //     console.log('Articles: ', articles);
+    //     this.articles = articles;
+    //     //articles.forEach(a => this.articlesLayout.push(a.articleLayout));
+    //   }
+    // );
     this.articles = this.editorService.getArticles();
     this.articles.forEach( (a: ArticlePage) => {
       this.articlesLayout.push(a.articleLayout);
@@ -53,6 +53,6 @@ export class MainPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    // this.subscription.unsubscribe();
   }
 }
