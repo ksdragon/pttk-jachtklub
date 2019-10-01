@@ -200,7 +200,7 @@ export class EditorPageComponent implements OnInit, AfterViewInit {
     });
     this.modules = {
       imageResize: {},
-      imageDrop: {},
+      imageDrop: true,
       'emoji-toolbar': true,
       toolbar: {
         container: this.toolbarOptions,

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
 import { MDBModalRef } from 'angular-bootstrap-md';
 
+
 @Component({
   selector: 'app-modal-view-layout',
   templateUrl: './modal-view-layout.component.html',
@@ -13,15 +14,15 @@ export class ModalViewLayoutComponent implements OnInit {
   constructor(public modalRef: MDBModalRef) { }
 
   ngOnInit() {
-    const contentView = { ...this.content, complex: {...this.content.complex}};
-    this.content.editor.insertText(this.content.editor.getLength(), 'Modal Test', {
-      color: '#AD4F18',
-      size: 'large'
-    }, 'user');
-    // this.content = contentView;
-    this.viewContent = Object.create(this.content.content);
-    this.content = contentView;
-    console.log('ModalViewLayoutComponent ', this.viewContent);
+    // const contentView = { ...this.content, complex: {...this.content.complex}};
+    // const contentView = _.clone(this.content);
+    // console.log(contentView === this.content);
+    // contentView.editor.insertText(contentView.editor.getLength(), 'Modal Test', {
+    //   color: '#AD4F18',
+    //   size: 'large'
+    // }, 'user');
+    this.viewContent = this.content.content;
+    // console.log('ModalViewLayoutComponent ', this.viewContent);
   }
 
 }

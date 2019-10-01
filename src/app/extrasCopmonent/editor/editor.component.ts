@@ -6,7 +6,12 @@ import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { MDBModalService, MDBModalRef } from 'angular-bootstrap-md';
+import Quill from 'quill';
+const _ = require('underscore');
 
+const Parchment = Quill.import('parchment');
+let Align = new Parchment.Attributor.Class('endtitle', 'end-title');
+Quill.register(Align);
 
 @Component({
   selector: 'app-editor',
@@ -39,6 +44,10 @@ export class EditorComponent implements OnInit, OnDestroy {
     //   editor: new FormControl(null),
     //   layoutEditor: new FormControl(null)
     // });
+    let node = document.createElement('div');
+    node.append('Czytaj');
+    Align.add(node, 'layout');
+    console.log(node.outerHTML);
   }
 
   onClickView(event) {
@@ -51,10 +60,18 @@ export class EditorComponent implements OnInit, OnDestroy {
   */
   openModal(event) {
     event.preventDefault();
-    // this.editorLayout.editor.editor.insertText(this.editorLayout.editor.editor.getLength(), 'Modal Test', {
-    //     color: '#AD4F18',
-    //     size: 'large'
-    //   }, 'user');
+    const range = this.editorLayout.editor.editor.getLength();
+    let instanceEditor = this.editorLayout.editor.editor;
+    console.log('instanceEditor', instanceEditor);
+    const cloneEditorInstance = _.clone(instanceEditor);
+    const rangeSelected = instanceEditor.getSelection(true);
+    instanceEditor.insertText(range, 'Czytaj dalej...', {
+      color: '#AD4F18',
+      size: 'large'
+    }, 'user');
+    instanceEditor.insertEmbed(range, 'divider', true, 'user');
+    instanceEditor.formatLine(range, range, 'align', 'right'); 
+    
     const modalOptions = {
       backdrop: true,
       keyboard: true,
@@ -71,6 +88,7 @@ export class EditorComponent implements OnInit, OnDestroy {
     this.modalRef = this.modalService.show(ModalViewLayoutComponent,
           modalOptions );
     console.log('options',  modalOptions);
+    // this.editorLayout.editor.editor.setContents(cloneEditorInstance);
   }
 
   onSubmit() {
