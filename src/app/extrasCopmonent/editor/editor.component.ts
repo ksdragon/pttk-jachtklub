@@ -18,6 +18,7 @@ export class EditorComponent implements OnInit, OnDestroy {
   @ViewChild('appEditorLayout', {static: false}) editorLayout?;
   @ViewChild('appEditorPage', {static: false}) editorPage?;
   editorForm: FormGroup;
+  contentView;
   // editorLayout: FormGroup;
 
   constructor( private editorService: EditorService,
@@ -27,7 +28,7 @@ export class EditorComponent implements OnInit, OnDestroy {
 
   // subscription: Subscription;
   article: ArticlePage;
-  modalRef: MDBModalRef;
+  modalRef: MDBModalRef; // service modal window
 
   ngOnInit(): void {
     this.editorForm = new FormGroup({
@@ -50,19 +51,22 @@ export class EditorComponent implements OnInit, OnDestroy {
   */
   openModal(event) {
     event.preventDefault();
-    console.log('this.editorLayout.editor ',  this.editorLayout.editor);
+    // this.editorLayout.editor.editor.insertText(this.editorLayout.editor.editor.getLength(), 'Modal Test', {
+    //     color: '#AD4F18',
+    //     size: 'large'
+    //   }, 'user');
     const modalOptions = {
       backdrop: true,
       keyboard: true,
       focus: true,
       show: false,
       ignoreBackdropClick: false,
-      class: '',
+      class: 'modal-dialog-centered modal-lg',
       containerClass: '',
       animated: true,
       data: {
         heading: 'Modal heading',
-        content: this.editorLayout.editor.content }
+        content: this.editorLayout.editor }
     };
     this.modalRef = this.modalService.show(ModalViewLayoutComponent,
           modalOptions );

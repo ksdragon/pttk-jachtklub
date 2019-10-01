@@ -71,10 +71,10 @@ export class EditorLayoutComponent implements OnInit {
     console.log('blur', event);
     this.focused = false;
     this.blured = true;
-    event.editor.insertText(event.editor.getLength(), 'Test', {
-        color: '#AD4F18',
-        size: 'large'
-      }, 'user');
+    // event.editor.insertText(event.editor.getLength(), 'Test', {
+    //     color: '#AD4F18',
+    //     size: 'large'
+    //   }, 'user');
 
   }
 
