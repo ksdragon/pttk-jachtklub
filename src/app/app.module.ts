@@ -22,6 +22,7 @@ import { DockPageComponent } from './contents/dock-page/dock-page.component';
 import { AppQuillModule } from './app-quill.module';
 import { EditorViewLayoutComponent } from './extrasCopmonent/editor/editor-view-layout/editor-view-layout.component';
 import { EditorViewArticleComponent } from './extrasCopmonent/editor/editor-view-article/editor-view-article.component';
+import { ModalViewLayoutComponent } from './extrasCopmonent/editor/modal-view-layout/modal-view-layout.component';
 
 
 @NgModule({
@@ -42,6 +43,7 @@ import { EditorViewArticleComponent } from './extrasCopmonent/editor/editor-view
     EditorLayoutComponent,
     EditorViewLayoutComponent,
     EditorViewArticleComponent,
+    ModalViewLayoutComponent,
 
   ],
   imports: [
@@ -53,6 +55,7 @@ import { EditorViewArticleComponent } from './extrasCopmonent/editor/editor-view
     AppQuillModule
 
   ],
+  entryComponents: [ ModalViewLayoutComponent ],
   providers: [],
   bootstrap: [AppComponent]
 })
