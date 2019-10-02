@@ -35,26 +35,50 @@ export class EditorLayoutComponent implements OnInit {
   modulesLayout = {};
 
   toolbarOptions =
-  [
-    ['bold', 'italic'],        // toggled buttons
-    [ { header: 2 }],               // custom button values
-    [{ indent: '-1' }, { indent: '+1' }],          // outdent/indent
-    [{ direction: 'rtl' }],                         // text direction
-    [{ size: ['small', false, 'large', 'huge'] }],  // custom dropdown
-    [{ color: [] }, { background: [] }],          // dropdown with defaults from theme
-    [{ font: [] }],
-    [{ align: [] }],
-    ['clean'],
-    ['image'],
-  ];
+    [
+      ['bold', 'italic'],        // toggled buttons
+      [{ header: 2 }],               // custom button values
+      [{ indent: '-1' }, { indent: '+1' }],          // outdent/indent
+      [{ direction: 'rtl' }],                         // text direction
+      [{ size: ['small', false, 'large', 'huge'] }],  // custom dropdown
+      [{ color: [] }, { background: [] }],          // dropdown with defaults from theme
+      [{ font: [] }],
+      [{ align: [] }],
+      ['clean'],
+      ['link', 'image'],
+    ];
 
   editorLayoutStyle = {
     minHeight: '165px',
     backgroundColor: '#fff'
   };
 
+
+  imageHandler = {
+    image: () => {
+      const range = this.editorInstance.getSelection();
+      const value = prompt('What is the image URL');
+      if (value) {
+        this.editorInstance.insertEmbed(range.index, 'image', value, 'user');
+      }
+    }
+  };
+
+  ngOnInit() {
+    this.editorForm = new FormGroup({
+      layoutEditor: new FormControl(null)
+    });
+    this.modulesLayout = {
+      imageResize: {},
+      imageDrop: {},
+      toolbar: {
+        container: this.toolbarOptions,
+        // handlers: this.imageHandler
+      }
+    };
+  }
+
   created(event) {
-    // tslint:disable-next-line:no-console
     this.editorInstance = event;
     // this.editorInstance.format('align', 'right');
     // this.editorInstance.insertText(0, 'Test', {
@@ -65,14 +89,15 @@ export class EditorLayoutComponent implements OnInit {
   }
 
   changedEditor(event) {
+    // this.editor = event;
     // tslint:disable-next-line:no-console
     console.log('editor-change', event);
   }
 
   ContentChanged(event) {
     this.contentView = event.content;
-    console.log(this.contentView);
     this.editor = event;
+    console.log('Conten changed in editorLayout', this.editor);
   }
 
   focus($event) {
@@ -100,18 +125,5 @@ export class EditorLayoutComponent implements OnInit {
     console.log(this.editor);
   }
 
-
-  ngOnInit() {
-    this.editorForm = new FormGroup({
-      layoutEditor: new FormControl(null)
-    });
-    this.modulesLayout = {
-      imageResize: {},
-      imageDrop: {},
-      toolbar: {
-        container: this.toolbarOptions
-      }
-    };
-  }
 
 }

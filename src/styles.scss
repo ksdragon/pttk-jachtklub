@@ -36,3 +36,20 @@
   right:0;
 }
 
+p.pttk-editor-layout a
+{
+  text-decoration: none!important;
+  color: red!important;
+}
+
+p.pttk-editor-layout a:visited
+{
+  color: #AD4F18!important;
+}
+
+p.pttk-editor-layout a:hover
+{
+  text-decoration: underline!important;
+  color: #8D4F18!important;
+}
+

@@ -7,11 +7,11 @@ import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/co
 import { Subscription } from 'rxjs';
 import { MDBModalService, MDBModalRef } from 'angular-bootstrap-md';
 import Quill from 'quill';
-const _ = require('underscore');
+import _ from 'underscore';
 
 const Parchment = Quill.import('parchment');
-let Align = new Parchment.Attributor.Class('endtitle', 'end-title');
-Quill.register(Align);
+const PttkEditor = new Parchment.Attributor.Class('pttk-editor', 'pttk-editor');
+Quill.register(PttkEditor);
 
 @Component({
   selector: 'app-editor',
@@ -44,9 +44,9 @@ export class EditorComponent implements OnInit, OnDestroy {
     //   editor: new FormControl(null),
     //   layoutEditor: new FormControl(null)
     // });
-    let node = document.createElement('div');
+    const node = document.createElement('div');
     node.append('Czytaj');
-    Align.add(node, 'layout');
+    PttkEditor.add(node, 'layout');
     console.log(node.outerHTML);
   }
 
@@ -61,17 +61,24 @@ export class EditorComponent implements OnInit, OnDestroy {
   openModal(event) {
     event.preventDefault();
     const range = this.editorLayout.editor.editor.getLength();
-    let instanceEditor = this.editorLayout.editor.editor;
-    console.log('instanceEditor', instanceEditor);
-    const cloneEditorInstance = _.clone(instanceEditor);
-    const rangeSelected = instanceEditor.getSelection(true);
-    instanceEditor.insertText(range, 'Czytaj dalej...', {
-      color: '#AD4F18',
-      size: 'large'
-    }, 'user');
-    instanceEditor.insertEmbed(range, 'divider', true, 'user');
-    instanceEditor.formatLine(range, range, 'align', 'right'); 
-    
+    const instanceEditor = this.editorLayout.editor.editor;
+    const format = instanceEditor.getFormat(range - 5);
+    // console.log('instanceEditor in editorComponent',  instanceEditor);
+    // console.log('this.editorLayout', this.editorLayout);
+    // const cloneEditorInstance = _.clone(instanceEditor);
+    // const rangeSelected = instanceEditor.getSelection();
+    // console.log('range',  range);
+    // console.log('rangeSelected',  rangeSelected);
+    // console.log('format',  format);
+    if (!format['pttk-editor']) {
+      instanceEditor.insertText(range, 'Czytaj dalej...', {
+        size: 'large',
+        link: '#'
+      }, 'user');
+      instanceEditor.formatLine(range, range, 'pttk-editor', 'layout');
+      instanceEditor.insertEmbed(range, 'divider', true, 'user');
+      instanceEditor.formatLine(range, range, 'align', 'right');
+    }
     const modalOptions = {
       backdrop: true,
       keyboard: true,
@@ -87,7 +94,6 @@ export class EditorComponent implements OnInit, OnDestroy {
     };
     this.modalRef = this.modalService.show(ModalViewLayoutComponent,
           modalOptions );
-    console.log('options',  modalOptions);
     // this.editorLayout.editor.editor.setContents(cloneEditorInstance);
   }
 
