@@ -16,4 +16,8 @@ export class EditorViewLayoutComponent implements OnInit {
   ngOnInit() {
     console.log('editorViewLayout', this.contentView);
   }
+
+  onclick(contentView) {
+    console.log('kliknięcie', contentView);
+  }
 }

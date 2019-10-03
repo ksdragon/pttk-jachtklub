@@ -2,6 +2,7 @@ import { EditorService } from './../../extrasCopmonent/editor/editor.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ArticlePage } from 'src/app/shared/article-page.model';
+import { Delta } from 'quill';
 
 @Component({
   selector: 'app-main-page',
@@ -15,7 +16,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
   articles: ArticlePage[] = [];
   articlesLayout = [];
   layoutsViews = [];
-  quill = {
+  quill = new Delta({
     ops: [
       { insert: 'Gandalf', attributes: { bold: true } },
       { insert: ' the ' },
@@ -27,12 +28,14 @@ export class MainPageComponent implements OnInit, OnDestroy {
         link: 'https://quilljs.com'
       }}
     ]
-  };
+  });
 
+  articleElement = new ArticlePage();
 
   constructor(private editorService: EditorService) { }
   ngOnInit() {
-    console.log('OnInit quill',  this.quill);
+    this.articleElement.articleLayout.setContents(this.quill);
+    // console.log('OnInit quill',  this.quill);
     // this.subscription = this.editorService.articlesChanged.subscribe(
     //   articles => {
     //     console.log('Articles: ', articles);
@@ -41,6 +44,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
     //   }
     // );
     this.articles = this.editorService.getArticles();
+    this.articles.push(this.articleElement);
     this.articles.forEach( (a: ArticlePage) => {
       this.articlesLayout.push(a.articleLayout);
     });

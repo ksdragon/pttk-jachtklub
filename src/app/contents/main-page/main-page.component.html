@@ -1,12 +1,12 @@
 <div class="main-page">
   <app-show-case></app-show-case>
-  <div class="col-sm-8">
+  <div class="col-sm-8" >
     <div>
       <h1 id="home-title">Najnowsze Artykuły</h1>
     </div>
     <ng-container *ngIf="layoutsViews.length; else emptyViewsLayouts" >
-      <div class="editorViewLayout" *ngFor="let contentView of layoutsViews">
-        <app-editor-view-layout [contentView]="contentView"></app-editor-view-layout>
+      <div class="editorViewLayout" *ngFor="let contentView of articles">
+        <app-editor-view-layout [contentView]="contentView.articleLayout"></app-editor-view-layout>
       </div>
     </ng-container>
     <ng-template #emptyViewsLayouts>
@@ -14,3 +14,6 @@
     </ng-template>
   </div>
 </div>
+<ng-template #editorViewAarticle>
+  <app-editor-view-article ></app-editor-view-article>
+</ng-template>
