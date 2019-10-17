@@ -16,7 +16,9 @@ export class MainPageComponent implements OnInit, OnDestroy {
   articles: ArticlePage[] = [];
   articlesLayout = [];
   layoutsViews = [];
-  quill = new Delta({
+  article;
+
+  quill = {
     ops: [
       { insert: 'Gandalf', attributes: { bold: true } },
       { insert: ' the ' },
@@ -25,16 +27,15 @@ export class MainPageComponent implements OnInit, OnDestroy {
         image: '../../../assets/images/test/01.jpg'
       },
       attributes: {
-        link: 'https://quilljs.com'
+        // link: 'https://quilljs.com'
       }}
     ]
-  });
+  };
 
   articleElement = new ArticlePage();
 
   constructor(private editorService: EditorService) { }
   ngOnInit() {
-    this.articleElement.articleLayout.setContents(this.quill);
     // console.log('OnInit quill',  this.quill);
     // this.subscription = this.editorService.articlesChanged.subscribe(
     //   articles => {
@@ -44,7 +45,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
     //   }
     // );
     this.articles = this.editorService.getArticles();
-    this.articles.push(this.articleElement);
+    // this.articles.push(this.articleElement);
     this.articles.forEach( (a: ArticlePage) => {
       this.articlesLayout.push(a.articleLayout);
     });

@@ -1,3 +1,4 @@
+import { ArticlePage } from './../../../shared/article-page.model';
 import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 
 
@@ -10,6 +11,7 @@ import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 export class EditorViewLayoutComponent implements OnInit {
 
   @Input() contentView;
+  @Input() article: ArticlePage;
 
   constructor() { }
 
@@ -18,6 +20,8 @@ export class EditorViewLayoutComponent implements OnInit {
   }
 
   onclick(contentView) {
-    console.log('kliknięcie', contentView);
+    console.log('id', this.article.id);
+    console.log('id', this.article.articleLayout);
+
   }
 }

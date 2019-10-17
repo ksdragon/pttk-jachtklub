@@ -4,9 +4,10 @@
     <div>
       <h1 id="home-title">Najnowsze Artykuły</h1>
     </div>
-    <ng-container *ngIf="layoutsViews.length; else emptyViewsLayouts" >
-      <div class="editorViewLayout" *ngFor="let contentView of articles">
-        <app-editor-view-layout [contentView]="contentView.articleLayout"></app-editor-view-layout>
+    <ng-container *ngIf="articles.length; else emptyViewsLayouts" >
+      <!-- <div class="editorViewLayout" *ngFor="let contentView of layoutsViews | reverse; let i = index"> -->
+      <div class="editorViewLayout" *ngFor="let article of articles | reverse; let i = index">
+        <app-editor-view-layout [contentView]="article.articleLayout.content" [article]="article"></app-editor-view-layout>
       </div>
     </ng-container>
     <ng-template #emptyViewsLayouts>

@@ -1,3 +1,4 @@
+import { EditorViewArticleComponent } from './extrasCopmonent/editor/editor-view-article/editor-view-article.component';
 import { ArticleTemplateComponent } from './contents/article-template/article-template.component';
 import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
 import { AboutAsPageComponent } from './contents/about-as-page/about-as-page.component';
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: 'o-nas', component: AboutAsPageComponent },
   { path: 'port', component: DockPageComponent },
   { path: 'edytor', component: ArticleTemplateComponent },
+  { path: 'article', component: EditorViewArticleComponent },
   { path: 'not-found', component: PageNotFoundComponent },
   { path: '**', redirectTo: '/not-found' },
 ];

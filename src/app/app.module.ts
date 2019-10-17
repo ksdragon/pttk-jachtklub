@@ -1,5 +1,6 @@
 import { EditorLayoutComponent } from './extrasCopmonent/editor/editor-layout/editor-layout.component';
 import { EditorPageComponent } from './extrasCopmonent/editor/editor-page/editor-page.component';
+import {NgPipesModule} from 'ngx-pipes';
 
 import { EditorComponent } from './extrasCopmonent/editor/editor.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -52,7 +53,8 @@ import { ModalViewLayoutComponent } from './extrasCopmonent/editor/modal-view-la
     ReactiveFormsModule,
     MDBBootstrapModule.forRoot(),
     AppRoutingModule,
-    AppQuillModule
+    AppQuillModule,
+    NgPipesModule
 
   ],
   entryComponents: [ ModalViewLayoutComponent ],

@@ -1,5 +1,4 @@
-import { ArticlePage } from 'src/app/shared/article-page.model';
-
+import { ArticlePage } from './../../shared/article-page.model';
 import { Injectable } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 
@@ -11,10 +10,9 @@ export class EditorService {
   articlesChanged = new Subject<ArticlePage[]>();
   private articles: ArticlePage[] = [];
 
-
   // articleAboutUs: ArticlePage = {id: 1, category: ['Nawigacja']};
 
-  constructor() { }
+  constructor() {}
 
   setArticles(articles: ArticlePage[]) {
     this.articles = articles;

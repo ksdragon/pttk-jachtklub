@@ -24,6 +24,7 @@ export class EditorComponent implements OnInit, OnDestroy {
   @ViewChild('appEditorPage', {static: false}) editorPage?;
   editorForm: FormGroup;
   contentView;
+  id = 0;
   // editorLayout: FormGroup;
 
   constructor( private editorService: EditorService,
@@ -101,10 +102,12 @@ export class EditorComponent implements OnInit, OnDestroy {
     const article = new ArticlePage();
     article.articleLayout = this.editorLayout.editor;
     article.articlePage = this.editorPage.editor;
+    article.id = this.id;
     console.log('Editor Component onSubmit');
     console.log(this.editorLayout.editor.content);
     console.log(this.editorPage.editor.content);
     this.editorService.addArticle(article);
+    this.id++;
   }
 
   ngOnDestroy(): void {
