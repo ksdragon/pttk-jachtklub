@@ -39,16 +39,18 @@ export class EditorComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.editorForm = new FormGroup({
       editor: new FormControl(null),
-      // layoutEditor: new FormControl(null)
     });
-    // this.editorLayout = new FormGroup({
-    //   editor: new FormControl(null),
-    //   layoutEditor: new FormControl(null)
-    // });
-    const node = document.createElement('div');
-    node.append('Czytaj');
-    PttkEditor.add(node, 'layout');
-    console.log(node.outerHTML);
+    const articles = this.editorService.getArticles();
+    if (articles.length > 0) {
+      const art = articles[articles.length - 1];
+      this.id = art.id + 1;
+      // console.log('id', art.id);
+    }
+
+    // const node = document.createElement('div');
+    // node.append('Czytaj');
+    // PttkEditor.add(node, 'layout');
+    // console.log(node.outerHTML);
   }
 
   onClickView(event) {
