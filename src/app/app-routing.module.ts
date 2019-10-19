@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'o-nas', component: AboutAsPageComponent },
   { path: 'port', component: DockPageComponent },
   { path: 'edytor', component: ArticleTemplateComponent },
-  { path: 'article', component: EditorViewArticleComponent },
+  { path: 'article/:id', component: EditorViewArticleComponent },
   { path: 'not-found', component: PageNotFoundComponent },
   { path: '**', redirectTo: '/not-found' },
 ];

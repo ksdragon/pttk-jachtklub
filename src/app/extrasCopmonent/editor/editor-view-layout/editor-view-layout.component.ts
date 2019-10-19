@@ -1,5 +1,7 @@
 import { ArticlePage } from './../../../shared/article-page.model';
 import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
+import Quill from 'quill';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -13,15 +15,17 @@ export class EditorViewLayoutComponent implements OnInit {
   @Input() contentView;
   @Input() article: ArticlePage;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
     console.log('editorViewLayout', this.contentView);
   }
 
-  onclick(contentView) {
-    console.log('id', this.article.id);
-    console.log('id', this.article.articleLayout);
+  onclick() {
+    // const articlePage: any = this.article.articlePage;
+    this.router.navigate(['/article', this.article.id]);
+    // console.log('id', this.article.id);
+    // console.log('id', articlePage.editor);
 
   }
 }

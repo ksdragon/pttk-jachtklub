@@ -1,4 +1,6 @@
+import { EditorService } from './../editor.service';
 import { Component, OnInit, Input } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-editor-view-article',
@@ -7,11 +9,21 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class EditorViewArticleComponent implements OnInit {
 
-  @Input() contentView;
+ contentView;
 
-  constructor() { }
+  constructor(private route: ActivatedRoute,
+              private editorService: EditorService) { }
 
   ngOnInit() {
+    const id = +this.route.snapshot.params.id;
+    const article: any = this.editorService.getArticle(id).articlePage;
+    this.contentView = article.content;
+    console.log(id);
+    this.route.params.subscribe((params: Params) => {
+      const art: any = this.editorService.getArticle(+params.id).articlePage;
+      this.contentView = art.content;
+      console.log(+params.id);
+    });
   }
 
 }

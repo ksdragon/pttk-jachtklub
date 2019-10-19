@@ -46,15 +46,15 @@ export class MainPageComponent implements OnInit, OnDestroy {
     // );
     this.articles = this.editorService.getArticles();
     // this.articles.push(this.articleElement);
-    this.articles.forEach( (a: ArticlePage) => {
-      this.articlesLayout.push(a.articleLayout);
-    });
-    console.log('OnInit articlesLayout',  this.articlesLayout);
-    this.articlesLayout.forEach(q => {
-      this.layoutsViews.push(q.content);
-    });
-    this.layoutsViews.push(this.quill);
-    console.log('OnInit layoutsViews',  this.layoutsViews);
+    // this.articles.forEach( (a: ArticlePage) => {
+    //   this.articlesLayout.push(a.articleLayout);
+    // });
+    // console.log('OnInit articlesLayout',  this.articlesLayout);
+    // this.articlesLayout.forEach(q => {
+    //   this.layoutsViews.push(q.content);
+    // });
+    // this.layoutsViews.push(this.quill);
+    // console.log('OnInit layoutsViews',  this.layoutsViews);
   }
 
   ngOnDestroy(): void {
