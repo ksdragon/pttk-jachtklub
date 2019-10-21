@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 export class EditorViewLayoutComponent implements OnInit {
 
   @Input() contentView;
-  @Input() article: ArticlePage;
+  @Input() id: number;
 
   constructor(private router: Router) { }
 
@@ -22,10 +22,6 @@ export class EditorViewLayoutComponent implements OnInit {
   }
 
   onclick() {
-    // const articlePage: any = this.article.articlePage;
-    this.router.navigate(['/article', this.article.id]);
-    // console.log('id', this.article.id);
-    // console.log('id', articlePage.editor);
-
+    this.router.navigate(['/article', this.id]);
   }
 }

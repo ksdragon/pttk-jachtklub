@@ -24,7 +24,7 @@ import { AppQuillModule } from './app-quill.module';
 import { EditorViewLayoutComponent } from './extrasCopmonent/editor/editor-view-layout/editor-view-layout.component';
 import { EditorViewArticleComponent } from './extrasCopmonent/editor/editor-view-article/editor-view-article.component';
 import { ModalViewLayoutComponent } from './extrasCopmonent/editor/modal-view-layout/modal-view-layout.component';
-
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -50,6 +50,7 @@ import { ModalViewLayoutComponent } from './extrasCopmonent/editor/modal-view-la
   imports: [
     BrowserModule,
     FormsModule,
+    HttpClientModule,
     ReactiveFormsModule,
     MDBBootstrapModule.forRoot(),
     AppRoutingModule,

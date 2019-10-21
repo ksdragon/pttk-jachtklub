@@ -3,6 +3,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ArticlePage } from 'src/app/shared/article-page.model';
 import { Delta } from 'quill';
+import { DataStorage } from 'src/app/shared/data-storage.service';
 
 @Component({
   selector: 'app-main-page',
@@ -34,7 +35,17 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
   articleElement = new ArticlePage();
 
-  constructor(private editorService: EditorService) { }
+  constructor(private editorService: EditorService,
+              private dataStorage: DataStorage) { }
+
+  onStorageArticles() {
+    this.dataStorage.storeArticle();
+  }
+
+  onFetchArticles() {
+    this.dataStorage.fetchAriticles();
+  }
+
   ngOnInit() {
     // console.log('OnInit quill',  this.quill);
     // this.subscription = this.editorService.articlesChanged.subscribe(
