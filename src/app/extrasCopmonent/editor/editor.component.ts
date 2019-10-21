@@ -102,8 +102,8 @@ export class EditorComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     const article = new ArticlePage();
-    article.articleLayout = this.editorLayout.editor;
-    article.articlePage = this.editorPage.editor;
+    article.articleLayout = this.editorLayout.editor.content;
+    article.articlePage = this.editorPage.editor.content;
     article.id = this.id;
     console.log('Editor Component onSubmit');
     console.log(this.editorLayout.editor.content);

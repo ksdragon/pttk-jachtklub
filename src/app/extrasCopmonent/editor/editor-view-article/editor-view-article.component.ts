@@ -17,11 +17,11 @@ export class EditorViewArticleComponent implements OnInit {
   ngOnInit() {
     const id = +this.route.snapshot.params.id;
     const article: any = this.editorService.getArticle(id).articlePage;
-    this.contentView = article.content;
+    this.contentView = article;
     console.log(id);
     this.route.params.subscribe((params: Params) => {
-      const art: any = this.editorService.getArticle(+params.id).articlePage;
-      this.contentView = art.content;
+      const content: any = this.editorService.getArticle(+params.id).articlePage;
+      this.contentView = content;
       console.log(+params.id);
     });
   }

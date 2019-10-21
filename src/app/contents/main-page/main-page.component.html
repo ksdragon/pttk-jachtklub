@@ -9,7 +9,7 @@
     <ng-container *ngIf="articles.length; else emptyViewsLayouts" >
       <!-- <div class="editorViewLayout" *ngFor="let contentView of layoutsViews | reverse; let i = index"> -->
       <div class="editorViewLayout" *ngFor="let article of articles | reverse; let i = index">
-        <app-editor-view-layout [contentView]="article.articleLayout.content" [id]="article.id"></app-editor-view-layout>
+        <app-editor-view-layout [contentView]="article.articleLayout" [id]="article.id"></app-editor-view-layout>
       </div>
     </ng-container>
     <ng-template #emptyViewsLayouts>

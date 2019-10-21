@@ -44,6 +44,8 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
   onFetchArticles() {
     this.dataStorage.fetchAriticles();
+    // this.articles = this.dataStorage.articles;
+    // console.log(this.articles);
   }
 
   ngOnInit() {
