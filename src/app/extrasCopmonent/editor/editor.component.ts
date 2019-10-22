@@ -1,3 +1,4 @@
+import { DataStorage } from 'src/app/shared/data-storage.service';
 import { ModalViewLayoutComponent } from './modal-view-layout/modal-view-layout.component';
 import { EditorService } from './editor.service';
 import { ArticlePage } from './../../shared/article-page.model';
@@ -28,7 +29,8 @@ export class EditorComponent implements OnInit, OnDestroy {
   // editorLayout: FormGroup;
 
   constructor( private editorService: EditorService,
-               private modalService: MDBModalService  ) {
+               private modalService: MDBModalService,
+               private dataStorage: DataStorage  ) {
   }
 
 
@@ -110,6 +112,7 @@ export class EditorComponent implements OnInit, OnDestroy {
     console.log(this.editorPage.editor.content);
     this.editorService.addArticle(article);
     this.id++;
+    this.dataStorage.storeArticle();
   }
 
   ngOnDestroy(): void {

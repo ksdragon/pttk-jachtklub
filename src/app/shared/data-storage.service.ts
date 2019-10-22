@@ -1,7 +1,9 @@
-import { ArticlePage } from 'src/app/shared/article-page.model';
+import { ArticlePage } from './article-page.model';
 import { EditorService } from './../extrasCopmonent/editor/editor.service';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
+import { ThrowStmt } from '@angular/compiler';
 
 @Injectable({providedIn: 'root'})
 export class DataStorage {
@@ -22,8 +24,10 @@ export class DataStorage {
   }
 
   fetchAriticles() {
-    this.http.get<ArticlePage[]>('https://pttk-22f5f.firebaseio.com/articles.json').subscribe(
-      (articles) => {
+    this.http.get<ArticlePage[]>('https://pttk-22f5f.firebaseio.com/articles.json')
+      .subscribe(
+      (articles: ArticlePage[]) => {
+        this.editorService.setArticles(articles);
         // this.articles = articles;
         console.log(articles);
       });

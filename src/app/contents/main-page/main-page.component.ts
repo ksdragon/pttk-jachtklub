@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { ArticlePage } from 'src/app/shared/article-page.model';
 import { Delta } from 'quill';
 import { DataStorage } from 'src/app/shared/data-storage.service';
+import { TouchSequence } from 'selenium-webdriver';
 
 @Component({
   selector: 'app-main-page',
@@ -18,6 +19,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
   articlesLayout = [];
   layoutsViews = [];
   article;
+  isFetching = false;
 
   quill = {
     ops: [
@@ -43,12 +45,16 @@ export class MainPageComponent implements OnInit, OnDestroy {
   }
 
   onFetchArticles() {
-    this.dataStorage.fetchAriticles();
-    // this.articles = this.dataStorage.articles;
+    this.articles = this.dataStorage.articles;
     // console.log(this.articles);
   }
 
   ngOnInit() {
+    this.isFetching = true;
+    this.dataStorage.fetchAriticles();
+    this.editorService.articlesChanged.subscribe((articles: ArticlePage[]) => {
+      this.articles = articles;
+    });
     // console.log('OnInit quill',  this.quill);
     // this.subscription = this.editorService.articlesChanged.subscribe(
     //   articles => {
@@ -57,7 +63,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
     //     //articles.forEach(a => this.articlesLayout.push(a.articleLayout));
     //   }
     // );
-    this.articles = this.editorService.getArticles();
+          // this.articles = this.editorService.getArticles();
     // this.articles.push(this.articleElement);
     // this.articles.forEach( (a: ArticlePage) => {
     //   this.articlesLayout.push(a.articleLayout);
@@ -68,6 +74,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
     // });
     // this.layoutsViews.push(this.quill);
     // console.log('OnInit layoutsViews',  this.layoutsViews);
+    this.isFetching = false;
   }
 
   ngOnDestroy(): void {

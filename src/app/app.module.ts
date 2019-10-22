@@ -25,6 +25,7 @@ import { EditorViewLayoutComponent } from './extrasCopmonent/editor/editor-view-
 import { EditorViewArticleComponent } from './extrasCopmonent/editor/editor-view-article/editor-view-article.component';
 import { ModalViewLayoutComponent } from './extrasCopmonent/editor/modal-view-layout/modal-view-layout.component';
 import { HttpClientModule } from '@angular/common/http';
+import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { HttpClientModule } from '@angular/common/http';
     EditorViewLayoutComponent,
     EditorViewArticleComponent,
     ModalViewLayoutComponent,
+    LoadingSpinnerComponent,
 
   ],
   imports: [

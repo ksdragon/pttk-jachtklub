@@ -1,19 +1,23 @@
 <div class="main-page">
   <app-show-case></app-show-case>
+  <div class="col-sm-12" *ngIf="articles.length && !isFetching; else emptyViewsLayouts">
   <div class="col-sm-8" >
     <button class="btn btn-primary" (click)="onStorageArticles($event)" >Save</button>
     <button class="btn btn-primary" (click)="onFetchArticles($event)" >Fetch</button>
     <div>
       <h1 id="home-title">Najnowsze Artykuły</h1>
     </div>
-    <ng-container *ngIf="articles.length; else emptyViewsLayouts" >
+    <ng-container *ngIf="articles.length && !isFetching; else emptyViewsLayouts" >
       <!-- <div class="editorViewLayout" *ngFor="let contentView of layoutsViews | reverse; let i = index"> -->
       <div class="editorViewLayout" *ngFor="let article of articles | reverse; let i = index">
         <app-editor-view-layout [contentView]="article.articleLayout" [id]="article.id"></app-editor-view-layout>
       </div>
     </ng-container>
-    <ng-template #emptyViewsLayouts>
-      <h1>Brak artykułów</h1>
-    </ng-template>
-  </div>
+</div>
+</div>
+<ng-template #emptyViewsLayouts>
+    <div class="col-sm-12 mt-5 text-center">
+      <app-loading-spinner></app-loading-spinner>
+    </div>
+</ng-template>
 </div>
