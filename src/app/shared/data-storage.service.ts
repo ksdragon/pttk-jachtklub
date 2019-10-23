@@ -15,7 +15,6 @@ export class DataStorage {
 
   storeArticle() {
     const articles = this.editorService.getArticles();
-    // const atr = articles[0].articlePage.content;
     this.http.put('https://pttk-22f5f.firebaseio.com/articles.json', articles).subscribe(
       response => {
         console.log(response);
@@ -23,13 +22,14 @@ export class DataStorage {
     );
   }
 
+  // lepiej użyć return i subskrybować tam gdzie jest potrzebne.
   fetchAriticles() {
-    this.http.get<ArticlePage[]>('https://pttk-22f5f.firebaseio.com/articles.json')
-      .subscribe(
-      (articles: ArticlePage[]) => {
-        this.editorService.setArticles(articles);
-        // this.articles = articles;
-        console.log(articles);
-      });
+    return this.http.get<ArticlePage[]>('https://pttk-22f5f.firebaseio.com/articles.json');
+      // .subscribe(
+      // (articles: ArticlePage[]) => {
+      //   this.editorService.setArticles(articles);
+      //   // this.articles = articles;
+      //   console.log(articles);
+      // });
   }
 }

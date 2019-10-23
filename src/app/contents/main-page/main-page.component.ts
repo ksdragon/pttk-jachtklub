@@ -51,7 +51,14 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.isFetching = true;
-    this.dataStorage.fetchAriticles();
+    if (this.articles.length < 1) {this.dataStorage.fetchAriticles()
+      .subscribe(
+      (articles: ArticlePage[]) => {
+        this.editorService.setArticles(articles);
+        // this.articles = articles;
+        console.log(articles);
+      });
+    }
     this.editorService.articlesChanged.subscribe((articles: ArticlePage[]) => {
       this.articles = articles;
     });

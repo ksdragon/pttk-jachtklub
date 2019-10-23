@@ -65,25 +65,7 @@ export class EditorComponent implements OnInit, OnDestroy {
   */
   openModal(event) {
     event.preventDefault();
-    const range = this.editorLayout.editor.editor.getLength();
-    const instanceEditor = this.editorLayout.editor.editor;
-    const format = instanceEditor.getFormat(range - 5);
-    // console.log('instanceEditor in editorComponent',  instanceEditor);
-    // console.log('this.editorLayout', this.editorLayout);
-    // const cloneEditorInstance = _.clone(instanceEditor);
-    // const rangeSelected = instanceEditor.getSelection();
-    // console.log('range',  range);
-    // console.log('rangeSelected',  rangeSelected);
-    // console.log('format',  format);
-    if (!format['pttk-editor']) {
-      instanceEditor.insertText(range, 'Czytaj dalej...', {
-        size: 'large',
-        link: '#'
-      }, 'user');
-      instanceEditor.formatLine(range, range, 'pttk-editor', 'layout');
-      instanceEditor.insertEmbed(range, 'divider', true, 'user');
-      instanceEditor.formatLine(range, range, 'align', 'right');
-    }
+    this.changeQuillEditor();
     const modalOptions = {
       backdrop: true,
       keyboard: true,
@@ -102,7 +84,28 @@ export class EditorComponent implements OnInit, OnDestroy {
     // this.editorLayout.editor.editor.setContents(cloneEditorInstance);
   }
 
+  private changeQuillEditor() {
+    let range = this.editorLayout.editor.editor.getLength();
+    const instanceEditorLayout = this.editorLayout.editor.editor;
+    const instanceEditorPage: Quill = this.editorPage.editor.editor;
+    const firstParagraph = instanceEditorPage.getText(0, 168);
+    console.log('firstParagraph', firstParagraph);
+    const format = instanceEditorLayout.getFormat(range - 5);
+    if (!format['pttk-editor']) {
+      instanceEditorLayout.insertText(range, firstParagraph + '...', 'user');
+      range = this.editorLayout.editor.editor.getLength();
+      instanceEditorLayout.insertText(range, 'Czytaj dalej...', {
+        size: 'large',
+        link: '#'
+      }, 'user');
+      instanceEditorLayout.formatLine(range, range, 'pttk-editor', 'layout');
+      instanceEditorLayout.insertEmbed(range, 'divider', true, 'user');
+      instanceEditorLayout.formatLine(range, range, 'align', 'right');
+    }
+  }
+
   onSubmit() {
+    this.changeQuillEditor();
     const article = new ArticlePage();
     article.articleLayout = this.editorLayout.editor.content;
     article.articlePage = this.editorPage.editor.content;

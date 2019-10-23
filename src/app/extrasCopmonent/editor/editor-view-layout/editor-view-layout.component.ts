@@ -1,6 +1,4 @@
-import { ArticlePage } from './../../../shared/article-page.model';
 import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
-import Quill from 'quill';
 import { Router } from '@angular/router';
 
 
