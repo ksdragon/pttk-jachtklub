@@ -26,6 +26,7 @@ export class EditorComponent implements OnInit, OnDestroy {
   editorForm: FormGroup;
   contentView;
   id = 0;
+  isModal = false;
   // editorLayout: FormGroup;
 
   constructor( private editorService: EditorService,
@@ -63,9 +64,10 @@ export class EditorComponent implements OnInit, OnDestroy {
   /* service for modal window
     date: object Delta from Quill editor
   */
-  openModal(event) {
+  openModalLayout(event) {
     event.preventDefault();
-    this.changeQuillEditor();
+    this.isModal = true;
+    this.changeQuillEditor(this.isModal);
     const modalOptions = {
       backdrop: true,
       keyboard: true,
@@ -84,12 +86,14 @@ export class EditorComponent implements OnInit, OnDestroy {
     // this.editorLayout.editor.editor.setContents(cloneEditorInstance);
   }
 
-  private changeQuillEditor() {
+  private changeQuillEditor(isModal: boolean) {
     let range = this.editorLayout.editor.editor.getLength();
     const instanceEditorLayout = this.editorLayout.editor.editor;
     const instanceEditorPage = this.editorPage.editor.editor;
-    const clone = cloneDeep(instanceEditorPage);
-    console.log('clone', instanceEditorPage === clone);
+    // if (isModal) {
+    //   instanceEditorPage = cloneDeep(instanceEditorPage);
+    //   instanceEditorLayout = cloneDeep(instanceEditorLayout);
+    // }
     const firstParagraph = instanceEditorPage.getText(0, 168);
     console.log('firstParagraph', firstParagraph);
     const format = instanceEditorLayout.getFormat(range - 5);
@@ -107,7 +111,8 @@ export class EditorComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    this.changeQuillEditor();
+    this.isModal = false;
+    this.changeQuillEditor(this.isModal);
     const article = new ArticlePage();
     article.articleLayout = this.editorLayout.editor.content;
     article.articlePage = this.editorPage.editor.content;
