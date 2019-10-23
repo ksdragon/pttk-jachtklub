@@ -8,7 +8,7 @@ import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/co
 import { Subscription } from 'rxjs';
 import { MDBModalService, MDBModalRef } from 'angular-bootstrap-md';
 import Quill from 'quill';
-import _ from 'underscore';
+import * as cloneDeep from 'lodash/cloneDeep';
 
 const Parchment = Quill.import('parchment');
 const PttkEditor = new Parchment.Attributor.Class('pttk-editor', 'pttk-editor');
@@ -87,7 +87,9 @@ export class EditorComponent implements OnInit, OnDestroy {
   private changeQuillEditor() {
     let range = this.editorLayout.editor.editor.getLength();
     const instanceEditorLayout = this.editorLayout.editor.editor;
-    const instanceEditorPage: Quill = this.editorPage.editor.editor;
+    const instanceEditorPage = this.editorPage.editor.editor;
+    const clone = cloneDeep(instanceEditorPage);
+    console.log('clone', instanceEditorPage === clone);
     const firstParagraph = instanceEditorPage.getText(0, 168);
     console.log('firstParagraph', firstParagraph);
     const format = instanceEditorLayout.getFormat(range - 5);
@@ -96,7 +98,7 @@ export class EditorComponent implements OnInit, OnDestroy {
       range = this.editorLayout.editor.editor.getLength();
       instanceEditorLayout.insertText(range, 'Czytaj dalej...', {
         size: 'large',
-        link: '#'
+        link: '/article/' + this.id
       }, 'user');
       instanceEditorLayout.formatLine(range, range, 'pttk-editor', 'layout');
       instanceEditorLayout.insertEmbed(range, 'divider', true, 'user');
@@ -110,9 +112,11 @@ export class EditorComponent implements OnInit, OnDestroy {
     article.articleLayout = this.editorLayout.editor.content;
     article.articlePage = this.editorPage.editor.content;
     article.id = this.id;
-    console.log('Editor Component onSubmit');
-    console.log(this.editorLayout.editor.content);
-    console.log(this.editorPage.editor.content);
+    article.header =  this.editorLayout.editor.editor.getText(0, 255);
+    article.createDate = new Date('dd:mm:yyyy');
+    console.log(article.createDate);
+    // console.log(this.editorLayout.editor.content);
+    // console.log(this.editorPage.editor.content);
     this.editorService.addArticle(article);
     this.id++;
     this.dataStorage.storeArticle();
@@ -122,4 +126,28 @@ export class EditorComponent implements OnInit, OnDestroy {
     // this.subscription.unsubscribe();
   }
 
+//  deep<T>(value: T): T {
+//     if (typeof value !== 'object' || value === null) {
+//       return value;
+//     }
+//     if (Array.isArray(value)) {
+//       return this.deepArray(value);
+//     }
+//     return this.deepObject(value);
+//    }
+
+//  deepObject<T>(source: T) {
+//     const result = {};
+//     Object.keys(source).forEach((key) => {
+//       const value = source[key];
+//       result[key] = this.deep(value);
+//     }, {});
+//     return result as T;
+//    }
+
+//    deepArray<T extends any[]>(collection: T) {
+//     return collection.map((value) => {
+//       return this.deep(value);
+//     });
+//    }
 }

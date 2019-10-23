@@ -1,3 +1,4 @@
+import { ArticlePage } from 'src/app/shared/article-page.model';
 import { EditorService } from './../editor.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
@@ -10,18 +11,19 @@ import { ActivatedRoute, Params } from '@angular/router';
 export class EditorViewArticleComponent implements OnInit {
 
  contentView;
+ article: ArticlePage;
 
   constructor(private route: ActivatedRoute,
               private editorService: EditorService) { }
 
   ngOnInit() {
     const id = +this.route.snapshot.params.id;
-    const article: any = this.editorService.getArticle(id).articlePage;
-    this.contentView = article;
+    this.article = this.editorService.getArticle(id);
+    this.contentView = this.article.articlePage;
     console.log(id);
     this.route.params.subscribe((params: Params) => {
-      const content: any = this.editorService.getArticle(+params.id).articlePage;
-      this.contentView = content;
+      this.article = this.editorService.getArticle(+params.id);
+      this.contentView = this.article.articlePage;
       console.log(+params.id);
     });
   }
