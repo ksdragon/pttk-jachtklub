@@ -44,6 +44,7 @@
     "quill-blot-formatter": "^1.0.5",
     "quill-delta": "^4.2.1",
     "quill-emoji": "^0.1.7",
+    "quill-image-compress": "^1.0.1",
     "quill-image-drop-and-paste": "^1.0.4",
     "quill-image-resize": "^3.0.9",
     "quill-mention": "^2.1.4",

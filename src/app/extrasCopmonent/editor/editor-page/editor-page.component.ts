@@ -17,6 +17,9 @@ Quill.register('modules/emoij', Emoij);
 
 Quill.register('modules/counter', Counter);
 
+import ImageCompress from 'quill-image-compress';
+Quill.register('modules/imageCompress', ImageCompress);
+
 const font = Quill.import('formats/font');
 // We do not add Aref Ruqaa since it is the default
 font.whitelist = ['mirza', 'roboto', 'aref', 'serif', 'sansserif', 'monospace'];
@@ -135,6 +138,7 @@ export class EditorPageComponent implements OnInit, AfterViewInit {
 
   handlerOptions = {
     'span-block': () => {
+      // Save current cursor state
       const range = this.editorInstance.getSelection();
       const format = this.editorInstance.getFormat(range);
       console.log(range);

@@ -21,17 +21,19 @@ Quill.register(PttkEditor);
 })
 export class EditorComponent implements OnInit, OnDestroy {
 
-  @ViewChild('appEditorLayout', {static: false}) editorLayout?;
-  @ViewChild('appEditorPage', {static: false}) editorPage?;
+  @ViewChild('appEditorLayout', { static: false }) editorLayout?;
+  @ViewChild('appEditorPage', { static: false }) editorPage?;
+  editorLayoutModal;
+  editorPageModal;
   editorForm: FormGroup;
   contentView;
   id = 0;
   isModal = false;
   // editorLayout: FormGroup;
 
-  constructor( private editorService: EditorService,
-               private modalService: MDBModalService,
-               private dataStorage: DataStorage  ) {
+  constructor(private editorService: EditorService,
+    private modalService: MDBModalService,
+    private dataStorage: DataStorage) {
   }
 
 
@@ -79,27 +81,53 @@ export class EditorComponent implements OnInit, OnDestroy {
       animated: true,
       data: {
         heading: 'Modal heading',
-        content: this.editorLayout.editor }
+        content: this.editorLayout.editor
+      }
     };
     this.modalRef = this.modalService.show(ModalViewLayoutComponent,
-          modalOptions );
+      modalOptions);
     // this.editorLayout.editor.editor.setContents(cloneEditorInstance);
   }
 
   private changeQuillEditor(isModal: boolean) {
-    let range = this.editorLayout.editor.editor.getLength();
     const instanceEditorLayout = this.editorLayout.editor.editor;
     const instanceEditorPage = this.editorPage.editor.editor;
-    // if (isModal) {
-    //   instanceEditorPage = cloneDeep(instanceEditorPage);
-    //   instanceEditorLayout = cloneDeep(instanceEditorLayout);
-    // }
+    let range = instanceEditorLayout.getLength();
     const firstParagraph = instanceEditorPage.getText(0, 168);
     console.log('firstParagraph', firstParagraph);
     const format = instanceEditorLayout.getFormat(range - 5);
     if (!format['pttk-editor']) {
       instanceEditorLayout.insertText(range, firstParagraph + '...', 'user');
-      range = this.editorLayout.editor.editor.getLength();
+      range = instanceEditorLayout.getLength();
+      instanceEditorLayout.insertText(range, 'Czytaj dalej...', {
+        size: 'large',
+        link: '/article/' + this.id
+      }, 'user');
+      instanceEditorLayout.formatLine(range, range, 'pttk-editor', 'layout');
+      instanceEditorLayout.insertEmbed(range, 'divider', true, 'user');
+      instanceEditorLayout.formatLine(range, range, 'align', 'right');
+    }
+  }
+
+  private changeQuillEditor1(isModal: boolean) {
+    let instanceEditorLayout;
+    let instanceEditorPage;
+    if (isModal) {
+      this.editorLayoutModal = cloneDeep(this.editorLayout);
+      this.editorPageModal = cloneDeep(this.editorPage);
+      instanceEditorPage = this.editorPageModal.editor.editor;
+      instanceEditorLayout = this.editorLayoutModal.editor.editor;
+    } else {
+      instanceEditorLayout = this.editorLayout.editor.editor;
+      instanceEditorPage = this.editorPage.editor.editor;
+    }
+    let range = instanceEditorLayout.getLength();
+    const firstParagraph = instanceEditorPage.getText(0, 168);
+    console.log('firstParagraph', firstParagraph);
+    const format = instanceEditorLayout.getFormat(range - 5);
+    if (!format['pttk-editor']) {
+      instanceEditorLayout.insertText(range, firstParagraph + '...', 'user');
+      range = instanceEditorLayout.getLength();
       instanceEditorLayout.insertText(range, 'Czytaj dalej...', {
         size: 'large',
         link: '/article/' + this.id
@@ -112,12 +140,12 @@ export class EditorComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     this.isModal = false;
-    this.changeQuillEditor(this.isModal);
+    this.changeQuillEditor1(this.isModal);
     const article = new ArticlePage();
     article.articleLayout = this.editorLayout.editor.content;
     article.articlePage = this.editorPage.editor.content;
     article.id = this.id;
-    article.header =  this.editorLayout.editor.editor.getText(0, 255);
+    article.header = this.editorLayout.editor.editor.getText(0, 255);
     article.createDate = new Date('dd:mm:yyyy');
     console.log(article.createDate);
     // console.log(this.editorLayout.editor.content);
@@ -131,28 +159,28 @@ export class EditorComponent implements OnInit, OnDestroy {
     // this.subscription.unsubscribe();
   }
 
-//  deep<T>(value: T): T {
-//     if (typeof value !== 'object' || value === null) {
-//       return value;
-//     }
-//     if (Array.isArray(value)) {
-//       return this.deepArray(value);
-//     }
-//     return this.deepObject(value);
-//    }
+  //  deep<T>(value: T): T {
+  //     if (typeof value !== 'object' || value === null) {
+  //       return value;
+  //     }
+  //     if (Array.isArray(value)) {
+  //       return this.deepArray(value);
+  //     }
+  //     return this.deepObject(value);
+  //    }
 
-//  deepObject<T>(source: T) {
-//     const result = {};
-//     Object.keys(source).forEach((key) => {
-//       const value = source[key];
-//       result[key] = this.deep(value);
-//     }, {});
-//     return result as T;
-//    }
+  //  deepObject<T>(source: T) {
+  //     const result = {};
+  //     Object.keys(source).forEach((key) => {
+  //       const value = source[key];
+  //       result[key] = this.deep(value);
+  //     }, {});
+  //     return result as T;
+  //    }
 
-//    deepArray<T extends any[]>(collection: T) {
-//     return collection.map((value) => {
-//       return this.deep(value);
-//     });
-//    }
+  //    deepArray<T extends any[]>(collection: T) {
+  //     return collection.map((value) => {
+  //       return this.deep(value);
+  //     });
+  //    }
 }
