@@ -32,8 +32,8 @@ export class EditorComponent implements OnInit, OnDestroy {
   // editorLayout: FormGroup;
 
   constructor(private editorService: EditorService,
-    private modalService: MDBModalService,
-    private dataStorage: DataStorage) {
+              private modalService: MDBModalService,
+              private dataStorage: DataStorage) {
   }
 
 
@@ -101,7 +101,7 @@ export class EditorComponent implements OnInit, OnDestroy {
       range = instanceEditorLayout.getLength();
       instanceEditorLayout.insertText(range, 'Czytaj dalej...', {
         size: 'large',
-        link: '/article/' + this.id
+        routerLink:  '/article/' + this.id
       }, 'user');
       instanceEditorLayout.formatLine(range, range, 'pttk-editor', 'layout');
       instanceEditorLayout.insertEmbed(range, 'divider', true, 'user');

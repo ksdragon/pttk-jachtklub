@@ -80,6 +80,12 @@ Quill.register(ImageFormat, true);
 
 // end
 
+import '../../../shared/quill-blots/router-link.blots.js';
+import '../../../shared/quill-blots/router-link-image.blots.js';
+
+
+
+
 const Inline = Quill.import('blots/inline');
 class SpanBlock extends Inline {
 

@@ -28,7 +28,7 @@ export class EditorLayoutComponent implements OnInit {
   placeholderLayout = 'Dodaj zdjęcię i nagłówek';
   blured = false;
   focused = false;
-  editorInstance: any;
+  editorInstance: Quill;
   editorForm: FormGroup;
   contentView;
   editor;
@@ -61,6 +61,7 @@ export class EditorLayoutComponent implements OnInit {
       const value = prompt('What is the image URL');
       if (value) {
         this.editorInstance.insertEmbed(range.index, 'image', value, 'user');
+
       }
     }
   };
@@ -117,12 +118,13 @@ export class EditorLayoutComponent implements OnInit {
       const range = this.editorInstance.getSelection(true);
       console.log('fd', fd.get('image'));
       this.editorInstance.insertEmbed(range.index, 'image'
-      // , {
-      //   'style': 'display: block; margin: auto;'
-        // attributes: {height: '100',
-        // width: '100'}
-      // }
       , `${window.location.origin}/assets/images/test/` + file.name);
+      // this.editorInstance.insertEmbed(range.index, 'routeLink', '/article/0', 'user');
+      this.editorInstance.formatLine(range.index, range.index + 1, 'style', {
+        display: 'inline',
+        float: 'left',
+        margin: '0px 1em 1em 0px'
+      });
     };
 
   }
