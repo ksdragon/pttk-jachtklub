@@ -82,9 +82,7 @@ Quill.register(ImageFormat, true);
 
 import '../../../shared/quill-blots/router-link.blots.js';
 import '../../../shared/quill-blots/router-link-image.blots.js';
-
-
-
+import '../../../shared/quill-blots/image-router-link.blots.js';
 
 const Inline = Quill.import('blots/inline');
 class SpanBlock extends Inline {
@@ -119,28 +117,28 @@ export class EditorPageComponent implements OnInit, AfterViewInit {
   placeholder = 'Utwórz swój artykuł...';
 
   toolbarOptions =
-  [
-    ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-    ['blockquote', 'code-block'], ['emoji'],
+    [
+      ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+      ['blockquote', 'code-block'], ['emoji'],
 
-    [{ header: 1 }, { header: 2 }],               // custom button values
-    [{ list: 'ordered' }, { list: 'bullet' }],
-    [{ script: 'sub' }, { script: 'super' }],      // superscript/subscript
-    [{ indent: '-1' }, { indent: '+1' }],          // outdent/indent
-    [{ direction: 'rtl' }],                         // text direction
+      [{ header: 1 }, { header: 2 }],               // custom button values
+      [{ list: 'ordered' }, { list: 'bullet' }],
+      [{ script: 'sub' }, { script: 'super' }],      // superscript/subscript
+      [{ indent: '-1' }, { indent: '+1' }],          // outdent/indent
+      [{ direction: 'rtl' }],                         // text direction
 
-    [{ size: ['small', false, 'large', 'huge'] }],  // custom dropdown
-    [{ header: [1, 2, 3, 4, 5, 6, false] }],
+      [{ size: ['small', false, 'large', 'huge'] }],  // custom dropdown
+      [{ header: [1, 2, 3, 4, 5, 6, false] }],
 
-    [{ color: [] }, { background: [] }],          // dropdown with defaults from theme
-    [{ font: [] }],
-    [{ align: [] }],
+      [{ color: [] }, { background: [] }],          // dropdown with defaults from theme
+      [{ font: [] }],
+      [{ align: [] }],
 
-    ['clean'], ['hr'], ['spanblock'],                                   // remove formatting button
+      ['clean'], ['hr'], ['spanblock'],                                   // remove formatting button
 
-    ['link', 'image', 'video', 'span-block'],
-    // link and image, video
-  ];
+      ['link', 'image', 'video', 'span-block'],
+      // link and image, video
+    ];
 
   handlerOptions = {
     'span-block': () => {

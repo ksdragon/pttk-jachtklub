@@ -45,7 +45,7 @@ export class EditorLayoutComponent implements OnInit {
       [{ font: [] }],
       [{ align: [] }],
       ['clean'],
-      ['link', 'image'],
+      ['link', 'image', 'routerLinkImage'],
     ];
 
   editorLayoutStyle = {
@@ -55,6 +55,27 @@ export class EditorLayoutComponent implements OnInit {
 
 
   imageHandler = {
+    routerLinkImage: () => {
+      const input = document.createElement('input');
+      input.setAttribute('type', 'file');
+      input.setAttribute('accept', 'image/*');
+      input.click();
+
+      input.onchange = async () => {
+        const file = input.files[0];
+        const fd = new FormData();
+        fd.append('image', file);
+        const range = this.editorInstance.getSelection(true);
+        console.log('fd', fd.get('image'));
+        this.editorInstance.insertEmbed(range.index, 'routerLinkImage'
+          , {
+            src: `${window.location.origin}/assets/images/test/` + file.name,
+            routerLink: '/article/0'
+          },
+          'user'
+        );
+      };
+    },
     image: () => {
       // Save current cursor state
       const range = this.editorInstance.getSelection(true);
@@ -66,157 +87,164 @@ export class EditorLayoutComponent implements OnInit {
     }
   };
 
-  imageHandler1 = () => {
-    const input = document.createElement('input');
 
-    input.setAttribute('type', 'file');
-    input.setAttribute('accept', 'image/*');
-    input.click();
+imageHandler2 = {
+  image: () => {
+    // Save current cursor state
+    const range = this.editorInstance.getSelection(true);
+    const value = prompt('What is the image URL');
+    if (value) {
+      this.editorInstance.insertEmbed(range.index, 'image', value, 'user');
 
-    input.onchange = async () => {
-      const file = input.files[0];
-      // const formData = new FormData();
-
-      // formData.append('image', file);
-      // setTimeout(() => {
-      // }, 3000);
-      // Save current cursor state
-      const range = this.editorInstance.getSelection(true);
-
-      // Insert temporary loading placeholder image
-      this.editorInstance.insertEmbed(range.index, 'image', `${window.location.origin}/assets/images/social/facebook.png`);
-
-      // Move cursor to right side of image (easier to continue typing)
-      this.editorInstance.setSelection(range.index + 1);
-
-      // API post, returns image location as string e.g. 'http://www.example.com/images/foo.png'
-      const res = await this.saveToServer(file);
-
-      // Remove placeholder image
-      this.editorInstance.deleteText(range.index, 1);
-
-      // Insert uploaded image
-      this.editorInstance.insertEmbed(range.index, 'image', `${window.location.origin}` + res);
-    };
+    }
   }
+};
 
-  apiPostNewsImage(formData) {
-    return null;
-  }
+imageHandler1 = () => {
+  const input = document.createElement('input');
 
-  test() {
-    const input = document.createElement('input');
+  input.setAttribute('type', 'file');
+  input.setAttribute('accept', 'image/*');
+  input.click();
 
-    input.setAttribute('type', 'file');
-    input.setAttribute('accept', 'image/*');
-    input.click();
+  input.onchange = async () => {
+    const file = input.files[0];
+    // const formData = new FormData();
 
-    input.onchange = async () => {
-      const file = input.files[0];
-      const fd = new FormData();
-      fd.append('image', file);
-      const range = this.editorInstance.getSelection(true);
-      console.log('fd', fd.get('image'));
-      this.editorInstance.insertEmbed(range.index, 'image'
-      , `${window.location.origin}/assets/images/test/` + file.name);
-      // this.editorInstance.insertEmbed(range.index, 'routeLink', '/article/0', 'user');
-      this.editorInstance.formatLine(range.index, range.index + 1, 'style', {
-        display: 'inline',
-        float: 'left',
-        margin: '0px 1em 1em 0px'
-      });
-    };
+    // formData.append('image', file);
+    // setTimeout(() => {
+    // }, 3000);
+    // Save current cursor state
+    const range = this.editorInstance.getSelection(true);
 
-  }
+    // Insert temporary loading placeholder image
+    this.editorInstance.insertEmbed(range.index, 'image', `${window.location.origin}/assets/images/social/facebook.png`);
 
-  /*
-  * Step2. save to server
-  *
-  * @param {File} file
-  */
-  saveToServer(file: File) {
+    // Move cursor to right side of image (easier to continue typing)
+    // this.editorInstance.setSelection(range.index + 1);
+
+    // API post, returns image location as string e.g. 'http://www.example.com/images/foo.png'
+    const res = await this.saveToServer(file);
+
+    // Remove placeholder image
+    this.editorInstance.deleteText(range.index, 1);
+
+    // Insert uploaded image
+    this.editorInstance.insertEmbed(range.index, 'image', `${window.location.origin}` + res);
+  };
+}
+
+test() {
+  const input = document.createElement('input');
+  input.setAttribute('type', 'file');
+  input.setAttribute('accept', 'image/*');
+  input.click();
+
+  input.onchange = async () => {
+    const file = input.files[0];
     const fd = new FormData();
     fd.append('image', file);
-
-    const xhr = new XMLHttpRequest();
-    xhr.open('POST', `${window.location.origin}/assets/images`, true);
-    // xhr.open('POST', 'http://localhost:3000/upload/image', true);
-    xhr.onload = () => {
-      if (xhr.status === 200) {
-        // this is callback data: url
-        const url = JSON.parse(xhr.responseText).data;
-        // insertToEditor(url);
-      }
-    };
-    xhr.send(fd);
-  }
-
-  ngOnInit() {
-    this.editorForm = new FormGroup({
-      layoutEditor: new FormControl(null)
-    });
-    this.modulesLayout = {
-      imageResize: {},
-      imageDrop: {},
-      imageCompress: {
-        quality: 0.7, // default
-        maxWidth: 240, // default
-        imageType: 'image/jpeg', // default
-        debug: true, // default
+    const range = this.editorInstance.getSelection(true);
+    console.log('fd', fd.get('image'));
+    this.editorInstance.insertEmbed(range.index, 'routerLinkImage'
+      , {
+        src: `${window.location.origin}/assets/images/test/` + file.name,
+        routerLink: '/article/0'
       },
-      toolbar: {
-        container: this.toolbarOptions,
-        handlers: this.imageHandler1
-      }
-    };
-  }
+      'user'
+    );
+  };
 
-  created(event) {
-    this.editorInstance = event;
-    // this.editorInstance.format('align', 'right');
-    // this.editorInstance.insertText(0, 'Test', {
-    //   color: '#AD4F18',
-    //   size: 'large'
-    // }, 'user');
-    console.log('editor-created', event);
-  }
+}
 
-  changedEditor(event) {
-    // this.editor = event;
-    // tslint:disable-next-line:no-console
-    console.log('editor-change', event);
-  }
+/*
+* Step2. save to server
+*
+* @param {File} file
+*/
+saveToServer(file: File) {
+  const fd = new FormData();
+  fd.append('image', file);
 
-  ContentChanged(event) {
-    this.contentView = event.content;
-    this.editor = event;
-    console.log('Conten changed in editorLayout', this.editor);
-  }
+  const xhr = new XMLHttpRequest();
+  xhr.open('POST', `${window.location.origin}/assets/images`, true);
+  // xhr.open('POST', 'http://localhost:3000/upload/image', true);
+  xhr.onload = () => {
+    if (xhr.status === 200) {
+      // this is callback data: url
+      const url = JSON.parse(xhr.responseText).data;
+      // insertToEditor(url);
+    }
+  };
+  xhr.send(fd);
+}
 
-  focus($event) {
-    // tslint:disable-next-line:no-console
-    console.log('focus', $event);
-    this.focused = true;
-    this.blured = false;
-  }
+ngOnInit() {
+  this.editorForm = new FormGroup({
+    layoutEditor: new FormControl(null)
+  });
+  this.modulesLayout = {
+    imageResize: {},
+    imageDrop: {},
+    imageCompress: {
+      quality: 0.7, // default
+      maxWidth: 240, // default
+      imageType: 'image/jpeg', // default
+      debug: true, // default
+    },
+    toolbar: {
+      container: this.toolbarOptions,
+      handlers: this.imageHandler
+    }
+  };
+}
 
-  blur(event) {
-    // tslint:disable-next-line:no-console
-    console.log('blur', event);
-    this.focused = false;
-    this.blured = true;
-    // event.editor.insertText(event.editor.getLength(), 'Test', {
-    //     color: '#AD4F18',
-    //     size: 'large'
-    //   }, 'user');
+created(event) {
+  this.editorInstance = event;
+  // this.editorInstance.format('align', 'right');
+  // this.editorInstance.insertText(0, 'Test', {
+  //   color: '#AD4F18',
+  //   size: 'large'
+  // }, 'user');
+  console.log('editor-created', event);
+}
 
-  }
+changedEditor(event) {
+  // this.editor = event;
+  // tslint:disable-next-line:no-console
+  console.log('editor-change', event);
+}
 
-  onView() {
-    console.log(this.editorForm.get('layoutEditor').value);
-    console.log('Oject editor from after content chanded: ');
-    console.log(this.editor);
-  }
+ContentChanged(event) {
+  this.contentView = event.content;
+  this.editor = event;
+  console.log('Conten changed in editorLayout', this.editor);
+}
+
+focus($event) {
+  // tslint:disable-next-line:no-console
+  console.log('focus', $event);
+  this.focused = true;
+  this.blured = false;
+}
+
+blur(event) {
+  // tslint:disable-next-line:no-console
+  console.log('blur', event);
+  this.focused = false;
+  this.blured = true;
+  // event.editor.insertText(event.editor.getLength(), 'Test', {
+  //     color: '#AD4F18',
+  //     size: 'large'
+  //   }, 'user');
+
+}
+
+onView() {
+  console.log(this.editorForm.get('layoutEditor').value);
+  console.log('Oject editor from after content chanded: ');
+  console.log(this.editor);
+}
 
 
 }

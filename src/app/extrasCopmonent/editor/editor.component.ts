@@ -109,38 +109,38 @@ export class EditorComponent implements OnInit, OnDestroy {
     }
   }
 
-  private changeQuillEditor1(isModal: boolean) {
-    let instanceEditorLayout;
-    let instanceEditorPage;
-    if (isModal) {
-      this.editorLayoutModal = cloneDeep(this.editorLayout);
-      this.editorPageModal = cloneDeep(this.editorPage);
-      instanceEditorPage = this.editorPageModal.editor.editor;
-      instanceEditorLayout = this.editorLayoutModal.editor.editor;
-    } else {
-      instanceEditorLayout = this.editorLayout.editor.editor;
-      instanceEditorPage = this.editorPage.editor.editor;
-    }
-    let range = instanceEditorLayout.getLength();
-    const firstParagraph = instanceEditorPage.getText(0, 168);
-    console.log('firstParagraph', firstParagraph);
-    const format = instanceEditorLayout.getFormat(range - 5);
-    if (!format['pttk-editor']) {
-      instanceEditorLayout.insertText(range, firstParagraph + '...', 'user');
-      range = instanceEditorLayout.getLength();
-      instanceEditorLayout.insertText(range, 'Czytaj dalej...', {
-        size: 'large',
-        link: '/article/' + this.id
-      }, 'user');
-      instanceEditorLayout.formatLine(range, range, 'pttk-editor', 'layout');
-      instanceEditorLayout.insertEmbed(range, 'divider', true, 'user');
-      instanceEditorLayout.formatLine(range, range, 'align', 'right');
-    }
-  }
+  // private changeQuillEditor1(isModal: boolean) {
+  //   let instanceEditorLayout;
+  //   let instanceEditorPage;
+  //   if (isModal) {
+  //     this.editorLayoutModal = cloneDeep(this.editorLayout);
+  //     this.editorPageModal = cloneDeep(this.editorPage);
+  //     instanceEditorPage = this.editorPageModal.editor.editor;
+  //     instanceEditorLayout = this.editorLayoutModal.editor.editor;
+  //   } else {
+  //     instanceEditorLayout = this.editorLayout.editor.editor;
+  //     instanceEditorPage = this.editorPage.editor.editor;
+  //   }
+  //   let range = instanceEditorLayout.getLength();
+  //   const firstParagraph = instanceEditorPage.getText(0, 168);
+  //   console.log('firstParagraph', firstParagraph);
+  //   const format = instanceEditorLayout.getFormat(range - 5);
+  //   if (!format['pttk-editor']) {
+  //     instanceEditorLayout.insertText(range, firstParagraph + '...', 'user');
+  //     range = instanceEditorLayout.getLength();
+  //     instanceEditorLayout.insertText(range, 'Czytaj dalej...', {
+  //       size: 'large',
+  //       link: '/article/' + this.id
+  //     }, 'user');
+  //     instanceEditorLayout.formatLine(range, range, 'pttk-editor', 'layout');
+  //     instanceEditorLayout.insertEmbed(range, 'divider', true, 'user');
+  //     instanceEditorLayout.formatLine(range, range, 'align', 'right');
+  //   }
+  // }
 
   onSubmit() {
     this.isModal = false;
-    this.changeQuillEditor1(this.isModal);
+    this.changeQuillEditor(this.isModal);
     const article = new ArticlePage();
     article.articleLayout = this.editorLayout.editor.content;
     article.articlePage = this.editorPage.editor.content;
