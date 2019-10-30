@@ -27,6 +27,7 @@ export class EditorComponent implements OnInit, OnDestroy {
   editorPageModal;
   editorForm: FormGroup;
   contentView;
+  titleHeader;
   id = 0;
   isModal = false;
   // editorLayout: FormGroup;
@@ -94,10 +95,13 @@ export class EditorComponent implements OnInit, OnDestroy {
     const instanceEditorPage = this.editorPage.editor.editor;
     let range = instanceEditorLayout.getLength();
     const firstParagraph = instanceEditorPage.getText(0, 168);
+    this.titleHeader = firstParagraph;
     console.log('firstParagraph', firstParagraph);
     const format = instanceEditorLayout.getFormat(range - 5);
     if (!format['pttk-editor']) {
-      instanceEditorLayout.insertText(range, firstParagraph + '...', 'user');
+      // if (!isModal) {
+      //   instanceEditorLayout.insertText(range, firstParagraph + '...', 'user');
+      // }
       range = instanceEditorLayout.getLength();
       instanceEditorLayout.insertText(range, 'Czytaj dalej...', {
         size: 'large',

@@ -16,14 +16,6 @@ EndTitleBlock.blotName = 'end-title';
 EndTitleBlock.tagName = 'div';
 Quill.register(EndTitleBlock);
 
-// import ImageCompress from 'quill-image-compress';
-// const CompressorI = Quill.import('modules/imageCompress');
-
-
-
-// Quill.register('modules/ImageCompress', Compressor, true);
-
-
 @Component({
   selector: 'app-editor-layout',
   templateUrl: './editor-layout.component.html',
@@ -194,6 +186,7 @@ ngOnInit() {
     imageResize: {},
     imageDrop: {},
     imageCompress: {
+    // customImageCompressor: {
       quality: 0.7, // default
       maxWidth: 240, // default
       imageType: 'image/jpeg', // default

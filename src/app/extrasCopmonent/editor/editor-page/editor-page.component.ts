@@ -1,6 +1,8 @@
 import { FormGroup, FormControl } from '@angular/forms';
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import Quill from 'quill';
+// import Quill from 'quill';
+import * as QuillNamespace from 'quill';
+const Quill: any = QuillNamespace;
 
 import Counter from './counter';
 
@@ -18,47 +20,47 @@ Quill.register('modules/emoij', Emoij);
 Quill.register('modules/counter', Counter);
 
 import ImageCompress from 'quill-image-compress';
+Quill.register('modules/imageCompressor', ImageCompress);
 
-class Compressor extends ImageCompress {
-  quill: any;
-  range: any;
-  options: any;
-  constructor(quill, options) {
-    super(quill, options);
-    this.quill = quill;
-    // console.log(quill);
-    this.options = options;
-    this.range = null;
-    // super.debug = options.debug === null || options.debug === true;
+// class Compressor extends ImageCompress {
+//   quill: any;
+//   range: any;
+//   options: any;
+//   constructor(quill, options) {
+//     super(quill, options);
+//     this.quill = quill;
+//     // console.log(quill);
+//     this.options = options;
+//     this.range = null;
+//     // super.debug = options.debug === null || options.debug === true;
 
-    // // super.warnAboutOptions(options);
+//     // // super.warnAboutOptions(options);
 
-    const toolbar = this.quill.getModule('toolbar');
-    toolbar.addHandler('routerLinkImage', super.selectLocalImage.bind(this));
-  }
+//     const toolbar = this.quill.getModule('toolbar');
+//     toolbar.addHandler('routerLinkImage', super.selectLocalImage.bind(this));
+//   }
 
-  insertToEditor(url) {
-    const range = this.range;
-    super.logFileSize(url);
-    // console.log('url', `${url}`);
-    // Insert the compressed image
-    console.log('this.options', this.options.routerLink);
-    this.quill.insertEmbed(range.index, 'routerLinkImage',
-    {
-      src: `${url}`,
-      routerLink:  this.options.routerLink,
-      style: this.options.style
-    },
-    'user'
-    );
-    // Move cursor to next position
-    range.index++;
-    this.quill.setSelection(range, 'api');
-  }
+//   insertToEditor(url) {
+//     const range = this.range;
+//     super.logFileSize(url);
+//     // console.log('url', `${url}`);
+//     // Insert the compressed image
+//     console.log('this.options', this.options.routerLink);
+//     this.quill.insertEmbed(range.index, 'routerLinkImage',
+//     {
+//       src: `${url}`,
+//       routerLink:  this.options.routerLink,
+//       style: this.options.style
+//     },
+//     'user'
+//     );
+//     // Move cursor to next position
+//     range.index++;
+//     this.quill.setSelection(range, 'api');
+//   }
 
-}
-
-Quill.register('modules/imageCompress', Compressor);
+// }
+// Quill.register('modules/imageCompress', Compressor);
 
 const font = Quill.import('formats/font');
 // We do not add Aref Ruqaa since it is the default
@@ -123,6 +125,11 @@ Quill.register(ImageFormat, true);
 import '../../../shared/quill-blots/router-link.blots.js';
 import '../../../shared/quill-blots/router-link-image.blots.js';
 import '../../../shared/quill-blots/image-router-link.blots.js';
+import '../../../shared/quill-modules/image-compressor.module.js';
+import '../../../shared/quill-modules/custom-image-compressor.module.ts';
+
+// Quill.register('modules/customImageCompress', CustomImageCompressor);
+
 
 const Inline = Quill.import('blots/inline');
 class SpanBlock extends Inline {
@@ -250,6 +257,13 @@ export class EditorPageComponent implements OnInit, AfterViewInit {
       imageResize: {},
       imageDrop: true,
       'emoji-toolbar': true,
+      imageCompressor: {
+        // customImageCompressor: {
+          quality: 0.9, // default
+          maxWidth: 1000, // default
+          imageType: 'image/jpeg', // default
+          debug: true, // default
+      },
       toolbar: {
         container: this.toolbarOptions,
         handlers: this.handlerOptions
