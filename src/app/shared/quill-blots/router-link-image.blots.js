@@ -7,12 +7,15 @@ import Parchment from "parchment";
 class RouteLinkImage extends InlineLink {
   static create(data) {
     const node = super.create(data);
-    // data = this.sanitize(data);
+    // console.log('data - RouteLinkImage', data);
     if (typeof data === "object") {
       node.setAttribute("routerLink", this.sanitize(data.routerLink));
       node.setAttribute("rel", "noopener noreferrer");
       const child = document.createElement("img");
+      // console.log('data - src', data.src);
       child.setAttribute("src", this.sanitize(data.src));
+      child.setAttribute("style", this.sanitize(data.style));
+      // child.setAttribute("src", this.match(this.sanitize(data.url)));
       node.appendChild(child);
     }
     return node;
@@ -22,6 +25,7 @@ class RouteLinkImage extends InlineLink {
     return {
       routerLink: domNode.getAttribute("routerLink"),
       src: domNode.firstChild.getAttribute("src"),
+      style: domNode.firstChild.getAttribute("style"),
     };
   }
 
@@ -49,8 +53,8 @@ class RouteLinkImage extends InlineLink {
 
   format(name, value) {
     if (ImageFormatAttributesList.indexOf(name) > -1) {
-      console.log('name', name);
-      console.log('value', value);
+      // console.log('name', name);
+      // console.log('value', value);
       if (value) {
         this.domNode.setAttribute(name, value);
       } else {
@@ -76,7 +80,8 @@ const ImageFormatAttributesList = [
 RouteLinkImage.blotName = "routerLinkImage";
 RouteLinkImage.tagName = "a";
 RouteLinkImage.className = "ql-router-link-image";
-RouteLinkImage.PROTOCOL_WHITELIST = ["http", "https", "mailto", "tel"];
+RouteLinkImage.PROTOCOL_WHITELIST = ["http", "https",
+       "mailto", "tel", "data", "display", "margin", "float"];
 
 icons["routerLinkImage"] = '<i class="fas fa-camera-retro"></i>';
 Quill.register(RouteLinkImage);

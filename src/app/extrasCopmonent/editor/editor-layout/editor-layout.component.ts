@@ -16,6 +16,13 @@ EndTitleBlock.blotName = 'end-title';
 EndTitleBlock.tagName = 'div';
 Quill.register(EndTitleBlock);
 
+// import ImageCompress from 'quill-image-compress';
+// const CompressorI = Quill.import('modules/imageCompress');
+
+
+
+// Quill.register('modules/ImageCompress', Compressor, true);
+
 
 @Component({
   selector: 'app-editor-layout',
@@ -76,15 +83,15 @@ export class EditorLayoutComponent implements OnInit {
         );
       };
     },
-    image: () => {
-      // Save current cursor state
-      const range = this.editorInstance.getSelection(true);
-      const value = prompt('What is the image URL');
-      if (value) {
-        this.editorInstance.insertEmbed(range.index, 'image', value, 'user');
+    // image: () => {
+    //   // Save current cursor state
+    //   const range = this.editorInstance.getSelection(true);
+    //   const value = prompt('What is the image URL');
+    //   if (value) {
+    //     this.editorInstance.insertEmbed(range.index, 'image', value, 'user');
 
-      }
-    }
+    //   }
+    // }
   };
 
 
@@ -191,6 +198,8 @@ ngOnInit() {
       maxWidth: 240, // default
       imageType: 'image/jpeg', // default
       debug: true, // default
+      routerLink: '/article/0',
+      style: 'display: inline; margin: 0px 1em 1em 0px; float: left;'
     },
     toolbar: {
       container: this.toolbarOptions,
