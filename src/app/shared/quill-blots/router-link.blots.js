@@ -1,7 +1,14 @@
 import Quill from "quill";
 const InlineLink = Quill.import("blots/inline");
 
+/**
+ * Class which create routelink blots
+ */
 class RouteLink extends InlineLink {
+  /**
+   *
+   * @param {*} value
+   */
   static create(value) {
     const node = super.create(value);
     value = this.sanitize(value);

@@ -214,7 +214,7 @@ created(event) {
 changedEditor(event) {
   // this.editor = event;
   // tslint:disable-next-line:no-console
-  console.log('editor-change', event);
+  // console.log('editor-change', event);
 }
 
 ContentChanged(event) {
@@ -225,7 +225,7 @@ ContentChanged(event) {
 
 focus($event) {
   // tslint:disable-next-line:no-console
-  console.log('focus', $event);
+  // console.log('focus', $event);
   this.focused = true;
   this.blured = false;
 }

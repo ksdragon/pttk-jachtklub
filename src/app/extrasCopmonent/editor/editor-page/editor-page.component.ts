@@ -124,7 +124,6 @@ Quill.register(ImageFormat, true);
 
 import '../../../shared/quill-blots/router-link.blots.js';
 import '../../../shared/quill-blots/router-link-image.blots.js';
-import '../../../shared/quill-blots/image-router-link.blots.js';
 import '../../../shared/quill-modules/image-compressor.module.js';
 import '../../../shared/quill-modules/custom-image-compressor.module.ts';
 

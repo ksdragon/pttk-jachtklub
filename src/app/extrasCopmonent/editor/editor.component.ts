@@ -20,7 +20,8 @@ Quill.register(PttkEditor);
   styleUrls: ['./editor.component.scss', './editor.component.css']
 })
 export class EditorComponent implements OnInit, OnDestroy {
-
+  // zwraca cały comonent EditorLayoutComponent z wszystkimi polami
+  // i metodami
   @ViewChild('appEditorLayout', { static: false }) editorLayout?;
   @ViewChild('appEditorPage', { static: false }) editorPage?;
   editorLayoutModal;
@@ -50,7 +51,7 @@ export class EditorComponent implements OnInit, OnDestroy {
     if (articles.length > 0) {
       const art = articles[articles.length - 1];
       this.id = art.id + 1;
-      // console.log('id', art.id);
+
     }
 
     // const node = document.createElement('div');
@@ -61,6 +62,7 @@ export class EditorComponent implements OnInit, OnDestroy {
 
   onClickView(event) {
     event.preventDefault();
+    console.log('editorLayout', this.editorLayout);
     this.editorLayout.onView();
   }
 
@@ -91,25 +93,27 @@ export class EditorComponent implements OnInit, OnDestroy {
   }
 
   private changeQuillEditor(isModal: boolean) {
-    const instanceEditorLayout = this.editorLayout.editor.editor;
-    const instanceEditorPage = this.editorPage.editor.editor;
+    const instanceEditorLayout: Quill = this.editorLayout.editorInstance;
+    const instanceEditorPage: Quill = this.editorPage.editorInstance;
     let range = instanceEditorLayout.getLength();
     const firstParagraph = instanceEditorPage.getText(0, 168);
-    this.titleHeader = firstParagraph;
+    const firstParagraphLayout = instanceEditorLayout.getText(0, 168);
+    // console.log('firstParagraphLayout', firstParagraphLayout);
+    this.titleHeader = firstParagraphLayout;
     console.log('firstParagraph', firstParagraph);
     const format = instanceEditorLayout.getFormat(range - 5);
     if (!format['pttk-editor']) {
-      // if (!isModal) {
-      //   instanceEditorLayout.insertText(range, firstParagraph + '...', 'user');
-      // }
-      range = instanceEditorLayout.getLength();
-      instanceEditorLayout.insertText(range, 'Czytaj dalej...', {
+      if (!isModal) {
+        instanceEditorLayout.insertText(range, firstParagraph + '...', 'user');
+        range = instanceEditorLayout.getLength();
+        instanceEditorLayout.insertText(range, 'Czytaj dalej...', {
         size: 'large',
         routerLink:  '/article/' + this.id
       }, 'user');
-      instanceEditorLayout.formatLine(range, range, 'pttk-editor', 'layout');
-      instanceEditorLayout.insertEmbed(range, 'divider', true, 'user');
-      instanceEditorLayout.formatLine(range, range, 'align', 'right');
+        instanceEditorLayout.formatLine(range, range, 'pttk-editor', 'layout');
+        instanceEditorLayout.insertEmbed(range, 'divider', true, 'user');
+        instanceEditorLayout.formatLine(range, range, 'align', 'right');
+    }
     }
   }
 
@@ -146,10 +150,11 @@ export class EditorComponent implements OnInit, OnDestroy {
     this.isModal = false;
     this.changeQuillEditor(this.isModal);
     const article = new ArticlePage();
+    console.log('this.editorLayout.editor.content', this.editorLayout.editor.content);
     article.articleLayout = this.editorLayout.editor.content;
     article.articlePage = this.editorPage.editor.content;
     article.id = this.id;
-    article.header = this.editorLayout.editor.editor.getText(0, 255);
+    article.header = this.titleHeader;
     article.createDate = new Date('dd:mm:yyyy');
     console.log(article.createDate);
     // console.log(this.editorLayout.editor.content);
