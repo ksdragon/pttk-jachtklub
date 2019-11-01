@@ -4,9 +4,10 @@ const InlineLink = Quill.import("blots/inline");
 import { sanitize } from "quill/formats/link";
 // to register icon in toolbar
 const icons = Quill.import("ui/icons");
+const Embed = Quill.import("blots/embed")
 
 
-class RouteLinkImage extends InlineLink {
+class RouteLinkImage extends Embed {
   /**
    *  najważniejsza część - tworzenie elementu.
    * @param {Object} data - JSON format,
@@ -33,11 +34,11 @@ class RouteLinkImage extends InlineLink {
    * @param {*} domNode
    */
   static value(domNode) {
-    console.log('domNode', domNode);
+    console.log('function value(domNode)', domNode);
     return {
       routerLink: domNode.getAttribute("routerLink"),
-      src: domNode.firstChild.getAttribute("src"),
-      style: domNode.firstChild.getAttribute("style"),
+      src: domNode.getAttribute("src"),
+      style: domNode.getAttribute("style"),
     };
   }
 
@@ -53,7 +54,7 @@ class RouteLinkImage extends InlineLink {
    * checks value from attack vulnerability
    * @param {String} url
    */
-   static sanitize(url) {
+  static sanitize(url) {
     return sanitize(url, this.PROTOCOL_WHITELIST) ? url : this.SANITIZED_URL;
   }
 
@@ -64,47 +65,81 @@ class RouteLinkImage extends InlineLink {
    * pobiera cały selektor
    * @param {String} domNode: Object
    */
-  // static formats(domNode) {
-  //   console.log('domNode', domNode);
-  //   return ImageFormatAttributesList.reduce((formats, attribute) => {
-  //     if (domNode.hasAttribute(attribute)) {
-  //       formats[attribute] = domNode.getAttribute(attribute);
-  //     }
-  //     if (domNode.firstChild.hasAttribute(attribute)) {
-  //       formats[attribute] = domNode.firstChild.getAttribute(attribute);
-
-  //     }
-  //     console.log('formats', formats);
-  //     return formats;
-  //   }, {});
-  // }
+  static formats(domNode) {
+    console.log('domNode 1', domNode);
+    return ImageFormatAttributesList.reduce((formats, attribute) => {
+      if (domNode.hasAttribute(attribute)) {
+        formats[attribute] = domNode.getAttribute(attribute);
+      }
+      if (domNode.hasChildNodes()) {
+        let children = domNode.childNodes;
+        // console.log('children 1', children);
+        for (var i = 0; i < children.length; i++) {
+          if (children[i].nodeName !== "#text") {
+            // console.log('children[i] 1', children[i].nodeName);
+            if (children[i].firstChild.hasAttribute(attribute)) {
+              formats[attribute] = children[i].firstChild.getAttribute(attribute);
+            }
+          }
+        }
+        // if (domNode.firstChild.hasAttribute(attribute)) {
+        //   formats[attribute] = domNode.firstChild.getAttribute(attribute);
+        // }
+      }
+      console.log('formats 1', formats);
+      return formats;
+    }, {});
+  }
 
   /**
-   * Nie wiem kiedy wywoływane i do czego wykorzystywane w quill
-   * @param {*} name
-   * @param {*} value
+   * Wykorzystywane przy rozszerzaniu klasy
+   * const Embed = Quill.import("blots/embed")
+   * przypisuje wartości przy towrzeniu np widoków
+   * konvertuje delta na odpowiednie znaczniki html.
+   * @param {string} name - value form quill
+   * @param {string} value - delivered from quill
    */
   format(name, value) {
+    // compare array value and parm name form quill
     if (ImageFormatAttributesList.indexOf(name) > -1) {
       console.log('name', name);
       console.log('value', value);
       if (value) {
-        this.domNode.setAttribute(name, value);
-      } else {
-        this.domNode.removeAttribute(name);
+        if (this.domNode.hasChildNodes()) {
+          let children = this.domNode.childNodes;
+          for (var i = 0; i < children.length; i++) {
+            if (children[i].nodeName !== "#text") {
+            console.log('children[i] format', children[i].nodeName);
+            if (children[i].nodeName === "SPAN" &&
+               (name === "style" || name === "src")) {
+              children[i].firstChild.setAttribute(name, value);
+            } else {
+              children[i].firstChild.removeAttribute(name);
+            }
+            // if (children[i].nodeName !== "A") {
+            //   children[i].setAttribute(name, value);
+            // } else {
+            //   children[i].removeAttribute(name);
+            // }
+            }
+            //   this.domNode.setAttribute(name, value);
+            // } else {
+            //   this.domNode.removeAttribute(name);
+            // }
+          }
+        }
       }
     } else {
       super.format(name, value);
     }
   }
-
 }
 
 // lista
 const ImageFormatAttributesList = [
-  "alt",
-  "height",
-  "width",
+  // "alt",
+  // "height",
+  // "width",
   "style",
   "src",
   "routerLink",
@@ -119,7 +154,7 @@ RouteLinkImage.className = "ql-router-link-image";
 
 // lista po której sprawdza metoda sanitize dozwolone formaty.
 RouteLinkImage.PROTOCOL_WHITELIST = ["http", "https",
-       "mailto", "tel", "data", "display", "margin", "float"];
+  "mailto", "tel", "data", "display", "margin", "float"];
 
 // rejestrowanie ikony w toolbar
 icons["routerLinkImage"] = '<i class="fas fa-camera-retro"></i>';

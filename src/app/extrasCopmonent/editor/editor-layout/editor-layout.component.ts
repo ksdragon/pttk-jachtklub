@@ -148,7 +148,8 @@ test() {
     this.editorInstance.insertEmbed(range.index, 'routerLinkImage'
       , {
         src: `${window.location.origin}/assets/images/test/` + file.name,
-        routerLink: '/article/0'
+        routerLink: '/article/0',
+        style: 'display: inline; margin: 0px 1em 1em 0px; float: left;',
       },
       'user'
     );
@@ -186,7 +187,6 @@ ngOnInit() {
     imageResize: {},
     imageDrop: {},
     imageCompress: {
-    // customImageCompressor: {
       quality: 0.7, // default
       maxWidth: 240, // default
       imageType: 'image/jpeg', // default
