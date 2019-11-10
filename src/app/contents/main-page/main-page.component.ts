@@ -2,9 +2,8 @@ import { EditorService } from './../../extrasCopmonent/editor/editor.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ArticlePage } from 'src/app/shared/article-page.model';
-import { Delta } from 'quill';
 import { DataStorage } from 'src/app/shared/data-storage.service';
-import { TouchSequence } from 'selenium-webdriver';
+
 
 @Component({
   selector: 'app-main-page',
@@ -13,45 +12,21 @@ import { TouchSequence } from 'selenium-webdriver';
 })
 export class MainPageComponent implements OnInit, OnDestroy {
 
-  // subscription: Subscription;
+  subscription: Subscription;
 
-  articles: ArticlePage[] = [];
-  articlesLayout = [];
-  layoutsViews = [];
-  article;
+  articles: ArticlePage[] = []; 
   isFetching = false;
-
-  quill = {
-    ops: [
-      { insert: 'Gandalf', attributes: { bold: true } },
-      { insert: ' the ' },
-      { insert: 'Grey', attributes: { color: '#cccccc' } },
-      {insert: {
-        image: '../../../assets/images/test/01.jpg'
-      },
-      attributes: {
-        // link: 'https://quilljs.com'
-      }}
-    ]
-  };
 
   articleElement = new ArticlePage();
 
   constructor(private editorService: EditorService,
               private dataStorage: DataStorage) { }
 
-  onStorageArticles() {
-    this.dataStorage.storeArticle();
-  }
-
-  onFetchArticles() {
-    this.articles = this.dataStorage.articles;
-    // console.log(this.articles);
-  }
 
   ngOnInit() {
     this.isFetching = true;
-    if (this.articles.length < 1) {this.dataStorage.fetchAriticles()
+    if (this.articles.length < 1) {
+      this.subscription  = this.dataStorage.fetchAriticles()
       .subscribe(
       (articles: ArticlePage[]) => {
         this.editorService.setArticles(articles);
@@ -62,7 +37,51 @@ export class MainPageComponent implements OnInit, OnDestroy {
     this.editorService.articlesChanged.subscribe((articles: ArticlePage[]) => {
       this.articles = articles;
     });
-    // console.log('OnInit quill',  this.quill);
+    this.isFetching = false;
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
+  // testowe przyciski 
+  onStorageArticles() {
+    this.dataStorage.storeArticle();
+  }
+
+  // testowe przyciski 
+  onFetchArticles() {
+    this.articles = this.dataStorage.articles;    
+  }
+}
+
+
+
+
+
+
+// articlesLayout = [];
+// layoutsViews = [];
+// article;
+
+
+
+// quill = {
+//   ops: [
+//     { insert: 'Gandalf', attributes: { bold: true } },
+//     { insert: ' the ' },
+//     { insert: 'Grey', attributes: { color: '#cccccc' } },
+//     {insert: {
+//       image: '../../../assets/images/test/01.jpg'
+//     },
+//     attributes: {
+//       // link: 'https://quilljs.com'
+//     }}
+//   ]
+// };
+
+
+// console.log('OnInit quill',  this.quill);
     // this.subscription = this.editorService.articlesChanged.subscribe(
     //   articles => {
     //     console.log('Articles: ', articles);
@@ -81,10 +100,3 @@ export class MainPageComponent implements OnInit, OnDestroy {
     // });
     // this.layoutsViews.push(this.quill);
     // console.log('OnInit layoutsViews',  this.layoutsViews);
-    this.isFetching = false;
-  }
-
-  ngOnDestroy(): void {
-    // this.subscription.unsubscribe();
-  }
-}

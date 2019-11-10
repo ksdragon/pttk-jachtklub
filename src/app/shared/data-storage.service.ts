@@ -24,12 +24,16 @@ export class DataStorage {
 
   // lepiej użyć return i subskrybować tam gdzie jest potrzebne.
   fetchAriticles() {
-    return this.http.get<ArticlePage[]>('https://pttk-22f5f.firebaseio.com/articles.json');
-      // .subscribe(
-      // (articles: ArticlePage[]) => {
-      //   this.editorService.setArticles(articles);
-      //   // this.articles = articles;
-      //   console.log(articles);
-      // });
+    return this.http.get<ArticlePage[]>('https://pttk-22f5f.firebaseio.com/articles.json');  
   }
 }
+
+
+
+
+// .subscribe(
+  // (articles: ArticlePage[]) => {
+  //   this.editorService.setArticles(articles);
+  //   // this.articles = articles;
+  //   console.log(articles);
+  // });
