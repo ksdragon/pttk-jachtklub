@@ -1,8 +1,10 @@
 import { EditorService } from './../../extrasCopmonent/editor/editor.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { ArticlePage } from 'src/app/shared/article-page.model';
 import { DataStorage } from 'src/app/shared/data-storage.service';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFireDatabase } from '@angular/fire/database';
 
 
 @Component({
@@ -14,17 +16,23 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
   subscription: Subscription;
 
-  articles: ArticlePage[] = []; 
+  articles: ArticlePage[] = [];
+  items: Observable<any[]>;
   isFetching = false;
 
   articleElement = new ArticlePage();
 
   constructor(private editorService: EditorService,
-              private dataStorage: DataStorage) { }
+              private dataStorage: DataStorage,
+              db: AngularFireDatabase) {
+                this.items = db.list('articles').valueChanges();
+                console.log('this.items', this.items);
+               }
 
 
   ngOnInit() {
     this.isFetching = true;
+
     if (this.articles.length < 1) {
       this.subscription  = this.dataStorage.fetchAriticles()
       .subscribe(

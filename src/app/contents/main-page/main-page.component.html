@@ -4,6 +4,18 @@
   <div class="col-sm-8" >
     <!-- <button class="btn btn-primary" (click)="onStorageArticles($event)" >Save</button>
     <button class="btn btn-primary" (click)="onFetchArticles($event)" >Fetch</button> -->
+    <!-- <ul>
+      <li class="text" *ngFor="let item of items | async">
+        {{item.name}}
+      </li>
+    </ul> -->
+    <ng-container *ngIf="articles.length && !isFetching; else emptyViewsLayouts" >
+      <!-- <div class="editorViewLayout" *ngFor="let contentView of layoutsViews | reverse; let i = index"> -->
+      <div class="editorViewLayout" *ngFor="let article of items | async | reverse; let i = index">
+        <app-editor-view-layout [contentView]="article.articleLayout" [id]="article.id"></app-editor-view-layout>
+      </div>
+    </ng-container>   
+    
     <div>
       <h1 class="home-title">Najnowsze Artykuły</h1>
     </div>

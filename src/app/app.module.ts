@@ -26,6 +26,11 @@ import { EditorViewArticleComponent } from './extrasCopmonent/editor/editor-view
 import { ModalViewLayoutComponent } from './extrasCopmonent/editor/modal-view-layout/modal-view-layout.component';
 import { HttpClientModule } from '@angular/common/http';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
+import { environment } from '../environments/environment';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+
 
 @NgModule({
   declarations: [
@@ -57,8 +62,11 @@ import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinne
     MDBBootstrapModule.forRoot(),
     AppRoutingModule,
     AppQuillModule,
-    NgPipesModule
-
+    NgPipesModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
+    AngularFireDatabaseModule
+   
   ],
   entryComponents: [ ModalViewLayoutComponent ],
   providers: [],
