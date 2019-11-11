@@ -1,31 +1,34 @@
 <div class="main-page">
   <app-show-case></app-show-case>
-  <div class="col-sm-12" *ngIf="articles.length && !isFetching; else emptyViewsLayouts">
+  <!-- <div class="col-sm-12" *ngIf="articles.length && !isFetching; else emptyViewsLayouts"> -->
+  <div class="col-sm-12">
   <div class="col-sm-8" >
     <!-- <button class="btn btn-primary" (click)="onStorageArticles($event)" >Save</button>
     <button class="btn btn-primary" (click)="onFetchArticles($event)" >Fetch</button> -->
-    <!-- <ul>
-      <li class="text" *ngFor="let item of items | async">
-        {{item.name}}
-      </li>
-    </ul> -->
-    <ng-container *ngIf="articles.length && !isFetching; else emptyViewsLayouts" >
-      <!-- <div class="editorViewLayout" *ngFor="let contentView of layoutsViews | reverse; let i = index"> -->
-      <div class="editorViewLayout" *ngFor="let article of items | async | reverse; let i = index">
+    <div>
+      <h1 class="home-title">Najnowsze Artykuły</h1>
+    </div>
+    
+    <ng-container *ngIf="!isFetching; else emptyViewsLayouts" >    
+      <div class="editorViewLayout" *ngFor="let article of asyncArticles 
+        | async 
+        | paginate: { id: 'server', itemsPerPage: 1, currentPage: p, totalItems: total }
+        | reverse; let i = index">
         <app-editor-view-layout [contentView]="article.articleLayout" [id]="article.id"></app-editor-view-layout>
       </div>
     </ng-container>   
     
-    <div>
-      <h1 class="home-title">Najnowsze Artykuły</h1>
-    </div>
-    <ng-container *ngIf="articles.length && !isFetching; else emptyViewsLayouts" >
-      <!-- <div class="editorViewLayout" *ngFor="let contentView of layoutsViews | reverse; let i = index"> -->
+    <!-- <ng-container *ngIf="articles.length && !isFetching; else emptyViewsLayouts" >     
       <div class="editorViewLayout" *ngFor="let article of articles | reverse; let i = index">
         <app-editor-view-layout [contentView]="article.articleLayout" [id]="article.id"></app-editor-view-layout>
       </div>
-    </ng-container>
+    </ng-container> -->
 </div>
+
+<div>
+    <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
+</div>
+
 </div>
 <ng-template #emptyViewsLayouts>
     <div class="col-sm-12 mt-5 text-center">

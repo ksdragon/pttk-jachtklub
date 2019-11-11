@@ -30,6 +30,7 @@ import { environment } from '../environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 
 @NgModule({
@@ -65,7 +66,8 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
     NgPipesModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    NgxPaginationModule
    
   ],
   entryComponents: [ ModalViewLayoutComponent ],

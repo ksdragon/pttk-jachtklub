@@ -1,11 +1,16 @@
 import { EditorService } from './../../extrasCopmonent/editor/editor.service';
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription, Observable } from 'rxjs';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { Subscription, Observable, of } from 'rxjs';
 import { ArticlePage } from 'src/app/shared/article-page.model';
 import { DataStorage } from 'src/app/shared/data-storage.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireDatabase } from '@angular/fire/database';
+import { tap, map, delay } from 'rxjs/operators';
 
+interface IServerResponse {
+  articles: Observable<any[]>;
+  total: number;
+}
 
 @Component({
   selector: 'app-main-page',
@@ -16,36 +21,84 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
   subscription: Subscription;
 
+  // tslint:disable-next-line: no-input-rename
   articles: ArticlePage[] = [];
-  items: Observable<any[]>;
+  asyncArticles: Observable<any[]>;
   isFetching = false;
+  p = 1;
+  total: number;
 
   articleElement = new ArticlePage();
 
   constructor(private editorService: EditorService,
               private dataStorage: DataStorage,
-              db: AngularFireDatabase) {
-                this.items = db.list('articles').valueChanges();
-                console.log('this.items', this.items);
+              private db: AngularFireDatabase) {
+                // this.asyncArticles = db.list('articles').valueChanges();
                }
+
+getPage(page: number) {
+  const perPage = 1;
+  const start = (page - 1) * perPage;
+  const end = start + perPage;
+
+  this.isFetching = true;
+  this.asyncArticles = this.db.list('articles'
+  , ref => ref.limitToFirst(2)
+    ).valueChanges();
+  
+  this.subscription = this.asyncArticles.subscribe(
+    respone => {
+      console.log('respone', respone);
+    }
+  );
+  // .pipe(
+  //     tap(res => {
+  //         this.total =  3 //res.total;
+  //         this.p = page;
+  //         this.isFetching = false;
+  //     }),
+  //     // map(res => res.articles)
+  // );
+  this.isFetching = false;
+  // console.log('this.items', this.asyncArticles.subscribe( x => console.log(x)));
+}
+
+// serverCall(articles: ArticlePage[], page: number): Observable<IServerResponse> {
+//   const perPage = 10;
+//   const start = (page - 1) * perPage;
+//   const end = start + perPage;
+
+//   this.asyncArticles = this.db.list('articles',
+//   ref => ref.startAt(start).endAt(end)
+//   ).valueChanges();
+//   // console.log('this.items', this.asyncArticles);
+//     // return of({
+//   //         articles: articles.slice(start, end),
+//   //         total: 100
+//   //     }).pipe(delay(1000));
+// }
+
 
 
   ngOnInit() {
-    this.isFetching = true;
+    // this.isFetching = true;
+    this.getPage(1);
+    // this.getArticlesFromDB();
+    // this.isFetching = false;
+  }
 
+  private getArticlesFromDB() {
     if (this.articles.length < 1) {
-      this.subscription  = this.dataStorage.fetchAriticles()
-      .subscribe(
-      (articles: ArticlePage[]) => {
-        this.editorService.setArticles(articles);
-        // this.articles = articles;
-        console.log(articles);
-      });
+      this.subscription = this.dataStorage.fetchAriticles()
+        .subscribe((articles: ArticlePage[]) => {
+          this.editorService.setArticles(articles);
+          // this.articles = articles;
+          console.log(articles);
+        });
     }
     this.editorService.articlesChanged.subscribe((articles: ArticlePage[]) => {
       this.articles = articles;
     });
-    this.isFetching = false;
   }
 
   ngOnDestroy(): void {
