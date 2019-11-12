@@ -8,17 +8,18 @@
     <div>
       <h1 class="home-title">Najnowsze Artykuły</h1>
     </div>
-    
-    <ng-container *ngIf="!isFetching; else emptyViewsLayouts" >    
-      <div class="editorViewLayout" *ngFor="let article of asyncArticles 
-        | async 
+
+    <ng-container *ngIf="!isFetching; else emptyViewsLayouts" >
+      <div class="editorViewLayout" *ngFor="let article of asyncArticles
+        | async
         | paginate: { id: 'server', itemsPerPage: 1, currentPage: p, totalItems: total }
-        | reverse; let i = index">
+        | reverse
+        ; let i = index">
         <app-editor-view-layout [contentView]="article.articleLayout" [id]="article.id"></app-editor-view-layout>
       </div>
-    </ng-container>   
-    
-    <!-- <ng-container *ngIf="articles.length && !isFetching; else emptyViewsLayouts" >     
+    </ng-container>
+
+    <!-- <ng-container *ngIf="articles.length && !isFetching; else emptyViewsLayouts" >
       <div class="editorViewLayout" *ngFor="let article of articles | reverse; let i = index">
         <app-editor-view-layout [contentView]="article.articleLayout" [id]="article.id"></app-editor-view-layout>
       </div>
