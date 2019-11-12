@@ -34,7 +34,7 @@ class RouteLinkImage extends Embed {
    * @param {*} domNode
    */
   static value(domNode) {
-    console.log('function value(domNode)', domNode);
+    // console.log('function value(domNode)', domNode);
     return {
       routerLink: domNode.getAttribute("routerLink"),
       src: domNode.getAttribute("src"),
@@ -66,7 +66,7 @@ class RouteLinkImage extends Embed {
    * @param {String} domNode: Object
    */
   static formats(domNode) {
-    console.log('domNode 1', domNode);
+    // console.log('domNode 1', domNode);
     return ImageFormatAttributesList.reduce((formats, attribute) => {
       if (domNode.hasAttribute(attribute)) {
         formats[attribute] = domNode.getAttribute(attribute);
@@ -86,7 +86,7 @@ class RouteLinkImage extends Embed {
         //   formats[attribute] = domNode.firstChild.getAttribute(attribute);
         // }
       }
-      console.log('formats 1', formats);
+      // console.log('formats 1', formats);
       return formats;
     }, {});
   }
@@ -102,14 +102,14 @@ class RouteLinkImage extends Embed {
   format(name, value) {
     // compare array value and parm name form quill
     if (ImageFormatAttributesList.indexOf(name) > -1) {
-      console.log('name', name);
-      console.log('value', value);
+      // console.log('name', name);
+      // console.log('value', value);
       if (value) {
         if (this.domNode.hasChildNodes()) {
           let children = this.domNode.childNodes;
           for (var i = 0; i < children.length; i++) {
             if (children[i].nodeName !== "#text") {
-            console.log('children[i] format', children[i].nodeName);
+            // console.log('children[i] format', children[i].nodeName);
             if (children[i].nodeName === "SPAN" &&
                (name === "style" || name === "src")) {
               children[i].firstChild.setAttribute(name, value);

@@ -26,44 +26,32 @@ export class MainPageComponent implements OnInit, OnDestroy {
   asyncArticles: Observable<any[]>;
   isFetching = false;
   p = 1;
-  total = 30 ;
+  total: number = 4;
+  perPage = 2;
 
   articleElement = new ArticlePage();
 
   constructor(private editorService: EditorService,
               private dataStorage: DataStorage,
               private db: AngularFireDatabase) {
-              const x = db.list('articles').valueChanges();
-              x.subscribe( response => {
+              db.list('articles').valueChanges()
+              .subscribe( response => {
+                this.total = 4; // response.length;
                 console.log('response valueChanges', response.length);
               });
             }
 
 getPage(page: number) {
-  // const perPage = 1;
-  // const start = (page - 1) * perPage;
-  // const end = start + perPage;
-
   this.isFetching = true;
-  // this.asyncArticles = this.db.list('articles'
-  // , ref => ref.orderByKey().startAt(start.toString()).endAt(end.toString())
-  //   ).valueChanges();
-
-  // this.subscription = this.asyncArticles.subscribe(
-  //   respone => {
-  //     console.log('respone', respone);
-  //   }
-  // );
   const resonseServer = this.serverCall(page);
   this.asyncArticles = resonseServer.articles;
   this.total = resonseServer.total;
   this.p = page;
   this.isFetching = false;
-  // console.log('x', x);
-}
+  }
 
 serverCall(page: number): IServerResponse {
-  const perPage = 1;
+  const perPage = this.perPage;
   const start = (page - 1) * perPage;
   const end = start + perPage;
 
@@ -78,7 +66,7 @@ serverCall(page: number): IServerResponse {
   // console.log('this.items', this.asyncArticles);
   return{
           articles: articlesList,
-          total: 3
+          total: this.total
         };
 }
 
@@ -116,7 +104,8 @@ serverCall(page: number): IServerResponse {
 
   // testowe przyciski
   onFetchArticles() {
-    this.articles = this.dataStorage.articles;
+    this.getPage(1);
+    // this.getArticlesFromDB();
   }
 }
 
