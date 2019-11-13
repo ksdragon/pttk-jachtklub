@@ -2,6 +2,7 @@
   <div>
       <h1 class="home-title">{{ article.header }}</h1>
   </div>
+ 
   <quill-view
     [content]="contentView"
     [preserveWhitespace]="true"
@@ -12,7 +13,7 @@
 <div class="entry-meta">
 	<span class="posted-on">
     <i class="fa fa-calendar"></i>
-     <a href="https://jachtklub-pszczyna.pl/kurs-na-stopien-zeglarza-jachtowego-3/" rel="bookmark">Data</a>
+     <a href="https://jachtklub-pszczyna.pl/kurs-na-stopien-zeglarza-jachtowego-3/" rel="bookmark"> {{ createDate | date}}  </a>
     </span>
     <span class="byline">
       <i class="fa fa-user"></i>

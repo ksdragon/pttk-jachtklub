@@ -58,9 +58,11 @@ serverCall(page: number) {
 
   articlesList.subscribe((articles: ArticlePage[])  => {
     articles.forEach((a: ArticlePage) => {
+      console.log('a', a);
       if ((this.editorService.getArticles()
           .find(elem => elem.id === a.id)) === undefined) {
         this.editorService.addArticle(a);
+        console.log('this.editorService.getArticles()', this.editorService.getArticles());
       }
     });
   });
