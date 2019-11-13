@@ -1,3 +1,4 @@
+import { element } from 'protractor';
 import { ArticlePage } from './../../shared/article-page.model';
 import { Injectable } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
@@ -34,8 +35,8 @@ export class EditorService {
   addArticle(article: ArticlePage) {
     this.articles.push(article);
     this.articlesChanged.next(this.articles.slice());
-    console.log('editorService - this.aticles' , this.articles);
-    console.log('editorService - this.articlesChanged' , this.articlesChanged);
+    // console.log('editorService - this.aticles' , this.articles);
+    // console.log('editorService - this.articlesChanged' , this.articlesChanged);
   }
 
   updateArticle(index: number, newArticle: ArticlePage) {

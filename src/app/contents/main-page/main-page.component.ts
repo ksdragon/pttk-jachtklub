@@ -1,3 +1,4 @@
+import { ArticlePage } from './../../shared/article-page.model';
 import { EditorService } from './../../extrasCopmonent/editor/editor.service';
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { Subscription, Observable, of } from 'rxjs';
@@ -6,6 +7,7 @@ import { DataStorage } from 'src/app/shared/data-storage.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { tap, map, delay } from 'rxjs/operators';
+import undefined = require('firebase/empty-import');
 
 interface IServerResponse {
   articles: Observable<any[]>;
@@ -26,7 +28,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
   asyncArticles: Observable<any[]>;
   isFetching = false;
   p = 1;
-  total: number = 4;
+  total: number;
   perPage = 2;
 
   articleElement = new ArticlePage();
@@ -36,7 +38,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
               private db: AngularFireDatabase) {
               db.list('articles').valueChanges()
               .subscribe( response => {
-                this.total = 4; // response.length;
+                this.total = response.length;
                 console.log('response valueChanges', response.length);
               });
             }
@@ -45,7 +47,7 @@ getPage(page: number) {
   this.isFetching = true;
   const resonseServer = this.serverCall(page);
   this.asyncArticles = resonseServer.articles;
-  this.total = resonseServer.total;
+  // this.total = resonseServer.total;
   this.p = page;
   this.isFetching = false;
   }
@@ -53,14 +55,25 @@ getPage(page: number) {
 serverCall(page: number): IServerResponse {
   const perPage = this.perPage;
   const start = (page - 1) * perPage;
-  const end = start + perPage;
+  // const end = start + perPage;
 
-  const articlesList = this.db.list<ArticlePage>('articles',
-  ref => ref.orderByKey().startAt(start.toString()).endAt(end.toString())
+  const articlesList = this.db.list<ArticlePage>('articles'
+  , ref => ref.orderByKey().startAt(start.toString()).limitToFirst(perPage)
+  // .endAt(end.toString())
   ).valueChanges();
+  articlesList.subscribe(x => {
+      console.log('articlesList', x);
+      // console.log('new Date()', new Date().toLocaleDateString());
 
-  articlesList.subscribe(articles => {
-    this.editorService.setArticles(articles);
+    });
+  articlesList.subscribe((articles: ArticlePage[])  => {
+    articles.forEach((a: ArticlePage) => {
+      if ((this.editorService.getArticles()
+          .find(elem => elem.id === a.id)) === undefined) {
+        console.log('getArticles()', this.editorService.getArticles());
+        this.editorService.addArticle(a);
+      }
+    });
   });
 
   // console.log('this.items', this.asyncArticles);

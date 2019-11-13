@@ -16,8 +16,8 @@ export class EditorViewLayoutComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit() {
-    console.log('editorViewLayout id', this.id);
-    console.log('editorViewLayout id', this.contentView);
+    // console.log('editorViewLayout id', this.id);
+    // console.log('editorViewLayout id', this.contentView);
   }
 
   onclick() {

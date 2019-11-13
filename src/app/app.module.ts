@@ -68,7 +68,6 @@ import {NgxPaginationModule} from 'ngx-pagination';
     AngularFirestoreModule,
     AngularFireDatabaseModule,
     NgxPaginationModule
-   
   ],
   entryComponents: [ ModalViewLayoutComponent ],
   providers: [],

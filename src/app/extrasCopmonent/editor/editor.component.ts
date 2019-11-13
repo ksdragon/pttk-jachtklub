@@ -155,8 +155,8 @@ export class EditorComponent implements OnInit, OnDestroy {
     article.articlePage = this.editorPage.editor.content;
     article.id = this.id;
     article.header = this.titleHeader;
-    article.createDate = new Date('dd:mm:yyyy');
-    console.log(article.createDate);
+    article.createDate = new Date();
+    // console.log(article.createDate);
     // console.log(this.editorLayout.editor.content);
     // console.log(this.editorPage.editor.content);
     this.editorService.addArticle(article);
