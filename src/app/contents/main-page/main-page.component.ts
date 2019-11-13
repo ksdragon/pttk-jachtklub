@@ -1,4 +1,3 @@
-import { ArticlePage } from './../../shared/article-page.model';
 import { EditorService } from './../../extrasCopmonent/editor/editor.service';
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { Subscription, Observable, of } from 'rxjs';
@@ -7,7 +6,6 @@ import { DataStorage } from 'src/app/shared/data-storage.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { tap, map, delay } from 'rxjs/operators';
-import undefined = require('firebase/empty-import');
 
 interface IServerResponse {
   articles: Observable<any[]>;
@@ -45,42 +43,28 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
 getPage(page: number) {
   this.isFetching = true;
-  const resonseServer = this.serverCall(page);
-  this.asyncArticles = resonseServer.articles;
-  // this.total = resonseServer.total;
+  this.asyncArticles = this.serverCall(page);
   this.p = page;
   this.isFetching = false;
-  }
+}
 
-serverCall(page: number): IServerResponse {
+serverCall(page: number) {
   const perPage = this.perPage;
   const start = (page - 1) * perPage;
-  // const end = start + perPage;
 
   const articlesList = this.db.list<ArticlePage>('articles'
   , ref => ref.orderByKey().startAt(start.toString()).limitToFirst(perPage)
-  // .endAt(end.toString())
   ).valueChanges();
-  articlesList.subscribe(x => {
-      console.log('articlesList', x);
-      // console.log('new Date()', new Date().toLocaleDateString());
 
-    });
   articlesList.subscribe((articles: ArticlePage[])  => {
     articles.forEach((a: ArticlePage) => {
       if ((this.editorService.getArticles()
           .find(elem => elem.id === a.id)) === undefined) {
-        console.log('getArticles()', this.editorService.getArticles());
         this.editorService.addArticle(a);
       }
     });
   });
-
-  // console.log('this.items', this.asyncArticles);
-  return{
-          articles: articlesList,
-          total: this.total
-        };
+  return articlesList;
 }
 
 

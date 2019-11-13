@@ -1,7 +1,7 @@
 <div class="main-page">
   <app-show-case></app-show-case>
-  <!-- <div class="col-sm-12" *ngIf="articles.length && !isFetching; else emptyViewsLayouts"> -->
-  <div class="col-sm-12">
+  <div class="col-sm-12" *ngIf="total && !isFetching; else emptyViewsLayouts">
+  <!-- <div class="col-sm-12"> -->
   <div class="col-sm-8" >
     <!-- <button class="btn btn-primary" (click)="onStorageArticles($event)" >Save</button> -->
     <button class="btn btn-primary" (click)="onFetchArticles($event)" >Fetch</button>
@@ -9,11 +9,10 @@
       <h1 class="home-title">Najnowsze Artykuły</h1>
     </div>
 
-    <ng-container *ngIf="!isFetching; else emptyViewsLayouts" >
+    <ng-container *ngIf="total &&  !isFetching; else emptyViewsLayouts" >
       <div class="editorViewLayout" *ngFor="let article of asyncArticles
         | async
         | paginate: { id: 'server', itemsPerPage: perPage, currentPage: p, totalItems: total }
-        | reverse
         ">
         <app-editor-view-layout [contentView]="article.articleLayout" [id]="article.id"></app-editor-view-layout>
       </div>
@@ -27,7 +26,12 @@
 </div>
 
 <div class="text-center">
-    <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
+    <pagination-controls
+      (pageChange)="getPage($event)"
+      id="server"
+      previousLabel="Poprzedna"
+      nextLabel="Następna"
+    ></pagination-controls>
 </div>
 
 </div>
