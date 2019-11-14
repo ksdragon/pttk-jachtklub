@@ -31,6 +31,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { ArticlesContentComponent } from './extrasCopmonent/articles-content/articles-content.component';
 
 
 @NgModule({
@@ -53,6 +54,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
     EditorViewArticleComponent,
     ModalViewLayoutComponent,
     LoadingSpinnerComponent,
+    ArticlesContentComponent,
 
   ],
   imports: [

@@ -19,93 +19,56 @@ interface IServerResponse {
 })
 export class MainPageComponent implements OnInit, OnDestroy {
 
-  subscription: Subscription;
+  public config: any = {
+    id: 'articles',
+    itemsPerPage: 10,
+    currentPage: 1
+};
+
+  // subscription: Subscription;
 
   // tslint:disable-next-line: no-input-rename
-  articles: ArticlePage[] = [];
-  asyncArticles: Observable<any[]>;
-  isFetching = false;
-  p = 1;
-  total: number;
-  perPage = 2;
+  // articles: ArticlePage[] = [];
 
-  articleElement = new ArticlePage();
+  // articleElement = new ArticlePage();
 
-  constructor(private editorService: EditorService,
-              private dataStorage: DataStorage,
-              private db: AngularFireDatabase) {
-              db.list('articles').valueChanges()
-              .subscribe( response => {
-                this.total = response.length;
-                console.log('response valueChanges', response.length);
-              });
-            }
-
-getPage(page: number) {
-  this.isFetching = true;
-  this.asyncArticles = this.serverCall(page);
-  this.p = page;
-  this.isFetching = false;
-}
-
-serverCall(page: number) {
-  const perPage = this.perPage;
-  const start = (page - 1) * perPage;
-
-  const articlesList = this.db.list<ArticlePage>('articles'
-  , ref => ref.orderByKey().startAt(start.toString()).limitToFirst(perPage)
-  ).valueChanges();
-
-  articlesList.subscribe((articles: ArticlePage[])  => {
-    articles.forEach((a: ArticlePage) => {
-      console.log('a', a);
-      if ((this.editorService.getArticles()
-          .find(elem => elem.id === a.id)) === undefined) {
-        this.editorService.addArticle(a);
-        console.log('this.editorService.getArticles()', this.editorService.getArticles());
-      }
-    });
-  });
-  return articlesList;
-}
-
-
+  constructor() {}
 
   ngOnInit() {
     // this.isFetching = true;
-    this.getPage(1);
+
     // this.getArticlesFromDB();
     // this.isFetching = false;
   }
 
-  private getArticlesFromDB() {
-    if (this.articles.length < 1) {
-      this.subscription = this.dataStorage.fetchAriticles()
-        .subscribe((articles: ArticlePage[]) => {
-          this.editorService.setArticles(articles);
-          // this.articles = articles;
-          console.log(articles);
-        });
-    }
-    this.editorService.articlesChanged.subscribe((articles: ArticlePage[]) => {
-      this.articles = articles;
-    });
-  }
+  // private getArticlesFromDB() {
+  //   if (this.articles.length < 1) {
+  //     this.subscription = this.dataStorage.fetchAriticles()
+  //       .subscribe((articles: ArticlePage[]) => {
+  //         this.editorService.setArticles(articles);
+  //         // this.articles = articles;
+  //         console.log(articles);
+  //       });
+  //   }
+  //   this.editorService.articlesChanged.subscribe((articles: ArticlePage[]) => {
+  //     this.articles = articles;
+  //   });
+  // }
 
   ngOnDestroy(): void {
     // this.subscription.unsubscribe();
   }
 
   // testowe przyciski
-  onStorageArticles() {
-    this.dataStorage.storeArticle();
-  }
+  // onStorageArticles() {
+  //   this.dataStorage.storeArticle();
+  // }
 
   // testowe przyciski
-  onFetchArticles() {
-    this.getPage(1);
-    // this.getArticlesFromDB();
-  }
+  // onFetchArticles() {
+  //   this.getPage(1);
+  //   // this.getArticlesFromDB();
+  // }
 }
 
 

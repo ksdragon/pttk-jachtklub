@@ -1,0 +1,39 @@
+<div class="col-sm-12" *ngIf="total && !isFetching; else emptyViewsLayouts">
+  <!-- <div class="col-sm-12"> -->
+  <div class="col-sm-8" >
+
+    <div>
+      <h1 class="home-title">{{ title }}</h1>
+    </div>
+
+    <ng-container *ngIf="total &&  !isFetching; else emptyViewsLayouts" >
+      <div class="editorViewLayout" *ngFor="let article of asyncArticles
+        | async
+        | paginate: { id: 'server', itemsPerPage: perPage, currentPage: p, totalItems: total }
+        ">
+        <app-editor-view-layout [contentView]="article.articleLayout" [id]="article.id"></app-editor-view-layout>
+      </div>
+    </ng-container>
+
+    <!-- <ng-container *ngIf="articles.length && !isFetching; else emptyViewsLayouts" >
+      <div class="editorViewLayout" *ngFor="let article of articles | reverse; let i = index">
+        <app-editor-view-layout [contentView]="article.articleLayout" [id]="article.id"></app-editor-view-layout>
+      </div>
+    </ng-container> -->
+</div>
+
+<div class="text-center">
+    <pagination-controls
+      (pageChange)="getPage($event)"
+      id="server"
+      previousLabel="Poprzedna"
+      nextLabel="Następna"
+    ></pagination-controls>
+</div>
+
+</div>
+<ng-template #emptyViewsLayouts>
+    <div class="col-sm-12 mt-5 text-center">
+      <app-loading-spinner></app-loading-spinner>
+    </div>
+</ng-template>
