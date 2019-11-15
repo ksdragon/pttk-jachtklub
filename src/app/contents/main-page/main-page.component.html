@@ -1,6 +1,6 @@
 <div class="main-page">
   <app-show-case></app-show-case>
-  <app-articles-content title="Najnowsze Artykuły"></app-articles-content>
+  <app-articles-content [config]=configPagination [data]=obsListArticles></app-articles-content>
 </div>
 <!-- <button class="btn btn-primary" (click)="onStorageArticles($event)" >Save</button> -->
 <!-- <button class="btn btn-primary" (click)="onFetchArticles($event)" >Fetch</button> -->

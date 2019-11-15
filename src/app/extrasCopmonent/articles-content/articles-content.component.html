@@ -3,13 +3,13 @@
   <div class="col-sm-8" >
 
     <div>
-      <h1 class="home-title">{{ title }}</h1>
+      <h1 class="home-title">{{ config.title }}</h1>
     </div>
 
     <ng-container *ngIf="total &&  !isFetching; else emptyViewsLayouts" >
       <div class="editorViewLayout" *ngFor="let article of asyncArticles
         | async
-        | paginate: { id: 'server', itemsPerPage: perPage, currentPage: p, totalItems: total }
+        | paginate: { id: config.id, itemsPerPage: perPage, currentPage: p, totalItems: total }
         ">
         <app-editor-view-layout [contentView]="article.articleLayout" [id]="article.id"></app-editor-view-layout>
       </div>
@@ -25,7 +25,7 @@
 <div class="text-center">
     <pagination-controls
       (pageChange)="getPage($event)"
-      id="server"
+      id="articles"
       previousLabel="Poprzedna"
       nextLabel="Następna"
     ></pagination-controls>

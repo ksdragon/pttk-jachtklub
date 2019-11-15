@@ -12,6 +12,12 @@ interface IServerResponse {
   total: number;
 }
 
+export interface IConfigPagination {
+  id: string;
+  itemsPerPage: number;
+  title: string;
+}
+
 @Component({
   selector: 'app-main-page',
   templateUrl: './main-page.component.html',
@@ -19,11 +25,7 @@ interface IServerResponse {
 })
 export class MainPageComponent implements OnInit, OnDestroy {
 
-  public config: any = {
-    id: 'articles',
-    itemsPerPage: 10,
-    currentPage: 1
-};
+  configPagination: IConfigPagination;
 
   // subscription: Subscription;
 
@@ -35,6 +37,10 @@ export class MainPageComponent implements OnInit, OnDestroy {
   constructor() {}
 
   ngOnInit() {
+    this.configPagination = {
+      id: 'articles',
+      itemsPerPage: 4,
+      title: 'Najnowsze Artykuły'};
     // this.isFetching = true;
 
     // this.getArticlesFromDB();

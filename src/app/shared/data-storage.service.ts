@@ -31,7 +31,7 @@ export class DataStorage {
 
   serverCall(page: number, sizePage: number) {
     const perPage = sizePage;
-    const start = (page - 1) * perPage;
+    const start = ((page - 1) * perPage) + 1;
     const articlesList = this.db.list<ArticlePage>('articles'
     , ref => ref.orderByKey().startAt(start.toString()).limitToFirst(perPage)
     ).valueChanges();

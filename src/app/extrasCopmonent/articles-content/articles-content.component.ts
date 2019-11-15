@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { EditorService } from '../editor/editor.service';
 import { DataStorage } from 'src/app/shared/data-storage.service';
 import { AngularFireDatabase } from '@angular/fire/database';
+import { IConfigPagination } from 'src/app/contents/main-page/main-page.component';
 
 @Component({
   selector: 'app-articles-content',
@@ -11,20 +12,15 @@ import { AngularFireDatabase } from '@angular/fire/database';
 })
 export class ArticlesContentComponent implements OnInit {
 
+  @Input() config: IConfigPagination;
   asyncArticles: Observable<any[]>;
   isFetching = false;
   p = 1;
   total: number;
-  perPage = 2;
-  @Input() title;
+  perPage: number;
 
   constructor(private dataStorage: DataStorage,
               private db: AngularFireDatabase) {
-              this.db.list('articles').valueChanges()
-              .subscribe( response => {
-                this.total = response.length;
-                console.log('response valueChanges', response.length);
-              });
             }
 
 ngOnInit() {
@@ -32,6 +28,12 @@ ngOnInit() {
   }
 
 getPage(page: number) {
+    this.db.list('articles').valueChanges()
+              .subscribe( response => {
+                this.total = response.length;
+                console.log('response valueChanges', response.length);
+              });
+    this.perPage =  this.config.itemsPerPage;
     this.isFetching = true;
     this.asyncArticles = this.dataStorage.serverCall(page, this.perPage);
     this.p = page;
