@@ -35,6 +35,8 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { ArticlesContentComponent } from './extrasCopmonent/articles-content/articles-content.component';
 import { AuthComponent } from './auth/auth.component';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AuthFireComponent } from './auth-fire/auth-fire.component';
 
 
 @NgModule({
@@ -60,7 +62,8 @@ import { AuthComponent } from './auth/auth.component';
     ArticlesContentComponent,
     AuthComponent,
     PlaceholderDirective,
-    AlertComponent
+    AlertComponent,
+    AuthFireComponent
   ],
   imports: [
     BrowserModule,
@@ -74,7 +77,8 @@ import { AuthComponent } from './auth/auth.component';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireDatabaseModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    AngularFireAuthModule,
   ],
   entryComponents: [ ModalViewLayoutComponent, AlertComponent ],
   providers: [],

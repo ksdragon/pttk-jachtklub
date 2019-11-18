@@ -7,6 +7,7 @@ import { MainPageComponent } from './contents/main-page/main-page.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DockPageComponent } from './contents/dock-page/dock-page.component';
+import { AuthFireComponent } from './auth-fire/auth-fire.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/strona-glowna', pathMatch: 'full' },
@@ -15,7 +16,7 @@ const routes: Routes = [
   { path: 'port', component: DockPageComponent },
   { path: 'edytor', component: ArticleTemplateComponent },
   { path: 'article/:id', component: EditorViewArticleComponent },
-  { path: 'auth', component: AuthComponent },
+  { path: 'auth', component: AuthFireComponent },
   { path: 'not-found', component: PageNotFoundComponent },
   { path: '**', redirectTo: '/not-found' },
 ];
