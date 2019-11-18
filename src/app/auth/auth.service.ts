@@ -49,9 +49,12 @@ export class AuthService {
     // wykorzystanie własnej prywatnej metody do scentralizowania obsługi błędów
     // jest to zamiast anonimowej funkcji którą tutaj zastąpiliśmy
     // metoda przyjmuje obiekt typu HttpErrorResponse
-    .pipe(catchError(this.handleError), tap( resData => {
+    .pipe(catchError(this.handleError)
+    // tap operator nie zmienie odpowiedzi z setwera ale pozwala na uruchomienie jakiegoś kodu
+    // z wykorzystaniem danych z odpoweidzi.
+    , tap( resData => {
       // API firebase przyjmuje expirationDate w jako TimeStamp więc musimy utworzyć datę wygaśnięcia w ms
-      // new Date().getTime() to zwraca nam ile ms upłyneło od 1970 i do tego dadajemy 1h
+      // new Date().getTime() to zwraca nam ile ms upłyneło od 1970 i do tego dadajemy czas jaki dostaliśmy z firebase
       // +resData.expiresIn -  z tego dostajemy czas życia obiektu w sekundach dlatego mnożymy to jeszcze przez 1000
       // żeby dostać milisekuny (+ zamienia na typ number) wszystko zwraca nam Datę jaką potrzebujemy.
       const expirationDate = new Date(new Date().getTime() + +resData.expiresIn * 1000);
@@ -73,7 +76,8 @@ export class AuthService {
       password,
       returnSecureToken: true
     }
-    // obsługa błędów bez metody prywatnej, można ją zastąpić metodą prywatną
+    // obsługa błędów bez metody prywatnej, można ją zastąpić metodą prywatną handleError
+    // która jest poniżej i wykorzstywana przy sing up
     ).pipe(catchError( errorRes => {
       let errorMessage = 'An unknown error occurred';
       // sprawdzenie czy nie ma innych błędów (np sieciowych)
@@ -98,6 +102,7 @@ export class AuthService {
       return throwError(errorMessage);
     }),
     // wykorzystanie prywatnej metody handleAuthentication do obsługi logowania.
+    // podobniej jak w przypadku catchError wykorzystujemy funkcje handleAuthentication()
     tap(
       resData => {
         this.handleAuthentication(resData.email, resData.localId, resData.idToken, +resData.expiresIn);

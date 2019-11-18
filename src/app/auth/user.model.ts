@@ -1,4 +1,7 @@
 export class User {
+  // jak w konstruktorze podamy tak właściowći to możemy to wykorzystywąć tak
+  // jakbyśmy utworzyli klasę typu user jest taki skrót wykorzystywany przez typescript
+
   constructor(
     public email: string,
     public id: string,
@@ -8,6 +11,9 @@ export class User {
     private _tokenExpirationDate: Date
     ) {}
 
+    // geter to specjaly sposób dostępu do włąściowści, jak ustawiemy pole jako
+    // prywatne to można je utowrzyc przy tworzeniu obiektu typu user
+    // a dostać sie możemy przez tylko specjalne funkcje typu get i set
     get token() {
       // sprawdzenie czy token istnieje i czy nie jest wygasły domyślnie API firebase ustawia 1h
       if (!this._tokenExpirationDate || new Date() > this._tokenExpirationDate) {
