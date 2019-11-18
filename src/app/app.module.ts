@@ -1,3 +1,5 @@
+import { AlertComponent } from './shared/alert/alert.component';
+import { PlaceholderDirective } from './shared/placeholder/placeholder.derective';
 import { EditorLayoutComponent } from './extrasCopmonent/editor/editor-layout/editor-layout.component';
 import { EditorPageComponent } from './extrasCopmonent/editor/editor-page/editor-page.component';
 import {NgPipesModule} from 'ngx-pipes';
@@ -32,6 +34,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { ArticlesContentComponent } from './extrasCopmonent/articles-content/articles-content.component';
+import { AuthComponent } from './auth/auth.component';
 
 
 @NgModule({
@@ -55,7 +58,9 @@ import { ArticlesContentComponent } from './extrasCopmonent/articles-content/art
     ModalViewLayoutComponent,
     LoadingSpinnerComponent,
     ArticlesContentComponent,
-
+    AuthComponent,
+    PlaceholderDirective,
+    AlertComponent
   ],
   imports: [
     BrowserModule,
@@ -71,7 +76,7 @@ import { ArticlesContentComponent } from './extrasCopmonent/articles-content/art
     AngularFireDatabaseModule,
     NgxPaginationModule
   ],
-  entryComponents: [ ModalViewLayoutComponent ],
+  entryComponents: [ ModalViewLayoutComponent, AlertComponent ],
   providers: [],
   bootstrap: [AppComponent]
 })

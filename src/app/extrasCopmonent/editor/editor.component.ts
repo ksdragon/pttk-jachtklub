@@ -150,7 +150,7 @@ export class EditorComponent implements OnInit, OnDestroy {
     this.isModal = false;
     this.changeQuillEditor(this.isModal);
     const article = new ArticlePage();
-    console.log('this.editorLayout.editor.content', this.editorLayout.editor.content);
+    // console.log('this.editorLayout.editor.content', this.editorLayout.editor.content);
     article.articleLayout = this.editorLayout.editor.content;
     article.articlePage = this.editorPage.editor.content;
     article.id = this.id;
