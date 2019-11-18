@@ -4,8 +4,6 @@
   text-align: left;
 }
 
-
-
 .editorViewLayout .ngx-quill-view .ql-editor img
 {
   max-width: 240px !important;
@@ -21,3 +19,21 @@
 .test {
   background-color: #FF0000;
 }
+
+a span img:hover
+{
+  transform: scale(1.05);
+  -webkit-transform: scale(1.05);
+}
+
+a span img
+ {
+  -webkit-transition: 0.4s all ease;
+  -o-transition: 0.4s all ease;
+   transition: 0.4s all ease;
+}
+
+// .editorViewLayout .ngx-quill-view .ql-editor
+// {
+//   overflow: hidden;
+// }

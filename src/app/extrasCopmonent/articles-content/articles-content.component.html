@@ -1,12 +1,10 @@
-<div class="col-sm-12" *ngIf="2 && !isFetching; else emptyViewsLayouts">
+<div class="col-sm-12" *ngIf="total && !isFetching; else emptyViewsLayouts">
   <!-- <div class="col-sm-12"> -->
   <div class="col-sm-8" >
-
     <div>
       <h1 class="home-title">{{ config.title }}</h1>
     </div>
-
-    <ng-container *ngIf="2 &&  !isFetching; else emptyViewsLayouts" >
+    <ng-container *ngIf="total &&  !isFetching; else emptyViewsLayouts" >
       <div class="editorViewLayout" *ngFor="let article of asyncArticles
         | async
         | paginate: { id: config.id, itemsPerPage: config.itemsPerPage, currentPage: p, totalItems: total }
@@ -14,13 +12,7 @@
         <app-editor-view-layout [contentView]="article.articleLayout" [id]="article.id"></app-editor-view-layout>
       </div>
     </ng-container>
-
-    <!-- <ng-container *ngIf="articles.length && !isFetching; else emptyViewsLayouts" >
-      <div class="editorViewLayout" *ngFor="let article of articles | reverse; let i = index">
-        <app-editor-view-layout [contentView]="article.articleLayout" [id]="article.id"></app-editor-view-layout>
-      </div>
-    </ng-container> -->
-</div>
+  </div>
 
 <div class="text-center">
     <pagination-controls
