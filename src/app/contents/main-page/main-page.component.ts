@@ -1,16 +1,6 @@
-import { EditorService } from './../../extrasCopmonent/editor/editor.service';
+import { ArticlePage } from './../../shared/article-page.model';
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
-import { Subscription, Observable, of } from 'rxjs';
-import { ArticlePage } from 'src/app/shared/article-page.model';
-import { DataStorage } from 'src/app/shared/data-storage.service';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { AngularFireDatabase } from '@angular/fire/database';
-import { tap, map, delay } from 'rxjs/operators';
 
-interface IServerResponse {
-  articles: Observable<any[]>;
-  total: number;
-}
 
 export interface IConfigPagination {
   id: string;
@@ -26,35 +16,40 @@ export interface IConfigPagination {
 export class MainPageComponent implements OnInit, OnDestroy {
 
   configPagination: IConfigPagination;
+  p;
 
-  // subscription: Subscription;
-
-  // tslint:disable-next-line: no-input-rename
-  // articles: ArticlePage[] = [];
-
-  // articleElement = new ArticlePage();
 
   constructor() {}
 
-  ngOnInit() {
-    this.configPagination = {
-      id: 'articles',
-      itemsPerPage: 4,
-      title: 'Najnowsze Artykuły'};
-    // this.isFetching = true;
+    ngOnInit() {
+      this.configPagination = {
+        id: 'articles',
+        itemsPerPage: 2,
+        title: 'Najnowsze Artykuły',
+      };
+    }
 
-    // this.getArticlesFromDB();
-    // this.isFetching = false;
-  }
 
-  // private getArticlesFromDB() {
-  //   if (this.articles.length < 1) {
-  //     this.subscription = this.dataStorage.fetchAriticles()
-  //       .subscribe((articles: ArticlePage[]) => {
-  //         this.editorService.setArticles(articles);
-  //         // this.articles = articles;
-  //         console.log(articles);
-  //       });
+      // subscription: Subscription;
+
+      // tslint:disable-next-line: no-input-rename
+      // articles: ArticlePage[] = [];
+
+      // articleElement = new ArticlePage();
+
+      // this.isFetching = true;
+
+      // this.getArticlesFromDB();
+      // this.isFetching = false;
+
+      // private getArticlesFromDB() {
+        //   if (this.articles.length < 1) {
+          //     this.subscription = this.dataStorage.fetchAriticles()
+          //       .subscribe((articles: ArticlePage[]) => {
+            //         this.editorService.setArticles(articles);
+            //         // this.articles = articles;
+            //         console.log(articles);
+            //       });
   //   }
   //   this.editorService.articlesChanged.subscribe((articles: ArticlePage[]) => {
   //     this.articles = articles;

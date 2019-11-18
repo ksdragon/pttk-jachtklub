@@ -6,14 +6,14 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { ThrowStmt } from '@angular/compiler';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class DataStorage {
 
   articles: ArticlePage[] = [];
 
-  constructor( private http: HttpClient,
-               private editorService: EditorService,
-               private db: AngularFireDatabase) {}
+  constructor(private http: HttpClient,
+              private editorService: EditorService,
+              private db: AngularFireDatabase) { }
 
   storeArticle() {
     const articles = this.editorService.getArticles();
@@ -31,22 +31,31 @@ export class DataStorage {
 
   serverCall(page: number, sizePage: number) {
     const perPage = sizePage;
-    const start = ((page - 1) * perPage) + 1;
+    const start = page === 1 ? 0 : ((page - 1) * perPage);
+    // const start = page - 1 * perPage;
     const articlesList = this.db.list<ArticlePage>('articles'
-    , ref => ref.orderByKey().startAt(start.toString()).limitToFirst(perPage)
+      , ref => ref.orderByKey().startAt(start.toString()).limitToFirst(perPage)
     ).valueChanges();
+    console.log('articlesList', articlesList);
 
-    articlesList.subscribe((articles: ArticlePage[])  => {
+    articlesList.subscribe((articles: ArticlePage[]) => {
       articles.forEach((a: ArticlePage) => {
         console.log('a', a);
         if ((this.editorService.getArticles()
-            .find(elem => elem.id === a.id)) === undefined) {
+          .find(elem => elem.id === a.id)) === undefined) {
           this.editorService.addArticle(a);
           console.log('this.editorService.getArticles()', this.editorService.getArticles());
         }
       });
     });
     return articlesList;
+  }
+
+  getTotalLenghtArticles() {
+    return this.db.list('articles').valueChanges().subscribe(
+      response => {
+        return response.length;
+      });
   }
 
 

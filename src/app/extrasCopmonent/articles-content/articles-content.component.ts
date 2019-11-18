@@ -1,9 +1,13 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { ArticlePage } from './../../shared/article-page.model';
+import { Component, OnInit, Input, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { EditorService } from '../editor/editor.service';
 import { DataStorage } from 'src/app/shared/data-storage.service';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { IConfigPagination } from 'src/app/contents/main-page/main-page.component';
+import { EventEmitter } from '@angular/core';
+
+
 
 @Component({
   selector: 'app-articles-content',
@@ -12,32 +16,32 @@ import { IConfigPagination } from 'src/app/contents/main-page/main-page.componen
 })
 export class ArticlesContentComponent implements OnInit {
 
-  @Input() config: IConfigPagination;
-  asyncArticles: Observable<any[]>;
-  isFetching = false;
-  p = 1;
-  total: number;
-  perPage: number;
+@Input() config: IConfigPagination;
+asyncArticles: Observable<ArticlePage[]>;
+p = 1;
+isFetching = false;
+total;
 
-  constructor(private dataStorage: DataStorage,
-              private db: AngularFireDatabase) {
-            }
+
+constructor(private dataStorage: DataStorage,
+            private db: AngularFireDatabase) {
+  this.db.list('articles').valueChanges().subscribe(
+    response => {
+      this.total = response.length;
+    });
+}
 
 ngOnInit() {
   this.getPage(1);
   }
 
 getPage(page: number) {
-    this.db.list('articles').valueChanges()
-              .subscribe( response => {
-                this.total = response.length;
-                console.log('response valueChanges', response.length);
-              });
-    this.perPage =  this.config.itemsPerPage;
-    this.isFetching = true;
-    this.asyncArticles = this.dataStorage.serverCall(page, this.perPage);
-    this.p = page;
-    this.isFetching = false;
+  this.isFetching = true;
+  this.asyncArticles = this.dataStorage.serverCall(
+    page,
+    this.config.itemsPerPage); // potrzebne do szblonu żeby zmieniać css.
+  this.p = page;
+  this.isFetching = false;
   }
 
 }
