@@ -26,8 +26,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.isAuthenticated = !!user;
       if (user) {
         console.log('user logged in', user);
+        this.router.navigate(['/edytor']);
       } else {
         console.log('user logged out', user);
+        this.router.navigate(['/strona-glowna']);
       }
     });
 
@@ -40,7 +42,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   logout() {
-    this.router.navigate(['/strona-glowna']);
     this.authFireService.logout().then(() =>
       console.log('user logout')
     );
