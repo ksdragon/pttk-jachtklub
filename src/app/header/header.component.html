@@ -24,7 +24,7 @@
         <li class="nav-item" routerLinkActive="active" *ngIf="isAuthenticated" ><a href="#" routerLink="/edytor" class="nav-link"> Edytor </a></li>
       </ul>
       <ul class="navbar-nav mx-auto text-uppercase">
-          <li class="nav-item" routerLinkActive="active" *ngIf="isAuthenticated"><a href="#" routerLink="/strona-glowna" class="nav-link" >Logout</a></li>
+          <li class="nav-item" *ngIf="isAuthenticated"><a href="#" (click)="logout()" class="nav-link" >Logout</a></li>
       </ul>
     </div>
   </nav>

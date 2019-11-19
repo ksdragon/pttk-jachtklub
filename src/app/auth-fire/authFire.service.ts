@@ -12,7 +12,9 @@ export interface Credentials {
 export class AuthFireService {
     readonly authState$: Observable<User | null> = this.fireAuth.authState;
 
-  constructor(private fireAuth: AngularFireAuth) {}
+  constructor(private fireAuth: AngularFireAuth) {
+    this.fireAuth.
+  }
 
   get user(): User | null {
     return this.fireAuth.auth.currentUser;
