@@ -1,3 +1,4 @@
+import { ArticlePage } from './../../../shared/article-page.model';
 import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -10,17 +11,20 @@ import { Router } from '@angular/router';
 })
 export class EditorViewLayoutComponent implements OnInit {
 
-  @Input() contentView;
-  @Input() id: number;
+  contentView;
+  @Input() id;
+  @Input() article: ArticlePage;
+
 
   constructor(private router: Router) { }
 
   ngOnInit() {
+    this.contentView = this.article.articleLayout;
     // console.log('editorViewLayout id', this.id);
     // console.log('editorViewLayout id', this.contentView);
   }
 
   onclick() {
-    this.router.navigate(['/article', this.id]);
+    this.router.navigate(['/article', this.article.id]);
   }
 }

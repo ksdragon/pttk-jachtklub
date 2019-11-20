@@ -26,7 +26,7 @@ export class AuthService {
 
   // zieniamy z Subject do BehaviorSubject - powoduje to ro że mamy dostęp do tej zmiennej
   // nie w chwili jak jakaś metoda wywoła next ale cały czas nie zależnie od czasu emisj.
-  // tz mamy dostęp do właściości tego obiektu np Daty która została wygenerowna.
+  // tzn mamy dostęp do właściości tego obiektu np Daty która została wygenerowna.
   user = new BehaviorSubject<User>(null);
 
   // zmienna do autoLogout czy został już wylogowany.

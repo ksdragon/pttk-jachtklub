@@ -31,7 +31,7 @@ export class EditorService {
   getArticle(index: number) {
     return this.articles.slice()[index];
   }
-  
+
   getArticleById(id: number) {
     return this.articles.find(a => a.id === id);
   }

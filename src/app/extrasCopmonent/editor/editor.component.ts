@@ -50,7 +50,13 @@ export class EditorComponent implements OnInit, OnDestroy {
     const articles = this.editorService.getArticles();
     if (articles.length > 0) {
       const art = articles[articles.length - 1];
-      this.id = art.id + 1;
+      // this.id = art.id + 1;
+      this.dataStorage.getTotalLenghtArticles().subscribe(
+        num => {
+        this.id = num + 1;
+        console.log('init id', num);
+      }
+      );
 
     }
 
@@ -162,6 +168,7 @@ export class EditorComponent implements OnInit, OnDestroy {
     this.editorService.addArticle(article);
     this.id++;
     this.dataStorage.storeArticle();
+    // this.dataStorage.storeArticleAPI(article);
   }
 
   ngOnDestroy(): void {

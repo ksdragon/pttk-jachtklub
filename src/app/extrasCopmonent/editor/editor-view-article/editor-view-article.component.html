@@ -1,8 +1,8 @@
 <div>
   <div>
-      <h1 class="home-title">{{ article.header }}</h1>
+      <h1 class="home-title">{{ article.header | async }}</h1>
   </div>
- 
+
   <quill-view
     [content]="contentView"
     [preserveWhitespace]="true"

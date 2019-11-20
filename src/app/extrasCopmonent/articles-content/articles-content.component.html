@@ -9,7 +9,8 @@
         | async
         | paginate: { id: config.id, itemsPerPage: config.itemsPerPage, currentPage: p, totalItems: total }
         ">
-        <app-editor-view-layout [contentView]="article.articleLayout" [id]="article.id"></app-editor-view-layout>
+        <!-- <app-editor-view-layout [contentView]="article.articleLayout" [id]="article.id"></app-editor-view-layout> -->
+        <app-editor-view-layout [article]="article" ></app-editor-view-layout>
       </div>
     </ng-container>
   </div>

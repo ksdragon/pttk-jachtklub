@@ -16,7 +16,7 @@ import { EventEmitter } from '@angular/core';
 })
 export class ArticlesContentComponent implements OnInit {
 
-@Input() config: IConfigPagination;
+@Input() config?: IConfigPagination;
 asyncArticles: Observable<ArticlePage[]>;
 p = 1;
 isFetching = false;
@@ -42,6 +42,11 @@ getPage(page: number) {
     this.config.itemsPerPage); // potrzebne do szblonu żeby zmieniać css.
   this.p = page;
   this.isFetching = false;
+    // za wolno działa w porównanu z API firebase.
+    // this.asyncArticles = this.dataStorage.fetchAriticlesPagination();
+    // this.asyncArticles.subscribe(data => {
+    //   console.log('data', data);
+    // });
   }
 
 }
