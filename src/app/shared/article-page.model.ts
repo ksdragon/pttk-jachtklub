@@ -1,7 +1,7 @@
 import { Quill, Delta } from 'quill';
 
 export class ArticlePage {
-  public id: number;
+  public id?: any;
   public header?: string;
   public userName?: string;
   public createDate?: Date;

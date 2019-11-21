@@ -4,11 +4,12 @@ import { EditorService } from './editor.service';
 import { ArticlePage } from './../../shared/article-page.model';
 import { EditorLayoutComponent } from './editor-layout/editor-layout.component';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
-import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy, AfterViewInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { MDBModalService, MDBModalRef } from 'angular-bootstrap-md';
 import Quill from 'quill';
 import * as cloneDeep from 'lodash/cloneDeep';
+import { findSafariExecutable } from 'selenium-webdriver/safari';
 
 const Parchment = Quill.import('parchment');
 const PttkEditor = new Parchment.Attributor.Class('pttk-editor', 'pttk-editor');
@@ -19,7 +20,7 @@ Quill.register(PttkEditor);
   templateUrl: './editor.component.html',
   styleUrls: ['./editor.component.scss', './editor.component.css']
 })
-export class EditorComponent implements OnInit, OnDestroy {
+export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
   // zwraca cały comonent EditorLayoutComponent z wszystkimi polami
   // i metodami
   @ViewChild('appEditorLayout', { static: false }) editorLayout?;
@@ -29,19 +30,22 @@ export class EditorComponent implements OnInit, OnDestroy {
   editorForm: FormGroup;
   contentView;
   titleHeader;
-  id = 0;
+  id = 1;
   isModal = false;
   // editorLayout: FormGroup;
 
   constructor(private editorService: EditorService,
               private modalService: MDBModalService,
-              private dataStorage: DataStorage) {
-  }
+              private dataStorage: DataStorage) {}
 
 
-  // subscription: Subscription;
-  article: ArticlePage;
-  modalRef: MDBModalRef; // service modal window
+    // subscription: Subscription;
+    article: ArticlePage;
+    modalRef: MDBModalRef; // service modal window
+
+  ngAfterViewInit(): void {
+      console.log('init id', this.id);
+    }
 
   ngOnInit(): void {
     this.editorForm = new FormGroup({
@@ -51,14 +55,12 @@ export class EditorComponent implements OnInit, OnDestroy {
     if (articles.length > 0) {
       const art = articles[articles.length - 1];
       // this.id = art.id + 1;
-      this.dataStorage.getTotalLenghtArticles().subscribe(
-        num => {
-        this.id = num + 1;
-        console.log('init id', num);
-      }
-      );
-
     }
+    // this.dataStorage.getTotalLenghtArticles().subscribe(
+    //   len => this.id = len
+    // );
+    // this.id = this.dataStorage.getNewKeyFromDB();
+
 
     // const node = document.createElement('div');
     // node.append('Czytaj');
@@ -159,16 +161,16 @@ export class EditorComponent implements OnInit, OnDestroy {
     // console.log('this.editorLayout.editor.content', this.editorLayout.editor.content);
     article.articleLayout = this.editorLayout.editor.content;
     article.articlePage = this.editorPage.editor.content;
-    article.id = this.id;
+    // article.id = this.id;
     article.header = this.titleHeader;
     article.createDate = new Date();
-    // console.log(article.createDate);
+    console.log(article.createDate);
     // console.log(this.editorLayout.editor.content);
     // console.log(this.editorPage.editor.content);
     this.editorService.addArticle(article);
     this.id++;
-    this.dataStorage.storeArticle();
-    // this.dataStorage.storeArticleAPI(article);
+    // this.dataStorage.storeArticle();
+    this.dataStorage.storeArticleAPI(article);
   }
 
   ngOnDestroy(): void {

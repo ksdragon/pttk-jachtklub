@@ -13,6 +13,7 @@ export class DataStorage {
   articles: ArticlePage[] = [];
   asyncArticles: Observable<ArticlePage[]>;
 
+
   constructor(private http: HttpClient,
               private editorService: EditorService,
               private db: AngularFireDatabase,
@@ -21,7 +22,8 @@ export class DataStorage {
 
 
   storeArticleAPI(article: ArticlePage) {
-    this.db.database.ref('articles').push(article)
+    article.id = this.getNewKeyFromDB();
+    this.db.database.ref('articles/' + article.id).set(article)
     .then(respone => {
       console.log('storeArticleAPI', respone);
     }
@@ -37,10 +39,16 @@ export class DataStorage {
     const perPage = sizePage;
     const start = page === 1 ? 0 : ((page - 1) * perPage);
     // const start = page - 1 * perPage;
+    console.log('page:', page);
+    console.log('sizePage:', sizePage);
     const articlesList = this.db.list<ArticlePage>('articles'
-      , ref => ref.orderByKey().startAt(start.toString()).limitToFirst(perPage)
+      , ref => ref.orderByChild('header').startAt(start.toString()).limitToFirst(perPage)
     ).valueChanges();
     console.log('articlesList', articlesList);
+
+    articlesList.subscribe((articles: ArticlePage[]) => {
+        console.log('article in serverCall', articles);
+          });
 
     // articlesList.subscribe((articles: ArticlePage[]) => {
     //   articles.forEach((a: ArticlePage) => {
@@ -57,11 +65,14 @@ export class DataStorage {
   }
 
   getTotalLenghtArticles() {
-   return this.db.list('articles').valueChanges().pipe(
-      map(response => {
+      return this.db.list('articles').valueChanges().pipe(
+      map((response: ArticlePage[]) => {
         return response.length;
-      })
-    );
+      }));
+  }
+
+  getNewKeyFromDB() {
+    return this.db.database.ref().push().key;
   }
 
   // lepiej użyć return i subskrybować tam gdzie jest potrzebne.

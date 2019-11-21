@@ -28,6 +28,7 @@ constructor(private dataStorage: DataStorage,
   this.db.list('articles').valueChanges().subscribe(
     response => {
       this.total = response.length;
+      console.log('response.length', response.length);
     });
 }
 
