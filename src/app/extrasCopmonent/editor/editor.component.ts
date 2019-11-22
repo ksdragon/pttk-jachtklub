@@ -25,12 +25,13 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
   // i metodami
   @ViewChild('appEditorLayout', { static: false }) editorLayout?;
   @ViewChild('appEditorPage', { static: false }) editorPage?;
+  idSubscrtition: Subscription;
   editorLayoutModal;
   editorPageModal;
   editorForm: FormGroup;
   contentView;
   titleHeader;
-  id = 1;
+  id;
   isModal = false;
   // editorLayout: FormGroup;
 
@@ -56,9 +57,12 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
       const art = articles[articles.length - 1];
       // this.id = art.id + 1;
     }
-    // this.dataStorage.getTotalLenghtArticles().subscribe(
-    //   len => this.id = len
-    // );
+    this.idSubscrtition = this.dataStorage.getLastArticlesElement().subscribe(
+     (article: ArticlePage) => {
+       this.id = article.id;
+       console.log('id', this.id);
+    }
+    );
     // this.id = this.dataStorage.getNewKeyFromDB();
 
 
@@ -163,7 +167,7 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
     article.articlePage = this.editorPage.editor.content;
     // article.id = this.id;
     article.header = this.titleHeader;
-    article.createDate = new Date();
+    article.createDate = new Date().toLocaleString();
     console.log(article.createDate);
     // console.log(this.editorLayout.editor.content);
     // console.log(this.editorPage.editor.content);

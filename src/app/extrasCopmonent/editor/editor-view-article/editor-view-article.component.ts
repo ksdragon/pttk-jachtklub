@@ -14,6 +14,7 @@ export class EditorViewArticleComponent implements OnInit {
  contentView;
  article: ArticlePage;
  createDate;
+ header;
 
   constructor(private route: ActivatedRoute,
               private editorService: EditorService,
@@ -27,6 +28,7 @@ export class EditorViewArticleComponent implements OnInit {
         this.article = data.find(a => a.id === id);
         this.contentView = this.article.articlePage;
         this.createDate = this.article.createDate;
+        this.header = this.article.header;
         console.log('this.article', data.find(a => a.id === id));
         console.log('this.article',  this.article);
       }
