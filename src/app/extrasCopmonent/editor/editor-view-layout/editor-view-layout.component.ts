@@ -12,7 +12,6 @@ import { Router } from '@angular/router';
 export class EditorViewLayoutComponent implements OnInit {
 
   contentView;
-  @Input() id;
   @Input() article: ArticlePage;
 
 
@@ -20,8 +19,6 @@ export class EditorViewLayoutComponent implements OnInit {
 
   ngOnInit() {
     this.contentView = this.article.articleLayout;
-    // console.log('editorViewLayout id', this.id);
-    // console.log('editorViewLayout id', this.contentView);
   }
 
   onclick() {

@@ -24,7 +24,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
     ngOnInit() {
       this.configPagination = {
         id: 'articles',
-        itemsPerPage: 2,
+        itemsPerPage: 4,
         title: 'Najnowsze Artykuły',
       };
     }

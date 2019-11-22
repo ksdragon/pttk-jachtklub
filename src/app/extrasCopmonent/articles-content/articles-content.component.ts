@@ -38,16 +38,20 @@ ngOnInit() {
 
 getPage(page: number) {
   this.isFetching = true;
-  this.asyncArticles = this.dataStorage.serverCall(
+  this.asyncArticles = this.dataStorage.getPaginatedArticles(
     page,
     this.config.itemsPerPage); // potrzebne do szblonu żeby zmieniać css.
   this.p = page;
   this.isFetching = false;
-    // za wolno działa w porównanu z API firebase.
-    // this.asyncArticles = this.dataStorage.fetchAriticlesPagination();
-    // this.asyncArticles.subscribe(data => {
-    //   console.log('data', data);
-    // });
-  }
-
 }
+}
+
+// inna wersja paginowania słobo działa 
+// this.asyncArticles = this.dataStorage.serverCall(
+//   page,
+//   this.config.itemsPerPage); // potrzebne do szblonu żeby zmieniać css.
+  // za wolno działa w porównanu z API firebase.
+  // this.asyncArticles = this.dataStorage.fetchAriticlesPagination();
+  // this.asyncArticles.subscribe(data => {
+  //   console.log('data', data);
+  // });

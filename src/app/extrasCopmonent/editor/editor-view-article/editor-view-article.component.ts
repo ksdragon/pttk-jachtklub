@@ -21,9 +21,9 @@ export class EditorViewArticleComponent implements OnInit {
               private dataStorage: DataStorage) { }
 
   ngOnInit() {
-    const id = +this.route.snapshot.params.id;
+    const id = this.route.snapshot.params.id;
     console.log('id', id);
-    this.dataStorage.asyncArticles.subscribe(
+    this.dataStorage.asyncArticles$.subscribe(
       (data: ArticlePage[]) => {
         this.article = data.find(a => a.id === id);
         this.contentView = this.article.articlePage;

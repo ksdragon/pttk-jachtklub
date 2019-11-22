@@ -4,8 +4,8 @@ import { ArticlePage } from './article-page.model';
 import { EditorService } from './../extrasCopmonent/editor/editor.service';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { map, take, exhaustMap, last, tap } from 'rxjs/operators';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { map, take, exhaustMap, last, tap, } from 'rxjs/operators';
+import { Observable, BehaviorSubject, } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class DataStorage {
@@ -16,9 +16,9 @@ export class DataStorage {
 
 
   constructor(private http: HttpClient,
-    private editorService: EditorService,
-    private db: AngularFireDatabase,
-    private authService: AuthService) { }
+              private editorService: EditorService,
+              private db: AngularFireDatabase,
+              private authService: AuthService) { }
 
 
 
@@ -38,19 +38,22 @@ export class DataStorage {
     this.asyncArticles$ = this.db.list<ArticlePage>('articles').valueChanges();
   }
 
-  getPaginatedArray(page: number, sizePage: number) {
+  getPaginatedArticles(page: number, sizePage: number) { //1 //3
     const perPage = sizePage;
-    const start = page === 1 ? 0 : ((page - 1) * perPage);
-    // const start = (page - 1) * perPage;
+    // const start = page === 1 ? 0 : ((page - 1) * perPage);
+    const start = (page - 1) * perPage;
     const end = start + perPage;
     return this.asyncArticles$.pipe(
       map((articles: ArticlePage[]) => {
+        return articles.reverse();
+      })
+      , map((articles: ArticlePage[]) => {
         return articles.slice(start, end);
       })
     );
 }
 
-serverCall(page: number, sizePage: number) {
+serverCall(page: number, sizePage: number) {  
   const perPage = sizePage;
   const start = page === 1 ? 0 : ((page - 1) * perPage);
   // const start = page - 1 * perPage;
