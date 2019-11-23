@@ -37,3 +37,8 @@ a span img
 // {
 //   overflow: hidden;
 // }
+
+article .ql-editor a>span {
+  // powoduje że skalowanie jest w obrębie danego diva i się nie zmienia wielkość obrazka
+  overflow: hidden;
+}
