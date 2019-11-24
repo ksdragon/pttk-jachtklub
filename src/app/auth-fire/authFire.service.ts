@@ -13,7 +13,7 @@ export class AuthFireService {
     readonly authState$: Observable<User | null> = this.fireAuth.authState;
 
   constructor(private fireAuth: AngularFireAuth) {
-    this.fireAuth.auth.languageCode = 'pl';
+    this.fireAuth.auth.useDeviceLanguage();
   }
 
   get user(): User | null {
@@ -22,7 +22,7 @@ export class AuthFireService {
 
   login({email, password}: Credentials) {
     return this.fireAuth.auth.signInWithEmailAndPassword(email, password)
-    .catch(error => this.handleErrors(error));
+    .catch(error => this.handleErrors.bind(error));
   }
 
   register({email, password}: Credentials) {

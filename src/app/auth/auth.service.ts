@@ -6,7 +6,7 @@ import { Injectable, ErrorHandler } from '@angular/core';
 import { catchError, tap } from 'rxjs/operators';
 // operator króry przechwytuje błędy jest typu obserable jak każdy z tej biblioteki.
 import { throwError, BehaviorSubject } from 'rxjs';
-import { User } from './user.model';
+import { User } from '../shared/user.model';
 
 // interfejs zgodnie z tym co zwraca baza firebase potrzebny do sing up.
 export interface AuthRensponseData {

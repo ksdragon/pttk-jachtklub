@@ -8,12 +8,14 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DockPageComponent } from './contents/dock-page/dock-page.component';
 import { AuthFireComponent } from './auth-fire/auth-fire.component';
+import { ProfileUserComponent } from './contents/profile-user/profile-user.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/strona-glowna', pathMatch: 'full' },
   { path: 'strona-glowna', component: MainPageComponent },
   { path: 'o-nas', component: AboutAsPageComponent },
   { path: 'port', component: DockPageComponent },
+  { path: 'profile', component: ProfileUserComponent },
   { path: 'edytor', component: ArticleTemplateComponent },
   { path: 'article/:id', component: EditorViewArticleComponent },
   { path: 'auth', component: AuthFireComponent },

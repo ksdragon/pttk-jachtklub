@@ -1,3 +1,6 @@
+import { Address } from './address.model';
+import { from } from 'rxjs';
+
 export class User {
   // jak w konstruktorze podamy tak właściowći to możemy to wykorzystywąć tak
   // jakbyśmy utworzyli klasę typu user jest taki skrót wykorzystywany przez typescript
@@ -6,9 +9,13 @@ export class User {
     public email: string,
     public id: string,
     // tslint:disable-next-line: variable-name
-    private _token: string,
+    private _token?: string,
     // tslint:disable-next-line: variable-name
-    private _tokenExpirationDate: Date
+    private _tokenExpirationDate?: Date,
+    public nickName: string = '',
+    public name: string = '',
+    public lastName: string = '',
+    public adres?: Address,
     ) {}
 
     // geter to specjaly sposób dostępu do włąściowści, jak ustawiemy pole jako

@@ -37,6 +37,7 @@ import { ArticlesContentComponent } from './extrasCopmonent/articles-content/art
 import { AuthComponent } from './auth/auth.component';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AuthFireComponent } from './auth-fire/auth-fire.component';
+import { ProfileUserComponent } from './contents/profile-user/profile-user.component';
 
 
 @NgModule({
@@ -63,7 +64,8 @@ import { AuthFireComponent } from './auth-fire/auth-fire.component';
     AuthComponent,
     PlaceholderDirective,
     AlertComponent,
-    AuthFireComponent
+    AuthFireComponent,
+    ProfileUserComponent
   ],
   imports: [
     BrowserModule,
