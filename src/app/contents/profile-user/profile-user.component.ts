@@ -2,9 +2,10 @@ import { ProfileUserService } from './profile-user.service';
 import { User } from './../../shared/user.model';
 import { AuthFireService } from './../../auth-fire/authFire.service';
 import { Subscription } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { User as userFirebase } from 'firebase';
+
 
 @Component({
   selector: 'app-profile-user',
@@ -13,6 +14,8 @@ import { User as userFirebase } from 'firebase';
 })
 export class ProfileUserComponent implements OnInit {
 
+  @ViewChild('profileForm', {static: false})
+  form: NgForm;
   error;
   userAuth: userFirebase;
   user: User;
@@ -24,7 +27,17 @@ export class ProfileUserComponent implements OnInit {
 
   ngOnInit() {
     this.userAuth = this.authFireService.user;
-    console.log('profileData', this.getProfileUserData(this.userAuth));
+    if (this.getProfileUserData(this.userAuth) !== (null || undefined)) {
+
+      this.getProfileUserData(this.userAuth).then(
+        res => {
+          console.log('profileData', res.val());
+          this.form.setValue({
+            name: res.child('name').val()
+          });
+        }
+      );
+    }
   }
 
   getProfileUserData(userAuth: any) {

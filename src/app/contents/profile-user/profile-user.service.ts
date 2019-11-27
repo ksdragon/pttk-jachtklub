@@ -11,10 +11,11 @@ export class ProfileUserService {
   constructor(private db: AngularFireDatabase ){}
 
   getProfileUserData(userAuth: userFirebase) {
-    return this.db.list('users', ref => ref.orderByChild('email').equalTo(userAuth.email))
-      .snapshotChanges().subscribe( data => {
-        return data;
-      });
+    return this.db.database.ref('users').orderByChild('email').equalTo(userAuth.email)
+    .once('value', snapshot => {
+      if (snapshot.exists()) {
+        return snapshot.val();
+      }});
 
   }
   generateId() {
