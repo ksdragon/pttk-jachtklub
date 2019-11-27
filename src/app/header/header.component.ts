@@ -25,7 +25,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       // this.isAuthenticated = !user ? false : true
       this.isAuthenticated = !!user;
       if (user) {
-        console.log('user logged in', user);
+        console.log('user logged in', user.email);
         // this.router.navigate(['/edytor']);
       } else {
         console.log('user logged out', user);

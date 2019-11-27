@@ -1,4 +1,10 @@
+import { ProfileUserService } from './profile-user.service';
+import { User } from './../../shared/user.model';
+import { AuthFireService } from './../../auth-fire/authFire.service';
+import { Subscription } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { User as userFirebase } from 'firebase';
 
 @Component({
   selector: 'app-profile-user',
@@ -8,14 +14,28 @@ import { Component, OnInit } from '@angular/core';
 export class ProfileUserComponent implements OnInit {
 
   error;
+  userAuth: userFirebase;
+  user: User;
+  private userSub;
   isLoading = false;
 
-  constructor() { }
+  constructor(private authFireService: AuthFireService,
+              private profileUserService: ProfileUserService) { }
 
   ngOnInit() {
+    this.userAuth = this.authFireService.user;
+    console.log('profileData', this.getProfileUserData(this.userAuth));
   }
 
-  onSubmit() {
-    this.isLoading = true;
+  getProfileUserData(userAuth: any) {
+    return this.profileUserService.getProfileUserData(userAuth);
+  }
+
+  onSubmit(profileForm: NgForm) {
+    const u: User = profileForm.value;
+    this.profileUserService.storeUserAPI(u);
+    console.log('User', u);
+
+    alert('zapisano');
   }
 }

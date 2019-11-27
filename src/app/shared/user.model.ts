@@ -15,7 +15,13 @@ export class User {
     public nickName: string = '',
     public name: string = '',
     public lastName: string = '',
-    public adres?: Address,
+    public phone: number[] = [],
+    public birthday: string = '',
+    public street: string = '',
+    public streetNumber: string = '',
+    public city: string = '',
+    public postCode: string = '',
+    public country: string = ''
     ) {}
 
     // geter to specjaly sposób dostępu do włąściowści, jak ustawiemy pole jako
