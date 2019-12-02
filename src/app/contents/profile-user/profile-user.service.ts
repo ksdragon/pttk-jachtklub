@@ -10,6 +10,7 @@ import { Observable, BehaviorSubject, } from 'rxjs';
 export class ProfileUserService {
 
   asyncUsers$: Observable<User[]>;
+  user$: BehaviorSubject<User> = new BehaviorSubject(null);
 
   constructor(private db: AngularFireDatabase ){}
 
@@ -25,11 +26,21 @@ export class ProfileUserService {
     this.asyncUsers$ = this.db.list<User>('users').valueChanges();
   }
 
+  getProfileUser$(userAuth: userFirebase) {
+    this.asyncUsers$.pipe(
+      map(res => {
+        this.user$.next(res.find(x => x.email === userAuth.email));
+      })
+      );
+    }
+
   getProfileUserData$(userAuth: userFirebase) {
     return this.asyncUsers$.pipe(
       map(res => {
+        // console.log('getProfileUserData', res.find(x => x.email === userAuth.email));
         return res.find(x => x.email === userAuth.email);
-      }));
+      })
+      );
     }
 
   generateId() {

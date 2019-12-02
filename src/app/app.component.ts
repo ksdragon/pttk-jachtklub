@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataStorage } from './shared/data-storage.service';
+import { ProfileUserService } from './contents/profile-user/profile-user.service';
 
 @Component({
   selector: 'app-root',
@@ -10,10 +11,12 @@ import { DataStorage } from './shared/data-storage.service';
 export class AppComponent implements OnInit {
   title = 'pttk-jachtklub';
   constructor(private router: Router,
-              private dataStorage: DataStorage) {}
+              private dataStorage: DataStorage,
+              private profileUserService: ProfileUserService) {}
 
   ngOnInit(){
     this.dataStorage.initialConectionDB();
+    this.profileUserService.initialConectionDB();
   }
 
   isHomeRoute() {

@@ -19,7 +19,7 @@ export class ProfileUserComponent implements OnInit {
   error;
   userAuth: userFirebase;
   user: User;
-  user$: Observable<User>;
+  user$: User;
   private userSub;
   isLoading = false;
 
@@ -28,30 +28,30 @@ export class ProfileUserComponent implements OnInit {
 
   ngOnInit() {
     this.userAuth = this.authFireService.user;
-    if (this.getProfileUserData(this.userAuth) !== (null || undefined)) {
+    // if (this.getProfileUserData(this.userAuth) !== (null || undefined)) {
 
-      this.getProfileUserData(this.userAuth).then(
-        res => {
-          // const o = res.val();
-          res.forEach(x =>  {
-            this.user = x.val();
-          });
-          console.log('profileData', this.user );
-          // this.form.setValue(this.user);
-        }
-      );
-    }
+    //   this.getProfileUserData(this.userAuth).then(
+    //     res => {
+    //       // const o = res.val();
+    //       res.forEach(x =>  {
+    //         this.user = x.val();
+    //       });
+    //       console.log('profileData', this.user );
+    //       // this.form.setValue(this.user);
+    //     }
+    //   );
+    // }
     this.profileUserService.getProfileUserData$(this.userAuth).subscribe(
-      res => {
-        this.user$ = res;
-        console.log('', this.user$)
+      (res: User) => {
+        this.user = res;
+        console.log('getProfileUserData$', res);
       }
     );
   }
 
-  getProfileUserData(userAuth: any) {
-    return this.profileUserService.getProfileUserData(userAuth);
-  }
+  // getProfileUserData(userAuth: any) {
+  //   return this.profileUserService.getProfileUserData(userAuth);
+  // }
 
   onSubmit(profileForm: NgForm) {
     const u: User = profileForm.value;
