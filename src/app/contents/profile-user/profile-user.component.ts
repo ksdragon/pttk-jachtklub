@@ -1,7 +1,7 @@
 import { ProfileUserService } from './profile-user.service';
 import { User } from './../../shared/user.model';
 import { AuthFireService } from './../../auth-fire/authFire.service';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { User as userFirebase } from 'firebase';
@@ -19,6 +19,7 @@ export class ProfileUserComponent implements OnInit {
   error;
   userAuth: userFirebase;
   user: User;
+  user$: Observable<User>;
   private userSub;
   isLoading = false;
 
@@ -31,13 +32,21 @@ export class ProfileUserComponent implements OnInit {
 
       this.getProfileUserData(this.userAuth).then(
         res => {
-          console.log('profileData', res.val());
-          this.form.setValue({
-            name: res.child('name').val()
+          // const o = res.val();
+          res.forEach(x =>  {
+            this.user = x.val();
           });
+          console.log('profileData', this.user );
+          // this.form.setValue(this.user);
         }
       );
     }
+    this.profileUserService.getProfileUserData$(this.userAuth).subscribe(
+      res => {
+        this.user$ = res;
+        console.log('', this.user$)
+      }
+    );
   }
 
   getProfileUserData(userAuth: any) {
@@ -46,8 +55,9 @@ export class ProfileUserComponent implements OnInit {
 
   onSubmit(profileForm: NgForm) {
     const u: User = profileForm.value;
+    u.id = this.user.id;
     this.profileUserService.storeUserAPI(u);
-    console.log('User', u);
+    console.log('zapisano user', u);
 
     alert('zapisano');
   }

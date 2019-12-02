@@ -15,7 +15,7 @@ export class User {
     public nickName: string = '',
     public name: string = '',
     public lastName: string = '',
-    public phone: number[] = [],
+    public phones: number[] = [],
     public birthday: string = '',
     public street: string = '',
     public streetNumber: string = '',
