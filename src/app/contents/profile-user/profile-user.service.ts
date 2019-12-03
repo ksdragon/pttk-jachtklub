@@ -41,7 +41,7 @@ export class ProfileUserService {
       ,
       tap(res => {
         console.log('tap', res);
-        this.user = res;
+        return this.user = res;
         // this.user$.next(res);
       })
       );

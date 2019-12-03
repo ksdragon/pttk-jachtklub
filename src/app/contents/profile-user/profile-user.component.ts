@@ -18,44 +18,21 @@ export class ProfileUserComponent implements OnInit {
   form: NgForm;
   error;
   user: User;
-  user$: User;
+  user$: Observable<User>;
   private userSub;
   isLoading = false;
 
-  constructor(private profileUserService: ProfileUserService) { }
+  constructor(private profileUserService: ProfileUserService,
+              private authFireService: AuthFireService) { }
 
   ngOnInit() {
-    // if (this.getProfileUserData(this.userAuth) !== (null || undefined)) {
-
-    //   this.getProfileUserData(this.userAuth).then(
-    //     res => {
-    //       // const o = res.val();
-    //       res.forEach(x =>  {
-    //         this.user = x.val();
-    //       });
-    //       console.log('profileData', this.user );
-    //       // this.form.setValue(this.user);
-    //     }
-    //   );
-    // }
-    // this.profileUserService.getProfileUserData$().subscribe(
-    //   (res: User) => {
-    //     this.user = res;
-    //     console.log('getProfileUserData$', res);
-    //   }
-    // );
-
+    this.user$ = this.profileUserService.getProfileUser$(this.authFireService.user);
     this.user = this.profileUserService.user;
-
   }
-
-  // getProfileUserData(userAuth: any) {
-  //   return this.profileUserService.getProfileUserData(userAuth);
-  // }
 
   onSubmit(profileForm: NgForm) {
     const u: User = profileForm.value;
-    // u.id = this.user.id;
+    u.id = this.user.id;
     this.profileUserService.storeUserAPI(u);
     console.log('zapisano user', u);
 

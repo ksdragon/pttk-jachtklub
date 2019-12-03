@@ -18,17 +18,13 @@ export class ProfileResolverService implements Resolve<User>{
           const userFire = this.authFireService.user;
           console.log('Resolver ', userFire);
           if (!this.profileUserService.user) {
-            let user;
-            this.profileUserService.getProfileUser$(userFire).subscribe(
+            this.profileUserService.getProfileUser$(userFire)
+            .subscribe(
               (respone: User) => {
-                user = respone;
-                console.log('Resolver User ', user);
-                return user;
+                console.log('Resolver User ', respone);
+                return respone;
               }
             );
-            // this.profileUserService.user;
-            // console.log('Resolver if', this.profileUserService.user$);
-            // return this.profileUserService.user$;
           }
           return this.profileUserService.user;
   }

@@ -14,7 +14,7 @@
                     class="form-control"
                     name="email"
                     id="email"
-                    ngModel="{{ user.email }}"
+                    ngModel="{{ (user$ | async)?.email }}"
                     readonly>
             </div>
             <div class="form-group">
@@ -24,7 +24,7 @@
                     class="form-control"
                     name="nickName"
                     id="nickName"
-                    ngModel="{{ user.nickName }}">
+                    ngModel="{{  (user$ | async)?.nickName }}">
             </div>
             <div class="form-group">
                 <label for="name">Imię</label>
@@ -33,7 +33,7 @@
                     class="form-control"
                     name="name"
                     id="name"
-                    ngModel="{{ user.name }}"
+                    ngModel="{{ (user$ | async)?.name }}"
                     required>
             </div>
             <div class="form-group">
@@ -43,7 +43,7 @@
                     class="form-control"
                     name="lastName"
                     id="lastName"
-                    ngModel="{{ user.lastName }}">
+                    ngModel="{{ (user$ | async)?.lastName }}">
             </div>
             <div class="form-group">
               <label for="birthday">Data urodzenia</label>
@@ -52,7 +52,7 @@
                   class="form-control"
                   name="birthday"
                   id="birthday"
-                  ngModel="{{ user.birthday }}">
+                  ngModel="{{ (user$ | async)?.birthday }}">
           </div>
           <div class="form-group">
             <label for="phones">Telefon</label>
@@ -61,7 +61,7 @@
                 class="form-control"
                 name="phones"
                 id="phones"
-                ngModel="{{ user.phones }}">
+                ngModel="{{ (user$ | async)?.phones }}">
           </div>
           <div class="form-group">
               <label for="street">Ulica</label>
@@ -70,7 +70,7 @@
                   class="form-control"
                   name="street"
                   id="street"
-                  ngModel="{{ user.street }}">
+                  ngModel="{{ (user$ | async)?.street }}">
             </div>
             <div class="form-group">
                 <label for="streetNumber">Numer ulicy</label>
@@ -79,7 +79,7 @@
                     class="form-control"
                     name="streetNumber"
                     id="streetNumber"
-                    ngModel="{{ user.streetNumber }}">
+                    ngModel="{{ (user$ | async)?.streetNumber }}">
               </div>
               <div class="form-group">
                   <label for="city">Miasto</label>
@@ -88,7 +88,7 @@
                       class="form-control"
                       name="city"
                       id="city"
-                      ngModel="{{ user.city }}">
+                      ngModel="{{ (user$ | async)?.city }}">
                 </div>
               <div class="form-group">
                   <label for="postCode">Kod pocztowy</label>
@@ -97,7 +97,7 @@
                       class="form-control"
                       name="postCode"
                       id="postCode"
-                      ngModel="{{ user.postCode }}">
+                      ngModel="{{ (user$ | async)?.postCode }}">
               </div>
               <div class="form-group">
                 <label for="country">Państwo</label>
@@ -106,7 +106,7 @@
                     class="form-control"
                     name="country"
                     id="country"
-                    ngModel="{{ user.country }}">
+                    ngModel="{{ (user$ | async)?.country }}">
               </div>
             <button class="btn btn-primary" type="submit" [disabled]="!profileForm.valid">Zapisz</button>
         </form>
