@@ -1,3 +1,4 @@
+import { AuthGuardService } from './auth-fire/auth.guard.service';
 import { AuthComponent } from './auth/auth.component';
 import { EditorViewArticleComponent } from './extrasCopmonent/editor/editor-view-article/editor-view-article.component';
 import { ArticleTemplateComponent } from './contents/article-template/article-template.component';
@@ -15,10 +16,10 @@ const routes: Routes = [
   { path: 'strona-glowna', component: MainPageComponent },
   { path: 'o-nas', component: AboutAsPageComponent },
   { path: 'port', component: DockPageComponent },
-  { path: 'profile', component: ProfileUserComponent },
-  { path: 'edytor', component: ArticleTemplateComponent },
+  { path: 'profile', component: ProfileUserComponent, canActivate: [AuthGuardService] },
+  { path: 'edytor', component: ArticleTemplateComponent, canActivate: [AuthGuardService] },
   { path: 'article/:id', component: EditorViewArticleComponent },
-  { path: 'auth', component: AuthFireComponent },
+  { path: 'auth', component: AuthFireComponent},
   { path: 'not-found', component: PageNotFoundComponent },
   { path: '**', redirectTo: '/not-found' },
 ];
