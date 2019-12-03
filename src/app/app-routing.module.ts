@@ -10,14 +10,15 @@ import { RouterModule, Routes } from '@angular/router';
 import { DockPageComponent } from './contents/dock-page/dock-page.component';
 import { AuthFireComponent } from './auth-fire/auth-fire.component';
 import { ProfileUserComponent } from './contents/profile-user/profile-user.component';
+import { ProfileResolverService } from './contents/profile-user/profile-resolver.service';
 
 const routes: Routes = [
   { path: '', redirectTo: '/strona-glowna', pathMatch: 'full' },
   { path: 'strona-glowna', component: MainPageComponent },
   { path: 'o-nas', component: AboutAsPageComponent },
   { path: 'port', component: DockPageComponent },
-  { path: 'profile', component: ProfileUserComponent, canActivate: [AuthGuardService] },
-  { path: 'edytor', component: ArticleTemplateComponent, canActivate: [AuthGuardService] },
+  { path: 'profile', component: ProfileUserComponent, canActivate: [AuthGuardService], resolve: [ProfileResolverService] },
+  { path: 'edytor', component: ArticleTemplateComponent, canActivate: [AuthGuardService], resolve: [ProfileResolverService] },
   { path: 'article/:id', component: EditorViewArticleComponent },
   { path: 'auth', component: AuthFireComponent},
   { path: 'not-found', component: PageNotFoundComponent },

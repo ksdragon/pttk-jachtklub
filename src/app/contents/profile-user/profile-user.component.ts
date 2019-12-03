@@ -17,17 +17,14 @@ export class ProfileUserComponent implements OnInit {
   @ViewChild('profileForm', {static: false})
   form: NgForm;
   error;
-  userAuth: userFirebase;
   user: User;
   user$: User;
   private userSub;
   isLoading = false;
 
-  constructor(private authFireService: AuthFireService,
-              private profileUserService: ProfileUserService) { }
+  constructor(private profileUserService: ProfileUserService) { }
 
   ngOnInit() {
-    this.userAuth = this.authFireService.user;
     // if (this.getProfileUserData(this.userAuth) !== (null || undefined)) {
 
     //   this.getProfileUserData(this.userAuth).then(
@@ -41,12 +38,15 @@ export class ProfileUserComponent implements OnInit {
     //     }
     //   );
     // }
-    this.profileUserService.getProfileUserData$(this.userAuth).subscribe(
-      (res: User) => {
-        this.user = res;
-        console.log('getProfileUserData$', res);
-      }
-    );
+    // this.profileUserService.getProfileUserData$().subscribe(
+    //   (res: User) => {
+    //     this.user = res;
+    //     console.log('getProfileUserData$', res);
+    //   }
+    // );
+
+    this.user = this.profileUserService.user;
+
   }
 
   // getProfileUserData(userAuth: any) {
@@ -55,7 +55,7 @@ export class ProfileUserComponent implements OnInit {
 
   onSubmit(profileForm: NgForm) {
     const u: User = profileForm.value;
-    u.id = this.user.id;
+    // u.id = this.user.id;
     this.profileUserService.storeUserAPI(u);
     console.log('zapisano user', u);
 
