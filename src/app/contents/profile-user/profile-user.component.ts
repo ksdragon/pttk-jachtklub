@@ -19,15 +19,16 @@ export class ProfileUserComponent implements OnInit {
   error;
   user: User;
   user$: Observable<User>;
-  private userSub;
   isLoading = false;
+  categoryUsers;
 
   constructor(private profileUserService: ProfileUserService,
               private authFireService: AuthFireService) { }
 
   ngOnInit() {
-    this.user$ = this.profileUserService.getProfileUser$(this.authFireService.user);
+    this.user$ = this.profileUserService.getProfileUserObs$();
     this.user = this.profileUserService.user;
+    this.categoryUsers = this.profileUserService.categoryUser;
   }
 
   onSubmit(profileForm: NgForm) {

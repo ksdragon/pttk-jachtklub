@@ -108,6 +108,19 @@
                     id="country"
                     ngModel="{{ (user$ | async)?.country }}">
               </div>
+              <div class="form-group" *ngIf="(user$ | async)?.categoryUser === 'admin'" >
+                <label for="categoryUser">Uprawnienie</label>
+                <select
+                  name="categoryUser"
+                  class="form-control"
+                  ngModel="{{ (user$ | async)?.categoryUser }}"
+                  id="categoryUser">
+                  <option value="" disabled>Wybierz uprawnienie</option>
+                  <option *ngFor="let category of categoryUsers" [ngValue]="category">
+                    {{ category }}
+                  </option>
+                </select>
+              </div>
             <button class="btn btn-primary" type="submit" [disabled]="!profileForm.valid">Zapisz</button>
         </form>
     </div>

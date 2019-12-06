@@ -22,6 +22,7 @@ export class User {
     public city: string = '',
     public postCode: string = '',
     public country: string = '',
+    public categoryUser: string = 'user'
     ) {}
 
     // geter to specjaly sposób dostępu do włąściowści, jak ustawiemy pole jako

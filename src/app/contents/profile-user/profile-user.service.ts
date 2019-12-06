@@ -12,13 +12,14 @@ export class ProfileUserService {
 
   asyncUsers$: Observable<User[]>;
   user: User;
-  user$: Subject<User>;
   userAuth: userFirebase;
+  categoryUser: string[] = ['user', 'editor', 'manager', 'admin'];
 
   constructor(private authFireService: AuthFireService,
               private db: AngularFireDatabase){
               }
 
+  // not used
   getProfileUserData() {
     return this.db.database.ref('users').orderByChild('email').equalTo(this.userAuth.email)
     .once('value', snapshot => {
@@ -31,12 +32,29 @@ export class ProfileUserService {
     this.asyncUsers$ = this.db.list<User>('users').valueChanges();
   }
 
+  // not used
   getProfileUser$(userAuth) {
     const asyncUsers$ = this.db.list<User>('users').valueChanges();
     console.log('getProfileUser', userAuth);
     return asyncUsers$.pipe(
       map(res => {
         return res.find(x => x.email === userAuth.email);
+      })
+      ,
+      tap(res => {
+        console.log('tap', res);
+        return this.user = res;
+        // this.user$.next(res);
+      })
+      );
+    }
+
+  getProfileUserObs$() {
+    const asyncUsers$ = this.db.list<User>('users').valueChanges();
+    console.log('getProfileUser', this.authFireService.user);
+    return asyncUsers$.pipe(
+      map(res => {
+        return res.find(x => x.email === this.authFireService.user.email);
       })
       ,
       tap(res => {
