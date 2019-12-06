@@ -16,7 +16,7 @@ export class ProfileUserService {
   categoryUser: string[] = ['user', 'editor', 'manager', 'admin'];
 
   constructor(private authFireService: AuthFireService,
-              private db: AngularFireDatabase){
+              private db: AngularFireDatabase) {
               }
 
   // not used
@@ -32,19 +32,18 @@ export class ProfileUserService {
     this.asyncUsers$ = this.db.list<User>('users').valueChanges();
   }
 
-  // not used
-  getProfileUser$(userAuth) {
+
+  getProfileUserById(id: string) {
     const asyncUsers$ = this.db.list<User>('users').valueChanges();
-    console.log('getProfileUser', userAuth);
+    console.log('getProfileUserById', id);
     return asyncUsers$.pipe(
       map(res => {
-        return res.find(x => x.email === userAuth.email);
+        return res.find(x => x.id === id);
       })
       ,
       tap(res => {
         console.log('tap', res);
         return this.user = res;
-        // this.user$.next(res);
       })
       );
     }

@@ -18,7 +18,7 @@ export class ProfileResolverService implements Resolve<User>{
           const userFire = this.authFireService.user;
           console.log('Resolver ', userFire);
           if (!this.profileUserService.user) {
-            this.profileUserService.getProfileUser$(userFire)
+            this.profileUserService.getProfileUserObs$()
             .subscribe(
               (respone: User) => {
                 console.log('Resolver User ', respone);

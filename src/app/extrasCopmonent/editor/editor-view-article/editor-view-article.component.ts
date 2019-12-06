@@ -1,3 +1,6 @@
+import { User } from './../../../shared/user.model';
+import { Observable } from 'rxjs';
+import { ProfileUserService } from './../../../contents/profile-user/profile-user.service';
 import { ArticlePage } from './../../../shared/article-page.model';
 import { DataStorage } from 'src/app/shared/data-storage.service';
 import { EditorService } from './../editor.service';
@@ -15,9 +18,12 @@ export class EditorViewArticleComponent implements OnInit {
  article: ArticlePage;
  createDate;
  header;
+ userId;
+ user$: Observable<User>;
 
   constructor(private route: ActivatedRoute,
-              private dataStorage: DataStorage) { }
+              private dataStorage: DataStorage,
+              private profileUserService: ProfileUserService) { }
 
   ngOnInit() {
     const id = this.route.snapshot.params.id;
@@ -28,14 +34,18 @@ export class EditorViewArticleComponent implements OnInit {
         this.contentView = this.article.articlePage;
         this.createDate = this.article.createDate;
         this.header = this.article.header;
+        this.userId = this.article.uid;
+        this.user$ = this.profileUserService.getProfileUserById(this.article.uid);
       }
-    );
-    // console.log('this.createDate', this.createDate);
+      );
+  }
+
+}
+
+
+// console.log('this.createDate', this.createDate);
     // this.route.params.subscribe((params: Params) => {
     //   this.article = this.editorService.getArticleById(+params.id);
     //   this.contentView = this.article.articlePage;
     //   console.log(+params.id);
     // });
-  }
-
-}
