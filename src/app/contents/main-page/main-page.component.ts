@@ -16,8 +16,6 @@ export interface IConfigPagination {
 export class MainPageComponent implements OnInit, OnDestroy {
 
   configPagination: IConfigPagination;
-  p;
-
 
   constructor() {}
 

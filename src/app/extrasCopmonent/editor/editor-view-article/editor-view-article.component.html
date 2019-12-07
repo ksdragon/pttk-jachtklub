@@ -1,18 +1,21 @@
-<div>
-  <!-- <div *ngIf="(article | async) as article" > -->
-  <div>
+<div class="main">
+  <div class="title-header">
     <h1 class="home-title ml-md-0">{{ header }}</h1>
-  </div>
-  <div class="entry-meta" style="left: 50px;">
-    <span class="posted-on">
-      <i class="fa fa-calendar"></i>
-      <a href="#" rel="bookmark"> {{ createDate }} </a>
-    </span>
-    <span class="byline">
-      <i class="fa fa-user"></i>
-      <span class="author vcard">
-        <a class="url fn n" href="#"> {{ (user$ | async)?.nickName }}</a></span>
-    </span>
+    <div class="" style="left: 50px;">
+      <span class="posted-on">
+        <i class="fa fa-calendar"></i>
+        <a href="#" rel="bookmark"(click)="onClickDate()"> {{ createDate }} </a>
+      </span>
+      <span class="byline">
+        <i class="fa fa-user"></i>
+        <span class="author vcard">
+          <a class="url fn n" href="#" (click)="onClickUser()" > {{ (user$ | async)?.nickName }}</a></span>
+      </span>
+      <span class="edit float-right" *ngIf="(curentAuthUser$ | async)?.id === (user$ | async)?.id">
+          <i class="fa fa-calendar"></i>
+          <a rel="bookmark"(click)="onClickEdit()" > Edytuj </a>
+       </span>
+    </div>
   </div>
 
   <quill-view [content]="contentView" [preserveWhitespace]="true" format="object">

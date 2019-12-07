@@ -1,3 +1,4 @@
+import { AuthFireService } from './../../../auth-fire/authFire.service';
 import { User } from './../../../shared/user.model';
 import { Observable } from 'rxjs';
 import { ProfileUserService } from './../../../contents/profile-user/profile-user.service';
@@ -20,12 +21,15 @@ export class EditorViewArticleComponent implements OnInit {
  header;
  userId;
  user$: Observable<User>;
+ curentAuthUser$: Observable<User>;
 
   constructor(private route: ActivatedRoute,
               private dataStorage: DataStorage,
-              private profileUserService: ProfileUserService) { }
+              private profileUserService: ProfileUserService,
+              private authFireService: AuthFireService) { }
 
   ngOnInit() {
+    this.curentAuthUser$ = this.profileUserService.getProfileUserObs$();
     const id = this.route.snapshot.params.id;
     // console.log('id', id);
     this.dataStorage.asyncArticles$.subscribe(
@@ -38,6 +42,18 @@ export class EditorViewArticleComponent implements OnInit {
         this.user$ = this.profileUserService.getProfileUserById(this.article.uid);
       }
       );
+  }
+
+  onClickUser() {
+
+  }
+
+  onClickDate() {
+
+  }
+
+  onClickEdit(){
+
   }
 
 }

@@ -1,3 +1,7 @@
+main{
+
+}
+
 :host ::ng-deep .fa-calendar {
   color: #c14a04;
 }
@@ -11,4 +15,27 @@
   margin-bottom: 5px;
 }
 
+.title-header {
+  color: #AD4F18!important;
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+  border-bottom: dotted 2px #AD4F18;
+}
 
+
+.title-header a
+{
+  text-decoration: none!important;
+  color: #AD4F18!important;
+}
+
+.title-header a:visited
+{
+  color: #AD4F18!important;
+}
+
+.title-header a:hover
+{
+  text-decoration: underline!important;
+  color: #8D4F18!important;
+}
