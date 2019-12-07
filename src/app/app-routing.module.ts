@@ -19,6 +19,7 @@ const routes: Routes = [
   { path: 'port', component: DockPageComponent },
   { path: 'profile', component: ProfileUserComponent, canActivate: [AuthGuardService], resolve: [ProfileResolverService] },
   { path: 'edytor', component: ArticleTemplateComponent, canActivate: [AuthGuardService], resolve: [ProfileResolverService] },
+  { path: 'edytor/:id', component: ArticleTemplateComponent, canActivate: [AuthGuardService], resolve: [ProfileResolverService] },
   { path: 'article/:id', component: EditorViewArticleComponent },
   { path: 'auth', component: AuthFireComponent},
   { path: 'not-found', component: PageNotFoundComponent },
