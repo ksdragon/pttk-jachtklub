@@ -1,3 +1,5 @@
+import { User } from './../../shared/user.model';
+import { ProfileUserService } from './../../contents/profile-user/profile-user.service';
 import { Component, OnInit } from '@angular/core';
 import Quill from 'quill';
 
@@ -11,11 +13,20 @@ const Delta = Quill.import('delta');
 })
 export class ArticleContentComponent implements OnInit {
 
+  isEditable = false;
   title = 'Tytuł';
+  user: User;
 
-  constructor() { }
+  constructor(private profileUserService: ProfileUserService) { }
 
   ngOnInit() {
+    this.user = this.profileUserService.user;
+    if (this.user){
+      console.log('user', this.user);
+      if (this.user.categoryUser === 'admin') {
+      }
+    }
+    console.log('user', this.user);
     const longString = new Array(100).fill('').join('Hello World! ');
     const contents = new Delta().insert(longString);
     const quill = new Quill('#editor',  {

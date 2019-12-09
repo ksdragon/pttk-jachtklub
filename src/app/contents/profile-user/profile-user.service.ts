@@ -11,7 +11,7 @@ import { Observable, BehaviorSubject, Subject, } from 'rxjs';
 export class ProfileUserService {
 
   asyncUsers$: Observable<User[]>;
-  user: User;
+  user: User | null;
   userAuth: userFirebase;
   categoryUser: string[] = ['user', 'editor', 'manager', 'admin'];
 
