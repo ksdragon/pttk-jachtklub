@@ -1,3 +1,4 @@
+import { EditorResolverService } from './extrasCopmonent/editor/editor-resolver.service';
 import { AuthGuardService } from './auth-fire/auth.guard.service';
 import { AuthComponent } from './auth/auth.component';
 import { EditorViewArticleComponent } from './extrasCopmonent/editor/editor-view-article/editor-view-article.component';
@@ -19,7 +20,8 @@ const routes: Routes = [
   { path: 'port', component: DockPageComponent },
   { path: 'profile', component: ProfileUserComponent, canActivate: [AuthGuardService], resolve: [ProfileResolverService] },
   { path: 'edytor', component: ArticleTemplateComponent, canActivate: [AuthGuardService], resolve: [ProfileResolverService] },
-  { path: 'edytor/:id', component: ArticleTemplateComponent, canActivate: [AuthGuardService], resolve: [ProfileResolverService] },
+  { path: 'edytor/:id', component: ArticleTemplateComponent, canActivate: [AuthGuardService],
+      resolve: [EditorResolverService] },
   { path: 'article/:id', component: EditorViewArticleComponent },
   { path: 'auth', component: AuthFireComponent},
   { path: 'not-found', component: PageNotFoundComponent },

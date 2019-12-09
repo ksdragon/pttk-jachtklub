@@ -17,6 +17,7 @@ export class ProfileUserComponent implements OnInit {
   @ViewChild('profileForm', {static: false})
   form: NgForm;
   error;
+  authUser$;
   user: User;
   user$: Observable<User>;
   isLoading = false;
@@ -26,6 +27,7 @@ export class ProfileUserComponent implements OnInit {
               private authFireService: AuthFireService) { }
 
   ngOnInit() {
+    this.authUser$ = this.authFireService.authState$;
     this.user$ = this.profileUserService.getProfileUserObs$();
     this.user = this.profileUserService.user;
     this.categoryUsers = this.profileUserService.categoryUser;
@@ -33,7 +35,7 @@ export class ProfileUserComponent implements OnInit {
 
   onSubmit(profileForm: NgForm) {
     const u: User = profileForm.value;
-    u.id = this.user.id;
+    if (this.user !== undefined) { u.id = this.user.id; }
     this.profileUserService.storeUserAPI(u);
     console.log('zapisano user', u);
 

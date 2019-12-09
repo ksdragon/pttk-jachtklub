@@ -208,7 +208,7 @@ created(event) {
   //   color: '#AD4F18',
   //   size: 'large'
   // }, 'user');
-  console.log('editor-created', event);
+  // console.log('editor-created', event);
 }
 
 changedEditor(event) {
@@ -220,7 +220,7 @@ changedEditor(event) {
 ContentChanged(event) {
   this.contentView = event.content;
   this.editor = event;
-  console.log('Conten changed in editorLayout', this.editor);
+  // console.log('Conten changed in editorLayout', this.editor);
 }
 
 focus($event) {

@@ -4,12 +4,13 @@ import { ArticlePage } from './article-page.model';
 import { EditorService } from './../extrasCopmonent/editor/editor.service';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { map, take, exhaustMap, last, tap, } from 'rxjs/operators';
+import { map, take, exhaustMap, last, tap, find, } from 'rxjs/operators';
 import { Observable, BehaviorSubject, } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class DataStorage {
 
+  article: ArticlePage;
   articles: ArticlePage[] = [];
   asyncArticles: Observable<ArticlePage[]>;
   asyncArticles$: Observable<ArticlePage[]>;
@@ -22,7 +23,14 @@ export class DataStorage {
 
 
   getArticleById(id: string) {
-
+    return this.asyncArticles$.pipe(
+      map(aritcle => {
+        return aritcle.find(a => a.id === id
+        );
+      }
+        ),
+        tap(article => this.article = article)
+    );
   }
 
 
