@@ -49,14 +49,17 @@ export class ArticleContentComponent implements OnInit {
     this.quill.enable(this.isEditable);
     // this.editorPage.editorInstance.setContents(contents);
     const startTime = new Date();
-    this.articleContentService.articleContent$.subscribe(
-      x => {
-        this.content = x.content;
-      }
-    );
-    // this.route.data.subscribe((data) => this.content = data.articleContent);
+    this.content = this.articleContentService.articleContent$.value;
+    // this.articleContentService.articleContent$.subscribe(
+    //   x => {
+    //     this.content = x;
+    //   }
+    // );
+    this.route.data.subscribe((data) => console.log('Resolver form param data ', data.articleContent));
+    console.log('Resolver form snapshot', this.route.snapshot.data.articleContent );
     console.log('this.content from resolver:', this.content);
-    this.quill.setContents(this.content);
+    this.quill.setContents(this.content.content);
+    this.title = this.content.title;
     // this.articleContentService.getArticleByName(this.route.snapshot.url.toString()).subscribe(
     //   respone => {
     //     this.quill.setContents(respone.content);

@@ -15,13 +15,14 @@ export class ArticleContentResolverService implements Resolve<ArticleContent> {
   resolve(route: import('@angular/router').ActivatedRouteSnapshot,
     state: import('@angular/router').RouterStateSnapshot) {
 
-    this.articleContentService.articleContent$.subscribe(
-        x => {
-          this.isArticle = x;
-          console.log('this.isNull', this.isArticle);
-        }
-    );
+    // this.articleContentService.articleContent$.pipe(take(1)).subscribe(
+    //     x => {
+    //       this.isArticle = x;
+    //       console.log('this.isNull', this.isArticle);
+    //     }
+    // );
 
+    this.isArticle = this.articleContentService.articleContent$.value;
     // this.article = this.articleContentService.asyncArticlesHeaders$.pipe(
     //   take(1),
     //   map(aritcle => {
