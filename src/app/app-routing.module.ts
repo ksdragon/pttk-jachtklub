@@ -1,6 +1,5 @@
 import { EditorResolverService } from './extrasCopmonent/editor/editor-resolver.service';
 import { AuthGuardService } from './auth-fire/auth.guard.service';
-import { AuthComponent } from './auth/auth.component';
 import { EditorViewArticleComponent } from './extrasCopmonent/editor/editor-view-article/editor-view-article.component';
 import { ArticleTemplateComponent } from './contents/article-template/article-template.component';
 import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
@@ -12,12 +11,13 @@ import { DockPageComponent } from './contents/dock-page/dock-page.component';
 import { AuthFireComponent } from './auth-fire/auth-fire.component';
 import { ProfileUserComponent } from './contents/profile-user/profile-user.component';
 import { ProfileResolverService } from './contents/profile-user/profile-resolver.service';
+import { ArticleContentResolverService } from './extrasCopmonent/article-content/article-content.resolver.service';
 
 const routes: Routes = [
   { path: '', redirectTo: '/strona-glowna', pathMatch: 'full' },
   { path: 'strona-glowna', component: MainPageComponent },
   { path: 'o-nas', component: AboutAsPageComponent },
-  { path: 'port', component: DockPageComponent },
+  { path: 'port', component: DockPageComponent, resolve: {articleContent: ArticleContentResolverService} },
   { path: 'profile', component: ProfileUserComponent, canActivate: [AuthGuardService], resolve: [ProfileResolverService] },
   { path: 'edytor', component: ArticleTemplateComponent, canActivate: [AuthGuardService], resolve: [ProfileResolverService] },
   { path: 'edytor/:id', component: ArticleTemplateComponent, canActivate: [AuthGuardService],
