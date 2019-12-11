@@ -1,66 +1,16 @@
 import { FormGroup, FormControl } from '@angular/forms';
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-// import Quill from 'quill';
 import * as QuillNamespace from 'quill';
 const Quill: any = QuillNamespace;
 
 import Counter from './counter';
-
-// import * as Quill from 'quill';
-
-import ImageResize from 'quill-image-resize';
-Quill.register('modules/imageResize', ImageResize);
-
-import ImageDrop from 'quill-image-drop-and-paste';
-Quill.register('modules/imageDrop', ImageDrop);
-
-import Emoij from 'quill-emoji';
-Quill.register('modules/emoij', Emoij);
-
 Quill.register('modules/counter', Counter);
 
-import ImageCompress from 'quill-image-compress';
-Quill.register('modules/imageCompressor', ImageCompress);
+// solution for keep style in img
+import '../../../shared/quill-blots/image-format.blots.js';
+// import all modules from one file.
+import '../../../shared/quill-blots/import-shared-modules.js';
 
-// class Compressor extends ImageCompress {
-//   quill: any;
-//   range: any;
-//   options: any;
-//   constructor(quill, options) {
-//     super(quill, options);
-//     this.quill = quill;
-//     // console.log(quill);
-//     this.options = options;
-//     this.range = null;
-//     // super.debug = options.debug === null || options.debug === true;
-
-//     // // super.warnAboutOptions(options);
-
-//     const toolbar = this.quill.getModule('toolbar');
-//     toolbar.addHandler('routerLinkImage', super.selectLocalImage.bind(this));
-//   }
-
-//   insertToEditor(url) {
-//     const range = this.range;
-//     super.logFileSize(url);
-//     // console.log('url', `${url}`);
-//     // Insert the compressed image
-//     console.log('this.options', this.options.routerLink);
-//     this.quill.insertEmbed(range.index, 'routerLinkImage',
-//     {
-//       src: `${url}`,
-//       routerLink:  this.options.routerLink,
-//       style: this.options.style
-//     },
-//     'user'
-//     );
-//     // Move cursor to next position
-//     range.index++;
-//     this.quill.setSelection(range, 'api');
-//   }
-
-// }
-// Quill.register('modules/imageCompress', Compressor);
 
 const font = Quill.import('formats/font');
 // We do not add Aref Ruqaa since it is the default
@@ -87,40 +37,9 @@ icons['span-block'] = '<i class="fa fa-bold" aria-hidden="true"></i>';
 // tslint:disable-next-line: no-string-literal
 icons['spanblock'] = '<i class="far fa-square"></i>';
 
-// solution for keep style in img
-const BaseImageFormat = Quill.import('formats/image');
-const ImageFormatAttributesList = [
-  'alt',
-  'height',
-  'width',
-  'style'
-];
 
-class ImageFormat extends BaseImageFormat {
-  static formats(domNode) {
-    return ImageFormatAttributesList.reduce((formats, attribute) => {
-      if (domNode.hasAttribute(attribute)) {
-        formats[attribute] = domNode.getAttribute(attribute);
-      }
-      return formats;
-    }, {});
-  }
-  format(name, value) {
-    if (ImageFormatAttributesList.indexOf(name) > -1) {
-      if (value) {
-        this.domNode.setAttribute(name, value);
-      } else {
-        this.domNode.removeAttribute(name);
-      }
-    } else {
-      super.format(name, value);
-    }
-  }
-}
 
-Quill.register(ImageFormat, true);
 
-// end
 
 import '../../../shared/quill-blots/router-link.blots.js';
 import '../../../shared/quill-blots/router-link-image.blots.js';

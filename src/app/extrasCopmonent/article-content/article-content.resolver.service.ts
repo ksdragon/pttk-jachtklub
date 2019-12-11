@@ -3,7 +3,6 @@ import { ArticleContentService } from './article-content.service';
 import { ArticleContent } from './article-content.model';
 import { Resolve } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { Observable, empty, EMPTY, of } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class ArticleContentResolverService implements Resolve<ArticleContent> {
@@ -15,6 +14,9 @@ export class ArticleContentResolverService implements Resolve<ArticleContent> {
   resolve(route: import('@angular/router').ActivatedRouteSnapshot,
     state: import('@angular/router').RouterStateSnapshot) {
 
+    // jak zwracałem obsrvable bez operatora take to nie działało zatryzmaywało
+    // sie, operator take bierze z strumienia jedna wartość i odłącza sie od strumienia.
+
     // this.articleContentService.articleContent$.pipe(take(1)).subscribe(
     //     x => {
     //       this.isArticle = x;
@@ -23,6 +25,7 @@ export class ArticleContentResolverService implements Resolve<ArticleContent> {
     // );
 
     this.isArticle = this.articleContentService.articleContent$.value;
+
     // this.article = this.articleContentService.asyncArticlesHeaders$.pipe(
     //   take(1),
     //   map(aritcle => {
@@ -52,28 +55,5 @@ export class ArticleContentResolverService implements Resolve<ArticleContent> {
     }
     console.log('this.article resolver 2', this.articleContentService.articleContent$);
     return this.isArticle;
-
-    // this.articleContentService.articleContent$
-    //         .pipe(
-    //           take(1),
-    //           map(
-    //           x => {
-    //               return x;
-    //             })
-    //         );
-
-
-    //  return this.article;
-
-    // .subscribe(
-    //   response => {
-    //     console.log('Resolver 1', response);
-    //     this.article = response;
-    //   }
-    // );
-    // console.log('Resolver 2', this.article);
-    // return this.article;
-    // }
-    // return this.articleContentService.articleContent;
   }
 }

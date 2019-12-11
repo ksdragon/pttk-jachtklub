@@ -7,6 +7,16 @@ import { Component, OnInit } from '@angular/core';
 import Quill, { DeltaStatic } from 'quill';
 import { ActivatedRoute } from '@angular/router';
 
+// solution for keep style in img
+import '../../shared/quill-blots/image-format.blots.js';
+// import all modules from one file.
+import '../../shared/quill-blots/import-shared-modules.js';
+
+// import '../../../shared/quill-blots/router-link.blots.js';
+import '../../shared/quill-blots/router-link-image.blots.js';
+// import '../../../shared/quill-modules/image-compressor.module.js';
+import '../../shared/quill-modules/custom-image-compressor.module';
+
 // pobranie kasy Delta z Quill
 const Delta = Quill.import('delta');
 
@@ -23,6 +33,31 @@ export class ArticleContentComponent implements OnInit {
   user: User;
   quill: Quill;
   content;
+
+
+  toolbarOptions =
+    [
+      ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+      ['blockquote', 'code-block'], ['emoji'],
+
+      [{ header: 1 }, { header: 2 }],               // custom button values
+      [{ list: 'ordered' }, { list: 'bullet' }],
+      [{ script: 'sub' }, { script: 'super' }],      // superscript/subscript
+      [{ indent: '-1' }, { indent: '+1' }],          // outdent/indent
+      [{ direction: 'rtl' }],                         // text direction
+
+      [{ size: ['small', false, 'large', 'huge'] }],  // custom dropdown
+      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+
+      [{ color: [] }, { background: [] }],          // dropdown with defaults from theme
+      [{ font: [] }],
+      [{ align: [] }],
+
+      ['clean'], ['hr'], ['spanblock'],                                   // remove formatting button
+
+      ['link', 'image', 'video', 'span-block'],
+      // link and image, video
+    ];
 
   constructor(private profileUserService: ProfileUserService,
               private route: ActivatedRoute,
@@ -42,7 +77,17 @@ export class ArticleContentComponent implements OnInit {
     this.quill = new Quill('#editor',  {
       placeholder: 'Coś wpisać? ',
       modules: {
-        toolbar: true    // Snow includes toolbar by default
+      'emoji-toolbar': true,
+      imageDrop: true,
+      imageResize: true,
+      imageCompressor: {
+        // customImageCompressor: {
+          quality: 0.9, // default
+          maxWidth: 1000, // default
+          imageType: 'image/jpeg', // default
+          debug: true, // default
+      },
+        toolbar: {container: this.toolbarOptions}    // Snow includes toolbar by default
       },
       theme: 'bubble'
     });
