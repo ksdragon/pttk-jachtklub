@@ -3,7 +3,7 @@
       <div class="alert alert-danger" *ngIf="error" >
         <p>{{ error }}</p>
       </div>
-        <div class="col-sm-12 mt-5 text-center" *ngIf="isLoading">
+        <div class="col-md-12 mt-5 text-center" *ngIf="isLoading">
             <app-loading-spinner></app-loading-spinner>
         </div>
       <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" *ngIf="!isLoading" >
@@ -39,10 +39,9 @@
         <div class="btn-signin pt-3">
           <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit"><i class="fab fa-google mr-2"></i> Sign in with Google</button>
           <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit"><i class="fab fa-facebook-f mr-2"></i> Sign in with Facebook</button>
-        </div>      
+        </div>
       </form>
     </div>
   </div>
-  
-  
-  
+
+

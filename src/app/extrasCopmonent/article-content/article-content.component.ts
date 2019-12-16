@@ -131,6 +131,4 @@ export class ArticleContentComponent implements OnInit {
     this.articleContentService.storeArticleContent(article);
     console.log('Saved article', article);
   }
-
-
 }

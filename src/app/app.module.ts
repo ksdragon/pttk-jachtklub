@@ -39,6 +39,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AuthFireComponent } from './auth-fire/auth-fire.component';
 import { ProfileUserComponent } from './contents/profile-user/profile-user.component';
 import { ArticleContentComponent } from './extrasCopmonent/article-content/article-content.component';
+import { FooterComponent } from './footer/footer.component';
 
 
 @NgModule({
@@ -67,7 +68,8 @@ import { ArticleContentComponent } from './extrasCopmonent/article-content/artic
     AlertComponent,
     AuthFireComponent,
     ProfileUserComponent,
-    ArticleContentComponent
+    ArticleContentComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

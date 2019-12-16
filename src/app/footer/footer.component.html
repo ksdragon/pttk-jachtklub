@@ -1,0 +1,39 @@
+<div id="bottom-bar" class="py-2 mt-5">
+  <div class="container">
+    <div class="row ">
+      <div class="col-md-4">
+        <p class="text-uppercase pt-2 ">Wykonane przez: Skoneczny Krzysztof</p>
+      </div>
+      <div id="nav-bar" class="col-md-8 ">
+        <nav class="navbar navbar-dark navbar-expand-lg bg-nav-main-header p-0">
+          <button class="navbar-toggler mx-auto text-uppercase"
+                (click)="isShown = !isShown"
+                type="button"
+                data-toggle="collapse"
+                data-target="#mainmenu"
+                aria-controls="mainmenu"
+                aria-expanded="false"
+                aria-label="Przełącznik nawigacji">Menu
+            </button>
+          <div class="collapse navbar-collapse" id="mainmenu" [ngClass]="{ 'show': isShown }">
+            <ul class="navbar-nav mx-auto text-uppercase">
+              <li class="nav-item" routerLinkActive="active"><a href="#" routerLink="/strona-glowna" class="nav-link pl-0"> Strona Główna </a></li>
+              <li class="nav-item" routerLinkActive="active"><a href="#" routerLink="/o-nas" class="nav-link"> O nas </a></li>
+              <li class="nav-item" routerLinkActive="active"><a href="#" routerLink="/port" class="nav-link"> Port </a></li>
+              <li class="nav-item" routerLinkActive="active"><a href="#" routerLink="/2" class="nav-link"> Kursy </a></li>
+              <li class="nav-item" routerLinkActive="active"><a href="#" routerLink="/3" class="nav-link"> Członkostwo </a></li>
+              <li class="nav-item" routerLinkActive="active"><a href="#" routerLink="/4" class="nav-link"> Polityka cookies </a></li>
+              <li class="nav-item" routerLinkActive="active"><a href="#" routerLink="/5" class="nav-link"> Kontakt </a></li>
+              <!-- <li class="nav-item" routerLinkActive="active" *ngIf="!isAuthenticated"><a href="#" routerLink="/auth" class="nav-link"> Logowanie </a></li>
+              <li class="nav-item" routerLinkActive="active" *ngIf="isAuthenticated" ><a href="#" routerLink="/edytor" class="nav-link"> Edytor </a></li> -->
+            </ul>
+            <!-- <ul class="navbar-nav mx-auto text-uppercase">
+              <li class="nav-item" routerLinkActive="active" *ngIf="isAuthenticated"><a href="#" routerLink="/profile" class="nav-link"> Profil </a></li>
+              <li class="nav-item" *ngIf="isAuthenticated"><a href="#" (click)="logout()" class="nav-link" >Logout</a></li>
+            </ul> -->
+          </div>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>

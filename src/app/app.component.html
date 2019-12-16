@@ -1,9 +1,11 @@
 <div class="app-main">
-<app-header></app-header>
-<app-main-slidershow *ngIf="isHomeRoute()" ></app-main-slidershow>
-<div class="container">
+  <app-header></app-header>
+  <app-main-slidershow *ngIf="isHomeRoute()"></app-main-slidershow>
+  <div class="container">
     <div class="col-md-12">
-  <router-outlet></router-outlet>
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+  <app-footer class="footer"></app-footer>
 </div>
-</div>
-</div>
+<!-- fixed-bottom -->

@@ -2,19 +2,8 @@ import { FormControl, FormGroup, ControlContainer, NgForm } from '@angular/forms
 import { Component, OnInit, Input } from '@angular/core';
 import Quill from 'quill';
 
-const Inline = Quill.import('blots/inline');
-class EndTitleBlock extends Inline {
-
-  static create(value) {
-    const node = super.create();
-    node.setAttribute('class', 'end-title');
-    return node;
-  }
-}
-
-EndTitleBlock.blotName = 'end-title';
-EndTitleBlock.tagName = 'div';
-Quill.register(EndTitleBlock);
+// blots add class end-title
+import '../../../shared/quill-blots/end-title-block.blots.js';
 
 @Component({
   selector: 'app-editor-layout',
