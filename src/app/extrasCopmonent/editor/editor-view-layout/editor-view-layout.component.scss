@@ -4,11 +4,23 @@
   text-align: left;
 }
 
-.editorViewLayout .ngx-quill-view .ql-editor img
+.editorViewLayout .ngx-quill-view .ql-editor span
 {
   max-width: 240px !important;
   max-height: 165px !important;
   float: left;
+  margin: 0 !important;
+  margin-right: 20px !important;
+}
+
+.editorViewLayout .ngx-quill-view .ql-editor img
+{
+  max-width: 240px !important;
+  max-height: 165px !important;
+  margin: 0 !important;
+  min-width: 240px !important;
+  min-height: 165px !important;
+
 }
 
 // .ql-toolbar .ql-snow
@@ -22,8 +34,8 @@
 
 a span img:hover
 {
-  transform: scale(1.05);
-  -webkit-transform: scale(1.05);
+  transform: scale(1.03);
+  -webkit-transform: scale(1.03);
 }
 
 a span img
