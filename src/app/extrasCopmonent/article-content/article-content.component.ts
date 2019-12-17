@@ -15,7 +15,7 @@ import '../../shared/quill-blots/import-shared-modules.js';
 // import '../../../shared/quill-blots/router-link.blots.js';
 import '../../shared/quill-blots/router-link-image.blots.js';
 // import '../../../shared/quill-modules/image-compressor.module.js';
-import '../../shared/quill-modules/custom-image-compressor.module';
+// import '../../shared/quill-modules/custom-image-compressor.module';
 
 // pobranie kasy Delta z Quill
 const Delta = Quill.import('delta');
@@ -71,40 +71,50 @@ export class ArticleContentComponent implements OnInit {
         this.isAuthUser = true;
       }
     }
-    // console.log('user', this.user);
-    // const longString = new Array(100).fill('').join('Hello World! ');
-    // const contents = new Delta().insert(longString);
-    this.quill = new Quill('#editor',  {
+    // wartość dostarczana przez service, wcześniej jest wykonywany resolver
+    // który pobiera dane z serwera.
+    this.content = this.articleContentService.articleContent$.value;
+    this.createQuillEditor();
+    this.title = this.content.title;
+
+  }
+
+  private createQuillEditor() {
+    this.quill = new Quill('#editor', {
       placeholder: 'Coś wpisać? ',
       modules: {
-      'emoji-toolbar': true,
-      imageDrop: true,
-      imageResize: true,
-      imageCompressor: {
-        // customImageCompressor: {
-          quality: 0.9, // default
-          maxWidth: 1000, // default
-          imageType: 'image/jpeg', // default
-          debug: true, // default
-      },
-        toolbar: {container: this.toolbarOptions}    // Snow includes toolbar by default
+        'emoji-toolbar': true,
+        imageDrop: true,
+        imageResize: true,
+        imageCompressor: {
+          // customImageCompressor: {
+          quality: 0.9,
+          maxWidth: 1000,
+          imageType: 'image/jpeg',
+          debug: true,
+        },
+        toolbar: { container: this.toolbarOptions } // Snow includes toolbar by default
       },
       theme: 'bubble'
     });
     this.quill.enable(this.isEditable);
+      // console.log('user', this.user);
+    // const longString = new Array(100).fill('').join('Hello World! ');
+    // const contents = new Delta().insert(longString);
     // this.editorPage.editorInstance.setContents(contents);
     const startTime = new Date();
-    this.content = this.articleContentService.articleContent$.value;
     // this.articleContentService.articleContent$.subscribe(
     //   x => {
     //     this.content = x;
     //   }
     // );
+    // nieużywane - pobieranie wartości przez parametr data w route - można takie coś wykonać i dostać sie
+    // do wartości przez mechanizm routera angualra -  w app.router.module dodaje sie nazwe właściwości "articleContent"
+    // do której resolver przypisze odpowiedz z serwera.
     this.route.data.subscribe((data) => console.log('Resolver form param data ', data.articleContent));
     console.log('Resolver form snapshot', this.route.snapshot.data.articleContent );
     console.log('this.content from resolver:', this.content);
     this.quill.setContents(this.content.content);
-    this.title = this.content.title;
     // this.articleContentService.getArticleByName(this.route.snapshot.url.toString()).subscribe(
     //   respone => {
     //     this.quill.setContents(respone.content);
@@ -128,6 +138,7 @@ export class ArticleContentComponent implements OnInit {
       title: this.title,
       content: this.quill.getContents()
     };
+    this.content = article;
     this.articleContentService.storeArticleContent(article);
     console.log('Saved article', article);
   }

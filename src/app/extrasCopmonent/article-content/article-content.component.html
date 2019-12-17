@@ -3,17 +3,22 @@
     <div class="">
       <div class="header h4 px-0 ml-3 col-md-4 d-inline-block">
         <header>
-          <p *ngIf="!isEditable">{{ title }}</p><input type="text" [(ngModel)]="title" class="form-control" *ngIf="isEditable">
+          <p *ngIf="!isEditable">{{ title }}</p><input type="text" [(ngModel)]="title" class="form-control"
+            *ngIf="isEditable">
         </header>
       </div>
       <div class="col-md-7 px-0 d-inline-block" *ngIf="isAuthUser">
-        
+
         <button class="btn btn-primary mx-2 float-right" (click)="onEdit()">
-          Edytuj <i class="far pl-2 fa-edit" *ngIf="isEditable"></i></button>        
-        <button class="btn btn-primary mx-2 float-right" (click)="onSave()" [disabled]="isEditable"> Zapisz</button>
+          Edytuj <i class="far pl-2 fa-edit" *ngIf="isEditable"></i></button>
+        <button class="btn btn-primary mx-2 float-right" (click)="onSave()" [disabled]="!isEditable"> Zapisz</button>
       </div>
     </div>
-    <div id="editor" class="content">
+    <div id="editor" class="content" [hidden]="!isEditable">
+    </div>
+    <div *ngIf="!isEditable">
+      <quill-view [content]="content.content" [preserveWhitespace]="true" format="object">
+      </quill-view>
     </div>
   </article>
 </div>
