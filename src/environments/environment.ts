@@ -14,8 +14,10 @@ export const environment = {
     appId: '1:716281394002:web:4c0f916904e5fb766ec08b',
     measurementId: 'G-9WY7DVC2L0'
   },
-  fireBaseKeyAPI: 'AIzaSyApY0xDQQwsADXOTFT401Omc8VvFbGoY9I'
-};
+  fireBaseKeyAPI: 'AIzaSyApY0xDQQwsADXOTFT401Omc8VvFbGoY9I',
+  PTTK_APP_CONFIRMATION_EMAIL_REDIRECT: 'http://localhost:4200/auth'
+}
+;
 
 /*
  * For easier debugging in development mode, you can import the following file

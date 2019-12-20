@@ -1,3 +1,6 @@
+import { environment } from './../../environments/environment';
+import { User } from './../shared/user.model';
+import { ProfileUserService } from './../contents/profile-user/profile-user.service';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthFireService, Credentials } from './authFire.service';
@@ -15,6 +18,7 @@ export class AuthFireComponent implements OnInit {
   error: string = null;
 
   constructor(private authFireService: AuthFireService,
+              private profileUserService: ProfileUserService,
               private router: Router) { }
 
   ngOnInit() {
@@ -33,7 +37,7 @@ export class AuthFireComponent implements OnInit {
     email: form.value.email,
     password: form.value.password };
     this.isLoading = true;
-      // switch login sin  up mode
+      // switch login/singUp mode
     if (this.isLoginMode) {
       // logowanie
       this.authFireService.login(credential).then((data) => {
@@ -46,8 +50,11 @@ export class AuthFireComponent implements OnInit {
       );
     } else {
       // sing up
-      const authFire = this.authFireService.register(credential).then((data) => {
-        console.log('logowanie authFire', data);
+      this.authFireService.register(credential).then((authUser) => {
+        authUser.user.sendEmailVerification({url: environment.PTTK_APP_CONFIRMATION_EMAIL_REDIRECT});
+        const user: User = new User(authUser.user.email, this.profileUserService.generateId());
+        this.profileUserService.storeUserAPI(user);
+        console.log('logowanie authFire', authUser);
         this.router.navigate(['/edytor']);
         // return true;
       }).catch((err) => {

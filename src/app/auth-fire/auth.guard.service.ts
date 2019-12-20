@@ -19,8 +19,10 @@ export class AuthGuardService implements CanActivate {
         // jak zawiera dane zwraca true
         const auth = !!user;
         if (auth) {
+          console.log('AuthGuard true');
           return true;
         }
+        console.log('AuthGuard false');
         return this.router.createUrlTree(['/auth']);
       }));
   }

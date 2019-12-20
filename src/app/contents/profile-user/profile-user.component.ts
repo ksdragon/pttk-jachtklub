@@ -17,7 +17,7 @@ export class ProfileUserComponent implements OnInit {
   @ViewChild('profileForm', {static: false})
   form: NgForm;
   error;
-  authUser$;
+  authUser$: Observable<userFirebase>;
   user: User;
   user$: Observable<User>;
   isLoading = false;
