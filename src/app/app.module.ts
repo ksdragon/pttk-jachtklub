@@ -34,7 +34,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { ArticlesContentComponent } from './extrasCopmonent/articles-content/articles-content.component';
-import { AuthComponent } from './auth/auth.component';
+// import { AuthComponent } from './auth/auth.component';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AuthFireComponent } from './auth-fire/auth-fire.component';
 import { ProfileUserComponent } from './contents/profile-user/profile-user.component';
@@ -63,7 +63,7 @@ import { FooterComponent } from './footer/footer.component';
     ModalViewLayoutComponent,
     LoadingSpinnerComponent,
     ArticlesContentComponent,
-    AuthComponent,
+    // AuthComponent,
     PlaceholderDirective,
     AlertComponent,
     AuthFireComponent,

@@ -15,8 +15,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private userSub: Subscription;
   isAuthenticated = false;
 
-  constructor(private authService: AuthService,
-              private authFireService: AuthFireService,
+  constructor(private authFireService: AuthFireService,
               private router: Router) { }
 
   ngOnInit() {
@@ -29,7 +28,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         // this.router.navigate(['/edytor']);
       } else {
         console.log('user logged out', user);
-        this.router.navigate(['/strona-glowna']);
+        // this.router.navigate(['/strona-glowna']);
       }
     });
 

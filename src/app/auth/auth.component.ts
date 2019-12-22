@@ -44,14 +44,14 @@ export class AuthComponent implements OnInit {
     let authObs: Observable<AuthRensponseData>;
 
     this.isLoading = true;
-    if (this.isLoginMode) {
-      // logowanie
-      authObs = this.authService.login(emali, password);
+    // if (this.isLoginMode) {
+    //   // logowanie
+    //   authObs = this.authService.login(emali, password);
 
-    } else {
-      // sing up
-      authObs = this.authService.singup(emali, password);
-    }
+    // } else {
+    //   // sing up
+    //   authObs = this.authService.singup(emali, password);
+    // }
 
     // przypisanie logiki do zmiennej obs.
     authObs.subscribe(respData => {
