@@ -22,7 +22,7 @@
     "@angular/router": "~8.0.0",
     "@fortawesome/fontawesome-free": "^5.11.2",
     "@types/chart.js": "^2.9.2",
-    "angular": "^1.7.9",
+    "angular": "^1.8.0",
     "angular-bootstrap-md": "^8.7.0",
     "angular-sanitize": "^1.7.9",
     "animate.css": "^3.7.2",
